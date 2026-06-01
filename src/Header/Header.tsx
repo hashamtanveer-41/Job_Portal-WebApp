@@ -4,7 +4,7 @@ import NavLinks from "./NavLinks";
 
 const Header = () => {
     return (
-        <div className = "w-full text-white flex justify-between px-6 items-center gap-3 bg-mine-shaft-950 h-20">
+        <div className = "w-full text-white flex justify-between px-6 items-center gap-3 bg-mine-shaft-950 h-28">
             {/*Logo*/}
             <div className="flex gap-1 items-center text-bright-sun-400">
                 <IconAnchor className="h-8 w-8" stroke={2.5}/>
