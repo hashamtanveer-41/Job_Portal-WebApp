@@ -2,6 +2,7 @@ import React from 'react';
 import './App.css';
 import {createTheme, MantineProvider, Text} from "@mantine/core";
 import '@mantine/core/styles.css';
+import '@mantine/carousel/styles.css';
 import HomePage from "./Pages/HomePage";
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 

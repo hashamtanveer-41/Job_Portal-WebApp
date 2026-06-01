@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@emotion/react": "^11.14.0",
+    "@mantine/carousel": "^9.2.2",
     "@mantine/core": "^9.2.2",
     "@mantine/hooks": "^9.2.2",
     "@tabler/icons-react": "^3.44.0",
@@ -15,6 +16,7 @@
     "@types/jest": "^27.5.2",
     "@types/react": "^19.2.15",
     "@types/react-dom": "^19.2.3",
+    "embla-carousel-react": "^8.6.0",
     "react": "^19.2.6",
     "react-dom": "^19.2.6",
     "react-fast-marquee": "^1.6.5",
