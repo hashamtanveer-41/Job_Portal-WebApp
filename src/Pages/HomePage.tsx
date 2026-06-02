@@ -5,6 +5,8 @@ import Companies from "../LandingPage/Companies";
 import JobCategory from "../LandingPage/JobCategory";
 import Working from "../LandingPage/Working";
 import Testimonials from "../LandingPage/Testimonials";
+import Subscribe from "../LandingPage/Subscribe";
+import {Footer} from "../Footer/Footer";
 
 const HomePage = () => {
     return (
@@ -15,6 +17,8 @@ const HomePage = () => {
                 <JobCategory/>
                 <Working />
                 <Testimonials />
+                <Subscribe />
+                <Footer />
             </div>
     )
 }
