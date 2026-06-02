@@ -11,7 +11,7 @@ const WorkingTsx = () => {
                 <div className="relative" >
                     <img className="w-[35rem]" src="/Working/Girl.png" alt="girl"/>
                     <div className="w-36 flex flex-col top-[15%] right-0 absolute items-center gap-1 border border-bright-sun-400 rounded-xl py-3 px-1 backdrop-blur-md  ">
-                        <Avatar className="!h-16 !w-16" src="avatar1.png" alt="me"/>
+                        <Avatar className="!h-16 !w-16" src="/avatar1.png" alt="me"/>
                         <div className="text-sm font-semibold text-mine-shaft-200 text-center">Complete your profile</div>
                         <div className="text-xs text-mine-shaft-300">70% completed </div>
                     </div>

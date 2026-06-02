@@ -66,4 +66,37 @@ const work = [
         "name": "Get Hired",
         "desc": "Connect with employers and start your new job."
     }
-]
+];
+const testimonials = [
+    {
+        "name": "Ayesha Khan",
+        "testimonial": "The filter options helped me find relevant software engineering roles in Karachi instantly. Highly recommended!",
+        "rating": 5
+    },
+    {
+        "name": "Muhammad Ali",
+        "testimonial": "Applying was seamless. I got a call back from a top tech company within three days of submitting my resume.",
+        "rating": 5
+    },
+    {
+        "name": "Zainab Ahmed",
+        "testimonial": "Great platform for fresh graduates. The interface is clean and there are plenty of entry-level listings.",
+        "rating": 4
+    },
+    {
+        "name": "Bilal Siddiqui",
+        "testimonial": "Secured a remote UI/UX design gig through this portal. It completely changed my job hunting experience.",
+        "rating": 5
+    },
+    {
+        "name": "Sana Malik",
+        "testimonial": "I love how frequently the job board updates. I found a great HR manager role closer to home.",
+        "rating": 4
+    },
+    {
+        "name": "Hamza Yusuf",
+        "testimonial": "An excellent resource for professionals in Pakistan. The daily job alerts kept me ahead of the competition.",
+        "rating": 5
+    }
+];
+
