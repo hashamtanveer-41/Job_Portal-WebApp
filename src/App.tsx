@@ -12,6 +12,7 @@ import {Footer} from "./Footer/Footer";
 import FindTalentPage from "./Pages/FindTalentPage";
 import TalentProfile from "./Pages/TalentProfile";
 import PostJobPage from "./Pages/PostJobPage";
+import JobDescription from "./Pages/JobDescription";
 
 
 function App() {
@@ -58,6 +59,7 @@ function App() {
                   <Route path="/find-jobs" element={<FindJobs/>}/>
                   <Route path="/find-talent" element={<FindTalentPage/>}/>
                   <Route path="/talent-profile" element={<TalentProfile/>}/>
+                  <Route path="/jobs" element={<JobDescription/>}/>
                   <Route path="/post-job" element={<PostJobPage/>}/>
                   <Route path="*" element={<HomePage/>}/>
               </Routes>

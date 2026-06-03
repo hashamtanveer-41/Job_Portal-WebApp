@@ -10,7 +10,7 @@ export const Footer = () => {
                     <IconAnchor className="h-6 w-6" stroke={2.5}/>
                     <div className="text-xl font-semibold">JobHook</div>
                 </div>
-                <div className="text-xl text-mine-shaft-300">
+                <div className="text-lg text-mine-shaft-300">
                     Job Portal with user profiles, skill updates, certifications, work experience and admin job postings.
                 </div>
                 <div className="flex items-center gap-3 text-bright-sun-400 [&>div]:bg-mine-shaft-900 [&>div]:py-2 [&>div]:rounded-full hover:[&>div]:bg-mine-shaft-700 [&>div]:cursor-pointer">
