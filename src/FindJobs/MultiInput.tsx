@@ -46,7 +46,7 @@ export function MultiInput(props: any) {
     // @ts-ignore
     const options = props.options
         .filter((item: string) => item.toLowerCase().includes(search.trim().toLowerCase()))
-        .map((item => (
+        .map((item) => (
         <Combobox.Option value={item} key={item} active={value.includes(item)}>
             <Group gap="sm">
                 <Checkbox
