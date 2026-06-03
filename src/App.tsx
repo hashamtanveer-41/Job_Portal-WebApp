@@ -2,6 +2,7 @@ import React from 'react';
 import './App.css';
 import {createTheme, Divider, MantineProvider, Text} from "@mantine/core";
 import '@mantine/core/styles.css';
+import '@mantine/tiptap/styles.css';
 import '@mantine/carousel/styles.css';
 import HomePage from "./Pages/HomePage";
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
@@ -11,8 +12,7 @@ import {Footer} from "./Footer/Footer";
 import FindTalentPage from "./Pages/FindTalentPage";
 import TalentProfile from "./Pages/TalentProfile";
 import PostJobPage from "./Pages/PostJobPage";
-import '@mantine/core/styles.css';
-import '@mantine/tiptap/styles.css';
+
 
 function App() {
     const theme = createTheme({
@@ -50,7 +50,7 @@ function App() {
         fontFamily:"poppins, sans-serif"
     })
   return (
-      <MantineProvider defaultColorScheme='dark' theme={theme}  >
+      <MantineProvider defaultColorScheme="dark"  theme={theme}  >
           <BrowserRouter >
               <Header />
               <Divider  size="xs" />
