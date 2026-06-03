@@ -13,6 +13,7 @@ import FindTalentPage from "./Pages/FindTalentPage";
 import TalentProfile from "./Pages/TalentProfile";
 import PostJobPage from "./Pages/PostJobPage";
 import JobDescription from "./Pages/JobDescription";
+import ApplyJob from "./Pages/ApplyJob";
 
 
 function App() {
@@ -53,17 +54,20 @@ function App() {
   return (
       <MantineProvider defaultColorScheme="dark"  theme={theme}  >
           <BrowserRouter >
+              <div className="relative">
               <Header />
               <Divider  size="xs" />
               <Routes>
                   <Route path="/find-jobs" element={<FindJobs/>}/>
                   <Route path="/find-talent" element={<FindTalentPage/>}/>
                   <Route path="/talent-profile" element={<TalentProfile/>}/>
+                  <Route path="/apply-job" element={<ApplyJob/>}/>
                   <Route path="/jobs" element={<JobDescription/>}/>
                   <Route path="/post-job" element={<PostJobPage/>}/>
                   <Route path="*" element={<HomePage/>}/>
               </Routes>
               <Footer />
+              </div>
           </BrowserRouter>
       </MantineProvider>
   );
