@@ -4,6 +4,7 @@ import {Link} from "react-router-dom";
 import {IconArrowLeft} from "@tabler/icons-react";
 import Profile from "../TalentProfile/Profile";
 import {profile} from "../../public/Data/TalentData";
+import RecommendTalent from "../TalentProfile/RecommendTalent";
 
 const TalentProfile = () => {
     return (
@@ -15,7 +16,9 @@ const TalentProfile = () => {
             <Divider  size="xs" />
             <div className="flex gap-5">
                 <Profile {...profile} />
+                <RecommendTalent />
             </div>
+
         </div>
 
     )
