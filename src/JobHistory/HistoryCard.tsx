@@ -1,6 +1,6 @@
 import React from 'react'
-import {IconBookmark, IconClockHour3} from "@tabler/icons-react";
-import {Divider, Text} from "@mantine/core";
+import {IconBookmark, IconBookmarkFilled, IconCalendarMonth, IconClockHour3} from "@tabler/icons-react";
+import {Button, Divider, Text} from "@mantine/core";
 import {Link} from "react-router-dom";
 
 const HistoryCard = (props:any) => {
@@ -16,7 +16,12 @@ const HistoryCard = (props:any) => {
                     </div>
                 </div>
                 <div>
-                    <IconBookmark className="text-mine-shaft-300 cursor-pointer" />
+                    {
+                        props.saved?
+                            <IconBookmarkFilled className="text-bright-sun-400 cursor-pointer"/>
+                            :
+                            <IconBookmark className="text-mine-shaft-300 cursor-pointer"/>
+                    }
                 </div>
             </div>
             <div className="flex gap-2 [&>div]:py-1 [&>div]:px-2 [&>div]:bg-mine-shaft-800 [&>div]:text-bright-sun-400 [&>div]:rounded-lg [&>div]:text-xs">
@@ -33,9 +38,33 @@ const HistoryCard = (props:any) => {
                     &#8360; {props.package}
                 </div>
                 <div className="flex gap-1 text-mine-shaft-400 text-xs items-center">
-                    <IconClockHour3 className="w-5 h-5" stroke={1.5}/> {props.postedDaysAgo} days ago
+                    <IconClockHour3 className="w-5 h-5" stroke={1.5}/>
+                    {
+                        (props.applied || props.interviewing)?
+                            "Applied"
+                            :
+                            props.offered?
+                                "Interviewed"
+                                :
+                                "Posted"
+                    }
+                    {props.postedDaysAgo} days ago
                 </div>
             </div>
+            {(props.offered || props.interviewing) && <Divider color='mine-shaft.7'  size="xs" />}
+            {
+                props.offered &&
+                <div className="flex gap-2">
+                    <Button  color="brightSun.4" variant="light" fullWidth>Accept</Button>
+                    <Button  color="brightSun.4" variant="outline" fullWidth>Reject</Button>
+                </div>
+            }
+            {
+                props.interviewing &&
+                <div className="flex gap-1  text-sm items-center">
+                    <IconCalendarMonth stroke={1.5} className=" text-bright-sun-400 w-5 h-5"/> Sun, 25 Aug &bull; <span className="text-mine-shaft-400">10:00 AM</span>
+                </div>
+            }
         </Link>
     )
 }
