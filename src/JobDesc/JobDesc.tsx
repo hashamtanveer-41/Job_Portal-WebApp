@@ -5,7 +5,7 @@ import {Link} from "react-router-dom";
 import {card, desc, skills} from "../../public/Data/JobDescData";
 import DOMPurify from "dompurify";
 
-const JobDesc = () => {
+const JobDesc = (props:any) => {
     return (
         <div className="w-2/3">
             <div className="flex justify-between">
@@ -19,9 +19,9 @@ const JobDesc = () => {
                 </div>
                 <div className="flex flex-col gap-2 items-center">
                     <Link to="/apply-job" >
-                        <Button  color="brightSun.4" size="sm" variant="outline">Apply</Button>
+                        <Button  color="brightSun.4" size="sm" variant="outline">{props.edit?"Edit":"Apply"}</Button>
                     </Link>
-                    <IconBookmark className="text-bright-sun-400 cursor-pointer " />
+                    {props.edit?<Button  color="red.5" size="sm" variant="outline">Delete</Button>:<IconBookmark className="text-bright-sun-400 cursor-pointer "/>}
                 </div>
             </div>
             <Divider my="xl"/>

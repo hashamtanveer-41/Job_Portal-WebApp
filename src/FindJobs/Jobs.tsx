@@ -3,7 +3,7 @@ import Sort from "./Sort";
 import JobCard from "./JobCard";
 import {jobList} from "../../public/Data/JobsData";
 
-const Jobs = () => {
+const Jobs = (props:any) => {
     return (
         <div className="p-5">
             <div className="flex justify-between">

@@ -1,9 +1,14 @@
-import React from 'react'
-import {IconBookmark, IconClockHour3, IconHeart, IconMapPin} from "@tabler/icons-react";
-import {Avatar, Button, Divider, Text} from "@mantine/core";
+import React, {useRef, useState} from 'react'
+import {IconCalendarMonth, IconHeart, IconMapPin} from "@tabler/icons-react";
+import {Avatar, Button, Divider, Modal, Text} from "@mantine/core";
 import {Link} from "react-router-dom";
+import {useDisclosure} from "@mantine/hooks";
+import {DateInput, TimeInput} from "@mantine/dates";
 
 const TalentCard = (props:any) => {
+    const [opened, {open, close}] = useDisclosure(false);
+    const [value, setValue ] = useState<string | null>(null);
+    const ref = useRef<HTMLInputElement>(null);
     return (
         <div className="bg-mine-shaft-900 p-4 w-96 flex flex-col gap-3 rounded-xl hover:shadow-[0_0_5px_1px_yellow] !shadow-bright-sun-400">
             <div className="flex justify-between">
@@ -46,8 +51,29 @@ const TalentCard = (props:any) => {
                 <Link to="/talent-profile">
                     <Button color="brightSun.4" variant="outline" fullWidth>Profile</Button>
                 </Link>
-                <Button color="brightSun.4" variant="light" fullWidth>Message</Button>
+                {
+                    props.posted? <Button onClick={open} rightSection={<IconCalendarMonth className="w-5 h-5"/>} color="brightSun.4" variant="light" fullWidth >Schedule</Button>
+                            :
+                    <Button  color="brightSun.4" variant="light" fullWidth>Message</Button>
+                }
             </div>
+            <Modal opened={opened} onClose={close} title="Schedule Interview" centered>
+                <div className="flex flex-col gap-4">
+                <DateInput
+                    value={value}
+                    minDate={new Date()}
+                    onChange={setValue}
+                    label="Date"
+                    placeholder="Enter Date"
+                />
+                <TimeInput
+                    label="Time"
+                    ref={ref}
+                    onClick={()=>ref.current?.showPicker()}
+                />
+                    <Button  color="brightSun.4" variant="light" fullWidth>Schedule</Button>
+                </div>
+            </Modal>
         </div>
     )
 }
