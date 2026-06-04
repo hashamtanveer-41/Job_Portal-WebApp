@@ -13,7 +13,7 @@ const PostedJobDesc = () => {
                 New Jersey, United States
             </div>
             <div>
-                <Tabs variant="outline" radius="lg" defaultValue="overview">
+                <Tabs variant="outline" radius="lg" defaultValue="invited">
                     <TabsList className="[&_button]:text-lg mb-5 font-semibold [&_button[data-active='true']]:text-bright-sun-400">
                         <Tabs.Tab value="overview">Overview</Tabs.Tab>
                         <Tabs.Tab value="applicants">Applicants</Tabs.Tab>
@@ -23,13 +23,19 @@ const PostedJobDesc = () => {
                         <JobDesc edit={true}/>
                     </TabsPanel>
                     <TabsPanel value="applicants">
-                        <div className="mt-10 flex flex-wrap gap-5">
+                        <div className="mt-10 flex flex-wrap gap-5 justify-around">
                             {talents.map((talent, index)=>(
                                 index <6 && <TalentCard key={index} {...talent} posted/>
                             ))}
                         </div>
                     </TabsPanel>
-                    <TabsPanel value="employees">f</TabsPanel>
+                    <TabsPanel value="invited">
+                        <div className="mt-10 flex flex-wrap gap-5 justify-around">
+                            {talents.map((talent, index)=>(
+                                index <6 && <TalentCard key={index} {...talent} invited/>
+                            ))}
+                        </div>
+                    </TabsPanel>
                 </Tabs>
             </div>
         </div>
