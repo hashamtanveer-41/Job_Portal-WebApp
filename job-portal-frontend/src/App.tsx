@@ -20,6 +20,7 @@ import PostedJobPage from "./Pages/PostedJobPage";
 import JobHistoryPage from "./Pages/JobHistoryPage";
 import SignUp from "./SignUpLogin/SignUp";
 import SignUpPage from "./Pages/SignUpPage";
+import ProfilePage from "./Pages/ProfilePage";
 
 
 function App() {
@@ -57,7 +58,6 @@ function App() {
         },
         fontFamily:"poppins, sans-serif"
     })
-  // @ts-ignore
     return (
       <MantineProvider defaultColorScheme="dark"  theme={theme}  >
           <BrowserRouter >
@@ -73,6 +73,7 @@ function App() {
                   <Route path="/job-history" element={<JobHistoryPage/>}/>
                   <Route path="/signup" element={<SignUpPage/>}/>
                   <Route path="/login" element={<SignUpPage/>}/>
+                  <Route path="/profile" element={<ProfilePage/>}/>
                   <Route path="/posted-job" element={<PostedJobPage/>}/>
                   <Route path="/jobs" element={<JobDescription/>}/>
                   <Route path="/post-job" element={<PostJobPage/>}/>
