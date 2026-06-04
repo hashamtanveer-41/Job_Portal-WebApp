@@ -18,6 +18,8 @@ import ApplyJob from "./Pages/ApplyJob";
 import CompanyPage from "./Pages/CompanyPage";
 import PostedJobPage from "./Pages/PostedJobPage";
 import JobHistoryPage from "./Pages/JobHistoryPage";
+import SignUp from "./SignUpLogin/SignUp";
+import SignUpPage from "./Pages/SignUpPage";
 
 
 function App() {
@@ -55,7 +57,8 @@ function App() {
         },
         fontFamily:"poppins, sans-serif"
     })
-  return (
+  // @ts-ignore
+    return (
       <MantineProvider defaultColorScheme="dark"  theme={theme}  >
           <BrowserRouter >
               <div className="relative">
@@ -68,6 +71,8 @@ function App() {
                   <Route path="/apply-job" element={<ApplyJob/>}/>
                   <Route path="/company" element={<CompanyPage/>}/>
                   <Route path="/job-history" element={<JobHistoryPage/>}/>
+                  <Route path="/signup" element={<SignUpPage/>}/>
+                  <Route path="/login" element={<SignUpPage/>}/>
                   <Route path="/posted-job" element={<PostedJobPage/>}/>
                   <Route path="/jobs" element={<JobDescription/>}/>
                   <Route path="/post-job" element={<PostJobPage/>}/>
