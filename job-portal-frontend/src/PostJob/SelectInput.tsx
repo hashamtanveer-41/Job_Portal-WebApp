@@ -4,6 +4,8 @@ import {useEffect, useState} from "react";
 export default function SelectInput(props:any) {
     useEffect(() => {
         setData(props.options)
+        setValue(props.value)
+        setSearch(props.value)
     }, []);
     const combobox = useCombobox({
         onDropdownClose: () => combobox.resetSelectedOption(),
@@ -36,7 +38,6 @@ export default function SelectInput(props:any) {
                     setValue(val);
                     setSearch(val);
                 }
-
                 combobox.closeDropdown();
             }}
         >
@@ -44,6 +45,7 @@ export default function SelectInput(props:any) {
                 <InputBase withAsterisk
                            className="[&_input]:font-medium"
                     label={props.label}
+                           leftSection={<props.leftSection/>}
                     rightSection={<Combobox.Chevron />}
                     value={search}
                     onChange={(event) => {
