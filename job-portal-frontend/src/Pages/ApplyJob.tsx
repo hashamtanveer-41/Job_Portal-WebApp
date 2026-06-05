@@ -1,9 +1,9 @@
 import React from 'react'
-import PostJob from "../PostJob/PostJob";
+import PostJob from "../Components/PostJob/PostJob";
 import {Button} from "@mantine/core";
 import {IconArrowLeft} from "@tabler/icons-react";
 import {Link} from "react-router-dom";
-import ApplyJobComp from "../ApplyJob/ApplyJobComp";
+import ApplyJobComp from "../Components/ApplyJob/ApplyJobComp";
 
 const ApplyJob = () => {
     return (

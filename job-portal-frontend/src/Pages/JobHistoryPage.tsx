@@ -1,7 +1,7 @@
 import React from 'react'
-import PostedJob from "../PostedJob/PostedJob";
-import PostedJobDesc from "../PostedJob/PostedJobDesc";
-import JobHistory from "../JobHistory/JobHistory";
+import PostedJob from "../Components/PostedJob/PostedJob";
+import PostedJobDesc from "../Components/PostedJob/PostedJobDesc";
+import JobHistory from "../Components/JobHistory/JobHistory";
 
 const JobHistoryPage = () => {
     return (
