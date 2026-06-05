@@ -1,9 +1,12 @@
 package com.jobportalbackend.utils;
 
+import com.jobportalbackend.exceptions.JobPortalException;
 import jakarta.validation.ConstraintDeclarationException;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
 import org.bson.codecs.jsr310.LocalDateTimeCodec;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.ObjectError;
@@ -17,9 +20,19 @@ import java.util.stream.Collectors;
 @RestControllerAdvice
 public class ExceptionControllerAdvice {
 
+     @Autowired
+    private Environment environment;
+
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorInfo> generalException(Exception exception){
         ErrorInfo error = new ErrorInfo(exception.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR.value(), LocalDateTime.now());
+        return new ResponseEntity<>(error, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    @ExceptionHandler(JobPortalException.class)
+    public ResponseEntity<ErrorInfo> generalException(JobPortalException exception){
+        String msg = environment.getProperty(exception.getMessage());
+        ErrorInfo error = new ErrorInfo(msg, HttpStatus.INTERNAL_SERVER_ERROR.value(), LocalDateTime.now());
         return new ResponseEntity<>(error, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 

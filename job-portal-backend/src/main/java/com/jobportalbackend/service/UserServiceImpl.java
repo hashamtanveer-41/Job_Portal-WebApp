@@ -7,7 +7,10 @@ import com.jobportalbackend.repositories.UserRepository;
 import com.jobportalbackend.utils.Utilities;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Service(value = "userService")
 public class UserServiceImpl implements UserService{
@@ -18,9 +21,15 @@ public class UserServiceImpl implements UserService{
     @Autowired
     private ModelMapper modelMapper;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     @Override
     public UserDTO registerUser(UserDTO userDTO) throws JobPortalException {
+        Optional<User> existingUser = userRepository.findByEmail(userDTO.getEmail());
+        if (existingUser.isPresent()) throw new JobPortalException("USER_FOUND");
         userDTO.setId(Utilities.getNextSequence("users"));
+        userDTO.setPassword(passwordEncoder.encode(userDTO.getPassword()));
         User user = modelMapper.map(userDTO, User.class);
         user = userRepository.save(user);
         return modelMapper.map(user, UserDTO.class);
