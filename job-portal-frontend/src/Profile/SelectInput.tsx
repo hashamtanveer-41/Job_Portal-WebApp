@@ -42,33 +42,33 @@ export default function SelectInput(props:any) {
         >
             <Combobox.Target>
                 <InputBase withAsterisk
-                           className="[&_input]:font-medium"
-                    label={props.label}
-                    rightSection={<Combobox.Chevron />}
-                    value={search}
-                    onChange={(event) => {
-                        combobox.openDropdown();
-                        combobox.updateSelectedOptionIndex();
-                        setSearch(event.currentTarget.value);
-                    }}
-                    onClick={() => combobox.openDropdown()}
-                    onFocus={() => combobox.openDropdown()}
-                    onBlur={() => {
-                        combobox.closeDropdown();
-                        setSearch(value || '');
-                    }}
-                    placeholder={props.placeholder}
-                    rightSectionPointerEvents="none"
+                           leftSection={<props.leftSection stroke={1.5} />}
+                           label={props.label}
+                           rightSection={<Combobox.Chevron />}
+                           value={search}
+                           onChange={(event) => {
+                               combobox.openDropdown();
+                               combobox.updateSelectedOptionIndex();
+                               setSearch(event.currentTarget.value);
+                           }}
+                           onClick={() => combobox.openDropdown()}
+                           onFocus={() => combobox.openDropdown()}
+                           onBlur={() => {
+                               combobox.closeDropdown();
+                               setSearch(value || '');
+                           }}
+                           placeholder={props.placeholder}
+                           rightSectionPointerEvents="none"
                 />
             </Combobox.Target>
 
             <Combobox.Dropdown>
                 <Combobox.Options>
                     <ScrollArea.Autosize mah={200} type="scroll">
-                    {options}
-                    {!exactOptionMatch && search.trim().length > 0 && (
-                        <Combobox.Option value="$create">+ Create {search}</Combobox.Option>
-                    )}
+                        {options}
+                        {!exactOptionMatch && search.trim().length > 0 && (
+                            <Combobox.Option value="$create">+ Create {search}</Combobox.Option>
+                        )}
                     </ScrollArea.Autosize>
                 </Combobox.Options>
             </Combobox.Dropdown>
