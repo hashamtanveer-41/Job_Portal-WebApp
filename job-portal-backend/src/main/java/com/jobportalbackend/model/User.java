@@ -3,6 +3,7 @@ package com.jobportalbackend.model;
 import com.jobportalbackend.payload.AccountType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Generated;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
@@ -14,8 +15,8 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document(collection = "users")
 public class User {
     @Id
+    private Long id;
     private String name;
-    private String id;
     @Indexed(unique = true)
     private String email;
     private String password;

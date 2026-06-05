@@ -1,8 +1,10 @@
 package com.jobportalbackend.service;
 
+import com.jobportalbackend.exceptions.JobPortalException;
 import com.jobportalbackend.model.User;
 import com.jobportalbackend.payload.UserDTO;
 import com.jobportalbackend.repositories.UserRepository;
+import com.jobportalbackend.utils.Utilities;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,7 +19,8 @@ public class UserServiceImpl implements UserService{
     private ModelMapper modelMapper;
 
     @Override
-    public UserDTO registerUser(UserDTO userDTO) {
+    public UserDTO registerUser(UserDTO userDTO) throws JobPortalException {
+        userDTO.setId(Utilities.getNextSequence("users"));
         User user = modelMapper.map(userDTO, User.class);
         user = userRepository.save(user);
         return modelMapper.map(user, UserDTO.class);
