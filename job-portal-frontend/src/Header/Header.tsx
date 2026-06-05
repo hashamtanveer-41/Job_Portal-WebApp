@@ -7,7 +7,8 @@ import ProfileMenu from "./ProfileMenu";
 const Header = () => {
     const location = useLocation();
     return (
-        (location.pathname !="/signup" && location.pathname !="/login")&&
+        (location.pathname !="/signup" && location.pathname !="/login") ?
+            <>
         <div className = "font-['poppins'] w-full text-white flex justify-between px-6 items-center gap-3 bg-mine-shaft-950 h-28">
             {/*Logo*/}
             <div className="flex gap-1 items-center text-bright-sun-400">
@@ -15,7 +16,6 @@ const Header = () => {
                 <div className="text-2xl font-semibold">
                     JobHook
                 </div>
-
             </div>
             {/*Links*/}
                 <NavLinks />
@@ -32,6 +32,8 @@ const Header = () => {
                 </div>
             </div>
         </div>
+            </>:
+            <></>
     )
 }
 export default Header;
