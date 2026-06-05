@@ -4,7 +4,6 @@ import com.jobportalbackend.exceptions.JobPortalException;
 import jakarta.validation.ConstraintDeclarationException;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
-import org.bson.codecs.jsr310.LocalDateTimeCodec;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
