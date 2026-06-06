@@ -2,8 +2,9 @@ import React, {useState} from 'react'
 import {Anchor, Button, Checkbox, Group, PasswordInput, Radio, RadioGroup, rem, TextInput} from "@mantine/core";
 import {IconAt} from "@tabler/icons-react";
 import { LockIcon } from '@phosphor-icons/react';
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import {useDispatch} from "react-redux";
+import {authenticateSignInUser} from "../../Store/action";
 
 const form={
         name: "",
@@ -16,13 +17,15 @@ const form={
 const SignUp = () => {
         const [value, setValue] = useState<string>();
         const [data, setData] = useState(form);
+        const navigate = useNavigate();
+        const dispatch = useDispatch();
         const handleChange = (event:any) => {
                 console.log(event.target)
                 if (typeof(event) === "string")setData({...data, accountType: event})
                 else setData({...data, [event.target.name]: event.target.value})
         }
-        const submitHandler = () => {
-
+        const submitHandler = async () => {
+                dispatch(authenticateSignInUser(data))
         }
     return (
         <div className="w-1/2 px-20 flex flex-col justify-center gap-3">
