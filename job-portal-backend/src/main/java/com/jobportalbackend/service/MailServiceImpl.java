@@ -12,9 +12,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.MailSender;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 public class MailServiceImpl implements MailService{
@@ -55,5 +57,14 @@ public class MailServiceImpl implements MailService{
                         () -> new JobPortalException("OTP_NOT_FOUND"));
         if (!savedOTP.getOtp().equals(otp))throw new JobPortalException("OTP_Incorrect");
         return true;
+    }
+
+    @Scheduled(fixedRate = 60000)
+    public void removeExpiredOTPs(){
+        LocalDateTime expiry = LocalDateTime.now().minusMinutes(5);
+        List<OTP> expiredOTPs = otpRepository.findByCreationTimeBefore(expiry);
+        if (!expiredOTPs.isEmpty()){
+            otpRepository.deleteAll(expiredOTPs);
+        }
     }
 }
