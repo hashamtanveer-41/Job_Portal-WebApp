@@ -1,6 +1,6 @@
 import api from "../../Api/api";
-import {notifications} from "@mantine/notifications";
-import {IconCheck, IconCross, IconX} from "@tabler/icons-react";
+import {IconCheck, IconX} from "@tabler/icons-react";
+import NotificationUtil from "../../Utils/NotificationUtil";
 
 export const authenticateSignInUser = (sendData:any, navigate:any, setData:any, form:any) => async (dispatch:any) => {
     try {
@@ -9,28 +9,24 @@ export const authenticateSignInUser = (sendData:any, navigate:any, setData:any, 
             type: "SIGNUP_USER",
             payload: data
         });
-        notifications.show({
-            title: "Registration Successfull!",
-            message: "Redirecting to Login Page",
-            withCloseButton: true,
-            icon: <IconCheck style={{width: "90%", height: "90%"}}/> ,
-            color:"teal",
-            withBorder: true,
-            className: "!border-green-500"
-        })
+        NotificationUtil(
+            "Registration Successfull!",
+            "Redirecting to Login Page",
+            IconCheck,
+            "teal",
+            "!border-green-500"
+        )
         setData(form);
         navigate("/login")
     }catch (error:any){
         console.log(error)
-        notifications.show({
-            title: "Registration Failed!",
-            message: error.response.data.errorMessage,
-            withCloseButton: true,
-            icon: <IconX style={{width: "90%", height: "90%"}}/> ,
-            color:"red",
-            withBorder: true,
-            className: "!border-red-500"
-        })
+        NotificationUtil(
+            "Registration Failed!",
+            error.response.data.errorMessage,
+            IconX,
+            "red",
+            "!border-red-500"
+        )
     }finally {
     }
 }
@@ -43,10 +39,24 @@ export const authenticateLoginInUser = (sendData:any, navigate:any, setData:any,
             type: "LOGIN_USER",
             payload: data
         });
+        NotificationUtil(
+            "Login Successfull!",
+            "Redirecting to Home Page",
+            IconCheck,
+            "teal",
+            "!border-green-500"
+        )
         setData(form)
         navigate("/")
-    }catch (error){
+    }catch (error:any){
         console.log(error)
+        NotificationUtil(
+            "Login Failed!",
+            error.response.data.errorMessage,
+            IconX,
+            "red",
+            "!border-red-500"
+        )
     }finally {
     }
 }

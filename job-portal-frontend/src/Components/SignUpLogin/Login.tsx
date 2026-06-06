@@ -1,11 +1,11 @@
 import React, {useState} from 'react'
-import {Anchor, Button, Checkbox, PasswordInput, rem, TextInput} from "@mantine/core";
+import { Button, PasswordInput, rem, TextInput} from "@mantine/core";
 import {IconAt} from "@tabler/icons-react";
 import {LockIcon} from "@phosphor-icons/react";
 import {Link, useNavigate} from "react-router-dom";
 import {useDispatch} from "react-redux";
 import {authenticateLoginInUser} from "../../Store/action";
-import {loginValidation, signUpValidation} from "../../Api/FormValidation";
+import {loginValidation} from "../../Api/FormValidation";
 
 const form={
     email: "",
