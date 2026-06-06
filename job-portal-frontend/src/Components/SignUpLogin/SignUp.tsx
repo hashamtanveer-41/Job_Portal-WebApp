@@ -38,8 +38,6 @@ const SignUp = () => {
                                 if (data.password!==value) {
                                 setFormError({...formError, [name]: "Passwords do not match."})
                                 }else setFormError({...formError, confirmPassword: ""})
-
-
                 }
         }
         const submitHandler = async () => {

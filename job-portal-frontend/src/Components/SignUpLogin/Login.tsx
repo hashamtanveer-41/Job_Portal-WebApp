@@ -4,7 +4,8 @@ import {IconAt} from "@tabler/icons-react";
 import {LockIcon} from "@phosphor-icons/react";
 import {Link, useNavigate} from "react-router-dom";
 import {useDispatch} from "react-redux";
-import {authenticateLoginInUser} from "../../Store/action/index";
+import {authenticateLoginInUser} from "../../Store/action";
+import {loginValidation, signUpValidation} from "../../Api/FormValidation";
 
 const form={
     email: "",
@@ -13,20 +14,32 @@ const form={
 
 const Login = () => {
     const [data, setData] = useState<{[key:string]:string}>(form);
+    const [formError, setFormError] = useState<{[key:string]:string}>(form);
+
     const dispatch = useDispatch();
     const navigate = useNavigate();
+
     const handleChange = (event:any) => {
-        console.log(event.target)
-        setData({...data, [event.target.name]: event.target.value})
+        let name = event.target.name, value= event.target.value
+        setData({...data, [name]: value})
+        setFormError({...formError, [name]:loginValidation(name, value)})
     }
     const submitHandler = async () => {
-        (dispatch as any)(authenticateLoginInUser(data, navigate))
+        let valid = true, newFormError:{[key:string]:string}={};
+        for (let key in data){
+            newFormError[key]=loginValidation(key, data[key]);
+            if (newFormError[key])valid=false;
+        }
+        setFormError(newFormError)
+        if (valid)
+            (dispatch as any)(authenticateLoginInUser(data, navigate, setData, form))
     }
     return (
         <div className="w-1/2 px-20 flex flex-col justify-center gap-3">
             <div className="text-2xl font-semibold text-mine-shaft-200">Create Account</div>
             <TextInput
                 name="email"
+                error={formError.email}
                 value={data.email}
                 onChange={handleChange}
                 withAsterisk
@@ -37,6 +50,7 @@ const Login = () => {
             <PasswordInput
                 name="password"
                 onChange={handleChange}
+                error={formError.password}
                 value={data.password}
                 leftSection={<LockIcon size={18} />}
                 leftSectionPointerEvents="none"

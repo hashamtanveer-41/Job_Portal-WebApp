@@ -35,7 +35,7 @@ export const authenticateSignInUser = (sendData:any, navigate:any, setData:any, 
     }
 }
 
-export const authenticateLoginInUser = (sendData:any, navigate:any) => async (dispatch:any) => {
+export const authenticateLoginInUser = (sendData:any, navigate:any, setData:any, form:any) => async (dispatch:any) => {
     try {
         console.log(sendData)
         const {data} = await api.post("/users/login", sendData);
@@ -43,6 +43,7 @@ export const authenticateLoginInUser = (sendData:any, navigate:any) => async (di
             type: "LOGIN_USER",
             payload: data
         });
+        setData(form)
         navigate("/")
     }catch (error){
         console.log(error)
