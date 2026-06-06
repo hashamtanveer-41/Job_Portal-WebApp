@@ -28,7 +28,6 @@ public class MailServiceImpl implements MailService{
     @Autowired
     private JavaMailSender javaMailSender;
 
-
     @Override
     public Boolean sendOTP(String email) throws Exception {
         User user = userRepository
@@ -45,6 +44,16 @@ public class MailServiceImpl implements MailService{
         otpRepository.save(otp);
         message.setText(Data.getOtpEmailTemplate(generatedOTP, user.getName()), true);
         javaMailSender.send(mm);
+        return true;
+    }
+
+    @Override
+    public Boolean verifyOTP(String email, String otp) throws JobPortalException {
+        OTP savedOTP = otpRepository
+                .findById(email)
+                .orElseThrow(
+                        () -> new JobPortalException("OTP_NOT_FOUND"));
+        if (!savedOTP.getOtp().equals(otp))throw new JobPortalException("OTP_Incorrect");
         return true;
     }
 }
