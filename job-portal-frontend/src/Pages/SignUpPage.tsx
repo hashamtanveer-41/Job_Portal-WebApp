@@ -1,13 +1,16 @@
 import React from 'react'
-import {IconAnchor} from "@tabler/icons-react";
+import {IconAnchor, IconArrowLeft} from "@tabler/icons-react";
 import SignUp from "../Components/SignUpLogin/SignUp";
 import Login from "../Components/SignUpLogin/Login";
-import {useLocation} from "react-router-dom";
+import {useLocation, useNavigate} from "react-router-dom";
+import {Button} from "@mantine/core";
 
 const SignUpPage = () => {
     const location = useLocation();
+    const navigate = useNavigate();
     return (
-        <div className="min-h-[100vh] bg-mine-shaft-950 font-['poppins'] overflow-hidden">
+        <div className="min-h-[100vh] bg-mine-shaft-950 font-['poppins'] overflow-hidden relative">
+            <Button className="!absolute z-[1000]  left-5" onClick={()=> navigate("/")} leftSection={<IconArrowLeft size={20} />} color="brightSun.4" my="md" variant="outline" autoContrast>Home</Button>
             <div className={`w-[100vw] transition-all duration-300 ease-in-out h-[100vh] flex [&>*]:flex-shrink-0 ${location.pathname=="/signup"? "-translate-x-1/2":"translate-x-0"}`}>
                 <Login />
                 <div className={`w-1/2 h-full transition-all ease-in-out duration-1000 ${location.pathname=="/signup"? "rounded-r-[200px]":"rounded-l-[200px]"}  bg-mine-shaft-900 flex items-center gap-5 justify-center flex-col`}>
