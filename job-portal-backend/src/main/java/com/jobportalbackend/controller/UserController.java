@@ -26,7 +26,7 @@ public class UserController {
         return new ResponseEntity<>(userDTO1, HttpStatus.OK);
     }
 
-    @GetMapping("/login")
+    @PostMapping("/login")
     public ResponseEntity<UserDTO> loginUser(@RequestBody @Valid UserLoginDTO userLoginDTO) throws JobPortalException {
         UserDTO userDTO1 = userService.loginUser(userLoginDTO);
         return new ResponseEntity<>(userDTO1, HttpStatus.OK);

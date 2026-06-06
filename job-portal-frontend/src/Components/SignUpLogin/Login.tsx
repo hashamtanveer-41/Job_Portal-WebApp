@@ -2,7 +2,9 @@ import React, {useState} from 'react'
 import {Anchor, Button, Checkbox, PasswordInput, rem, TextInput} from "@mantine/core";
 import {IconAt} from "@tabler/icons-react";
 import {LockIcon} from "@phosphor-icons/react";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
+import {useDispatch} from "react-redux";
+import {authenticateLoginInUser} from "../../Store/action";
 
 const form={
     email: "",
@@ -11,12 +13,14 @@ const form={
 
 const Login = () => {
     const [data, setData] = useState(form);
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
     const handleChange = (event:any) => {
         console.log(event.target)
         setData({...data, [event.target.name]: event.target.value})
     }
-    const submitHandler = () => {
-
+    const submitHandler = async () => {
+        dispatch(authenticateLoginInUser(data, navigate))
     }
     return (
         <div className="w-1/2 px-20 flex flex-col justify-center gap-3">

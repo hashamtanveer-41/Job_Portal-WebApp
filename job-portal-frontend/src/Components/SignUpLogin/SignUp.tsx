@@ -20,12 +20,11 @@ const SignUp = () => {
         const navigate = useNavigate();
         const dispatch = useDispatch();
         const handleChange = (event:any) => {
-                console.log(event.target)
                 if (typeof(event) === "string")setData({...data, accountType: event})
                 else setData({...data, [event.target.name]: event.target.value})
         }
         const submitHandler = async () => {
-                dispatch(authenticateSignInUser(data))
+                dispatch(authenticateSignInUser(data, navigate))
         }
     return (
         <div className="w-1/2 px-20 flex flex-col justify-center gap-3">
