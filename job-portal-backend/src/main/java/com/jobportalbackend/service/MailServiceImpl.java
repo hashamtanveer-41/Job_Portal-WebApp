@@ -31,7 +31,7 @@ public class MailServiceImpl implements MailService{
 
     @Override
     public Boolean sendOTP(String email) throws Exception {
-        userRepository
+        User user = userRepository
                 .findByEmail(email)
                 .orElseThrow(
                         () -> new JobPortalException("USER_NOT_FOUND"));
@@ -43,7 +43,7 @@ public class MailServiceImpl implements MailService{
         String generatedOTP = Utilities.generateOTP();
         OTP otp = new OTP(email, generatedOTP, LocalDateTime.now());
         otpRepository.save(otp);
-        message.setText(Data.getOtpEmailTemplate(generatedOTP), true);
+        message.setText(Data.getOtpEmailTemplate(generatedOTP, user.getName()), true);
         javaMailSender.send(mm);
         return true;
     }
