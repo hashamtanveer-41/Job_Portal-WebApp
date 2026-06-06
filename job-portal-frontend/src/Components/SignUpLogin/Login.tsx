@@ -4,7 +4,7 @@ import {IconAt} from "@tabler/icons-react";
 import {LockIcon} from "@phosphor-icons/react";
 import {Link, useNavigate} from "react-router-dom";
 import {useDispatch} from "react-redux";
-import {authenticateLoginInUser} from "../../Store/action";
+import {authenticateLoginInUser} from "../../Store/action/index";
 
 const form={
     email: "",
@@ -12,7 +12,7 @@ const form={
 }
 
 const Login = () => {
-    const [data, setData] = useState(form);
+    const [data, setData] = useState<{[key:string]:string}>(form);
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const handleChange = (event:any) => {
@@ -20,7 +20,7 @@ const Login = () => {
         setData({...data, [event.target.name]: event.target.value})
     }
     const submitHandler = async () => {
-        dispatch(authenticateLoginInUser(data, navigate))
+        (dispatch as any)(authenticateLoginInUser(data, navigate))
     }
     return (
         <div className="w-1/2 px-20 flex flex-col justify-center gap-3">

@@ -4,6 +4,7 @@ import {IconAt} from "@tabler/icons-react";
 import { LockIcon } from '@phosphor-icons/react';
 import {Link, useNavigate} from "react-router-dom";
 import {useDispatch} from "react-redux";
+import {signUpValidation} from "../../Api/FormValidation";
 import {authenticateSignInUser} from "../../Store/action";
 
 const form={
@@ -15,22 +16,50 @@ const form={
 }
 
 const SignUp = () => {
-        const [value, setValue] = useState<string>();
-        const [data, setData] = useState(form);
+        const [data, setData] = useState<{[key:string]:string}>(form);
+        const [formError, setFormError] = useState<{[key:string]:string}>(form);
         const navigate = useNavigate();
         const dispatch = useDispatch();
         const handleChange = (event:any) => {
-                if (typeof(event) === "string")setData({...data, accountType: event})
-                else setData({...data, [event.target.name]: event.target.value})
+                if (typeof(event) === "string") {
+                        setData({...data, accountType: event})
+                        return;
+                }
+                else {
+                        let name = event.target.name, value= event.target.value
+                        setData({...data, [name]: value})
+                        setFormError({...formError, [name]:signUpValidation(name, value)})
+                        if (name==="password" && data.confirmPassword!=="") {
+                                let err = "";
+                                if (data.confirmPassword != value) err="Passwords do not match."
+                                setFormError({...formError, [name]: signUpValidation(name, value), confirmPassword: err})
+                        }
+                        if (name==="confirmPassword")
+                                if (data.password!==value) {
+                                setFormError({...formError, [name]: "Passwords do not match."})
+                                }else setFormError({...formError, confirmPassword: ""})
+
+
+                }
         }
         const submitHandler = async () => {
-                dispatch(authenticateSignInUser(data, navigate))
+                let valid = true, newFormError:{[key:string]:string}={};
+                for (let key in data){
+                        if (key === "accountType")continue;
+                        if (key!== "confirmPassword")newFormError[key]=signUpValidation(key, data[key]);
+                        else if (data[key]!==data["password"])newFormError[key]="Passwords do not match";
+                        if (newFormError[key])valid=false;
+                }
+                setFormError(newFormError)
+                if (valid)
+                        (dispatch as any)(authenticateSignInUser(data, navigate, setData, form))
         }
     return (
         <div className="w-1/2 px-20 flex flex-col justify-center gap-3">
             <div className="text-2xl font-semibold text-mine-shaft-200">Create Account</div>
             <TextInput
                 onChange={handleChange}
+                error={formError.name}
                 name="name"
                 value={data.name}
                 withAsterisk
@@ -39,6 +68,7 @@ const SignUp = () => {
             />
             <TextInput
                 value={data.email}
+                error={formError.email}
                 name="email"
                 onChange={handleChange}
                 withAsterisk
@@ -48,6 +78,7 @@ const SignUp = () => {
             />
             <PasswordInput
                 name="password"
+                error={formError.password}
                 leftSection={<LockIcon size={18} />}
                 value={data.password}
                 onChange={handleChange}
@@ -60,6 +91,7 @@ const SignUp = () => {
                 withAsterisk
                 name="confirmPassword"
                 onChange={handleChange}
+                error={formError.confirmPassword}
                 value={data.confirmPassword}
                 leftSection={<LockIcon size={18} />}
                 leftSectionPointerEvents="none"
