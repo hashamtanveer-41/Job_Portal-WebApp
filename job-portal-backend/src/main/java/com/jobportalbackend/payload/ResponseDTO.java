@@ -7,6 +7,6 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class EmailResponseDTO {
+public class ResponseDTO {
     String message;
 }

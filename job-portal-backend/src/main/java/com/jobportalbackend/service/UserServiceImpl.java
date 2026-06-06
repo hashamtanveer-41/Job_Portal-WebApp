@@ -2,6 +2,7 @@ package com.jobportalbackend.service;
 
 import com.jobportalbackend.exceptions.JobPortalException;
 import com.jobportalbackend.model.User;
+import com.jobportalbackend.payload.ResponseDTO;
 import com.jobportalbackend.payload.UserDTO;
 import com.jobportalbackend.payload.UserLoginDTO;
 import com.jobportalbackend.repositories.UserRepository;
@@ -46,5 +47,16 @@ public class UserServiceImpl implements UserService{
             throw new JobPortalException("INCORRECT_CREDENTIALS");
         }
         return modelMapper.map(user, UserDTO.class);
+    }
+
+    @Override
+    public ResponseDTO changePassword(UserLoginDTO userLoginDTO) throws JobPortalException {
+        User user = userRepository
+                .findByEmail(userLoginDTO.getEmail())
+                .orElseThrow(
+                        () -> new JobPortalException("USER_NOT_FOUND"));
+        user.setPassword(passwordEncoder.encode(userLoginDTO.getPassword()));
+        userRepository.save(user);
+        return new ResponseDTO("Password changed successfully!");
     }
 }

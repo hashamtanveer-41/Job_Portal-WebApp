@@ -1,6 +1,7 @@
 package com.jobportalbackend.controller;
 
 import com.jobportalbackend.exceptions.JobPortalException;
+import com.jobportalbackend.payload.ResponseDTO;
 import com.jobportalbackend.payload.UserDTO;
 import com.jobportalbackend.payload.UserLoginDTO;
 import com.jobportalbackend.service.UserService;
@@ -30,5 +31,10 @@ public class UserController {
     public ResponseEntity<UserDTO> loginUser(@RequestBody @Valid UserLoginDTO userLoginDTO) throws JobPortalException {
         UserDTO userDTO1 = userService.loginUser(userLoginDTO);
         return new ResponseEntity<>(userDTO1, HttpStatus.OK);
+    }
+
+    @PostMapping("/forgetPassword")
+    public ResponseEntity<ResponseDTO> resetPassword(@RequestBody @Valid UserLoginDTO userLoginDTO) throws JobPortalException {
+        return new ResponseEntity<>(userService.changePassword(userLoginDTO), HttpStatus.OK);
     }
 }
