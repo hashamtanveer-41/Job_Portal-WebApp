@@ -5,6 +5,7 @@ import com.jobportalbackend.model.OTP;
 import com.jobportalbackend.model.User;
 import com.jobportalbackend.repositories.OTPRepository;
 import com.jobportalbackend.repositories.UserRepository;
+import com.jobportalbackend.utils.Data;
 import com.jobportalbackend.utils.Utilities;
 import jakarta.mail.internet.MimeMessage;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,7 +43,7 @@ public class MailServiceImpl implements MailService{
         String generatedOTP = Utilities.generateOTP();
         OTP otp = new OTP(email, generatedOTP, LocalDateTime.now());
         otpRepository.save(otp);
-        message.setText("Your Code is: "+generatedOTP, false);
+        message.setText(Data.getOtpEmailTemplate(generatedOTP), true);
         javaMailSender.send(mm);
         return true;
     }
