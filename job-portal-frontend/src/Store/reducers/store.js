@@ -12,7 +12,7 @@ const profile = localStorage.getItem("profile")
 
 const initialState =  {
     auth: {user: user},
-    profile: {profile: profile},
+    profile: profile ? { profile: profile } : { profile: null },
 }
 const store = configureStore({
     reducer: {

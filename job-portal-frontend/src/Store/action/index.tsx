@@ -129,22 +129,28 @@ export const logout = (navigate:any) => async (dispatch:any) => {
     }
 }
 
-export const getProfileId = (navigate:any) => async (dispatch:any) => {
+export const getProfile = (users:any) => async (dispatch:any) => {
     try {
-        removeItem("user")
+        const {data} = await api.get(`/profiles/${users.profileId}`);
+        setItem("profile", data);
         dispatch({
-            type: "LOGOUT_USER"
+            type: "GET_PROFILE",
+            payload: data
         });
-        successNotification(
-            "Logout Successfully",
-            "Your are being redirect to login page"
-        )
-        navigate("/login")
     }catch (error:any){
         console.log(error)
-        errorNotification(
-            "Logout failed",
-            error.response.data.errorMessage
-        )
+    }
+}
+
+export const updateProfile = (profile:any) => async (dispatch:any) => {
+    try {
+        const {data} = await api.put(`/profile`, profile);
+        dispatch({
+            type: "UPDATE_PROFILE",
+            payload: data,
+        });
+        getProfile(profile.id);
+    }catch (error:any){
+        console.log(error)
     }
 }
