@@ -10,6 +10,7 @@ import CertificationsInput from "./CertificationsInput";
 import {useDispatch, useSelector} from "react-redux";
 import {getProfile} from "../../Store/action";
 import Info from "./Info";
+import About from "./About";
 
 const Profile = () => {
 
@@ -25,7 +26,6 @@ const Profile = () => {
     const [skills , setSkills] = useState(profile.skills);
     const [addExp , setAddExp] = useState(false);
     const [addCerti , setAddCerti] = useState(false);
-    const [about, setAbout] = useState(profile.about);
 
     const handleEdit = (index:any) => {
         if (index ===4 ) setAddCerti(!addCerti)
@@ -46,37 +46,7 @@ const Profile = () => {
                 </div>
                 <Divider mx="xs"  my="xl"/>
                 <div className="px-3">
-                    <div className='text-2xl font-semibold mb-3 flex justify-between'>
-                        About
-                        <ActionIcon
-                            onClick={() => handleEdit(1)}
-                            size="lg"
-                            variant="subtle"
-                        >
-                            {
-
-                                edit[1]?
-                                    <IconDeviceFloppy className="text-bright-sun-400 h-4/5 w-4/5" />
-                                    :
-                                    <IconPencil className="text-bright-sun-400 h-4/5 w-4/5" />
-                            }
-                        </ActionIcon>
-                    </div>
-                    {
-                        edit[1]?
-                            <Textarea
-                                value={about}
-                                onChange={(event) => setAbout(event.currentTarget.value)}
-                                autosize
-                                minRows={3}
-                                placeholder="Enter about yourself..."
-                            />
-                            :
-                            <div className="text-sm text-mine-shaft-300 text-justify">
-                                {profile.about}
-                            </div>
-                    }
-
+                    <About />
                 </div>
                 <Divider mx="xs"  my="xl"/>
                 <div className="px-3">

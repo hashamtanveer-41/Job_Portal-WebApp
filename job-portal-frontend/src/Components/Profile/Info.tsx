@@ -18,7 +18,6 @@ const Info = () => {
            form.setValues({role: profile.role, company: profile.company, location: profile.location})
            setEdit(true);
        }else setEdit(false)
-
     }
     const handleSave = () => {
         let updatedProfile = {...profile, ...form.getValues()};
