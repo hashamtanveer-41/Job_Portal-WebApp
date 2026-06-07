@@ -9,6 +9,7 @@ import ExperienceInput from "./ExperienceInput";
 import CertificationsInput from "./CertificationsInput";
 import {useDispatch, useSelector} from "react-redux";
 import {getProfile} from "../../Store/action";
+import Info from "./Info";
 
 const Profile = () => {
 
@@ -41,42 +42,7 @@ const Profile = () => {
                     <img src="/avatar.png" alt="banner" className="rounded-full h-48 w-48 -bottom-1/4 absolute left-3 border-mine-shaft-950 border-8"/>
                 </div>
                 <div className="px-3 mt-16">
-                    <div className="text-3xl font-semibold flex justify-between">
-                        {user.name}
-                        <ActionIcon
-                            onClick={() => handleEdit(0)}
-                            size="lg"
-                            variant="subtle"
-                        >
-                            {
-
-                                edit[0]?
-                                    <IconDeviceFloppy className="text-bright-sun-400 h-4/5 w-4/5" />
-                                    :
-                                    <IconPencil className="text-bright-sun-400 h-4/5 w-4/5" />
-                            }
-                        </ActionIcon>
-                    </div>
-                    {
-                        edit[0] ?
-                                <>
-                                    <div className="flex gap-10 [&>*]:w-1/2">
-                                        <SelectInput {...fields[0]}/>
-                                        <SelectInput {...fields[1]}/>
-                                    </div>
-                                    <SelectInput {...fields[2]}/>
-                                </>
-                            :
-                            <>
-                                <div className="text-xl flex gap-1 items-center  ">
-                                    <IconBriefcase className="w-5 h-5" stroke={1.5} />
-                                    {profile.role}  &bull; {profile.company}
-                                </div>
-                                <div className="text-lg flex gap-1 text-mine-shaft-400 text-xs items-center">
-                                    <IconMapPin className="w-5 h-5" stroke={1.5}/> {profile.location}
-                                </div>
-                            </>
-                    }
+                    <Info />
                 </div>
                 <Divider mx="xs"  my="xl"/>
                 <div className="px-3">

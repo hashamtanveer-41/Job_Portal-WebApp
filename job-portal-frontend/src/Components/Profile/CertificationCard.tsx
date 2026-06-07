@@ -1,6 +1,7 @@
 import React from 'react'
 import {IconTrash} from "@tabler/icons-react";
 import {ActionIcon} from "@mantine/core";
+import {FormatDate} from "../../Utils/FormatDate";
 
 const CertificationCard = (props:any) => {
     return (
@@ -16,7 +17,7 @@ const CertificationCard = (props:any) => {
                 </div>
                 <div className="flex items-center gap-2">
                     <div className="flex flex-col">
-                        <div className="text-sm text-mine-shaft-300">{props.issueDate}</div>
+                        <div className="text-sm text-mine-shaft-300">{FormatDate(props.issueDate)}</div>
                         <div className="text-sm text-mine-shaft-300">ID: {props.certificateId}</div>
                     </div>
                     {props.edit &&
