@@ -1,35 +1,33 @@
 import React, {useState} from 'react'
-import {ActionIcon, Textarea} from "@mantine/core";
-import {IconCheck, IconDeviceFloppy, IconPencil, IconX} from "@tabler/icons-react";
 import {useDispatch, useSelector} from "react-redux";
-import {useForm} from "@mantine/form";
 import {updateProfile} from "../../Store/action";
+import {ActionIcon, TagsInput} from "@mantine/core";
+import {IconCheck, IconPencil, IconX} from "@tabler/icons-react";
 
-const About = () => {
+const Skills = () => {
     const {profile} = useSelector((state:any)=> state.profile);
     const dispatch = useDispatch();
 
     const [edit, setEdit] = useState(false);
-    const [about, setAbout ] = useState("");
+    const [skills, setSkills ] = useState<string[]>([]);
 
     const handleEdit = ()=>{
         if (!edit){
             setEdit(true);
-            setAbout(profile.about)
+            setSkills(profile.skills)
         }else setEdit(false)
     }
 
     const handleSave = async () => {
         setEdit(false)
-        let updatedProfile = {...profile, about: about};
+        let updatedProfile = {...profile, skills: skills};
         (dispatch as any)(updateProfile(updatedProfile))
     }
-
 
     return (
         <>
             <div className='text-2xl font-semibold mb-3 flex justify-between'>
-                About
+                Skills
                 <div>
                     {
                         edit &&
@@ -60,19 +58,27 @@ const About = () => {
             </div>
             {
                 edit?
-                    <Textarea
-                        value={about}
-                        onChange={(event) => setAbout(event.currentTarget.value)}
-                        autosize
-                        minRows={3}
-                        placeholder="Enter about yourself..."
+                    <TagsInput
+                        value={skills}
+                        onChange={setSkills}
+                        withAsterisk
+                        label="Skills"
+                        placeholder="Add Skill"
+                        clearable acceptValueOnBlur
+                        splitChars={[',', ' ', '|']}
                     />
                     :
-                    <div className="text-sm text-mine-shaft-300 text-justify">
-                        {profile.about}
+                    <div className="flex flex-wrap gap-2">
+                        {
+                            profile?.skills.map((skill:any, index:any) => (
+                                <div key={index} className="bg-bright-sun-300 text-sm font-medium bg-opacity-15 rounded-xl text-bright-sun-400 px-3 py-1">
+                                    {skill}
+                                </div>
+                            ))
+                        }
                     </div>
             }
         </>
     )
 }
-export default About
+export default Skills
