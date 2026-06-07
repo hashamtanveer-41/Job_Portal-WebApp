@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 import {ActionIcon} from "@mantine/core";
-import {IconBriefcase, IconDeviceFloppy, IconMapPin, IconPencil} from "@tabler/icons-react";
+import {IconBriefcase, IconCheck, IconDeviceFloppy, IconMapPin, IconPencil, IconX} from "@tabler/icons-react";
 import SelectInput from "../PostJob/SelectInput";
 import fields from "../../../public/Data/Profile";
 import {useDispatch, useSelector} from "react-redux";
@@ -17,11 +17,12 @@ const Info = () => {
        if (!edit){
            form.setValues({role: profile.role, company: profile.company, location: profile.location})
            setEdit(true);
-       }else{
-           setEdit(false)
-           let updatedProfile = {...profile, ...form.getValues()};
-           (dispatch as any)(updateProfile(updatedProfile))
-       }
+       }else setEdit(false)
+
+    }
+    const handleSave = () => {
+        let updatedProfile = {...profile, ...form.getValues()};
+        (dispatch as any)(updateProfile(updatedProfile))
     }
     const form = useForm({
         mode: 'controlled',
@@ -32,19 +33,33 @@ const Info = () => {
         <>
         <div className="text-3xl font-semibold flex justify-between">
             {user.name}
-            <ActionIcon
-                onClick={() => handleEdit()}
-                size="lg"
-                variant="subtle"
-            >
+            <div>
                 {
-
-                    edit?
-                        <IconDeviceFloppy className="text-bright-sun-400 h-4/5 w-4/5" />
-                        :
-                        <IconPencil className="text-bright-sun-400 h-4/5 w-4/5" />
+                    edit &&
+                    <ActionIcon
+                        color="green.8"
+                        onClick={() => handleSave()}
+                        size="lg"
+                        variant="subtle"
+                    >
+                        <IconCheck className="h-4/5 w-4/5" />
+                    </ActionIcon>
                 }
-            </ActionIcon>
+                <ActionIcon
+                    color={edit?"red.8":"brightSun.4"}
+                    onClick={() => handleEdit()}
+                    size="lg"
+                    variant="subtle"
+                >
+                    {
+
+                        edit?
+                            <IconX className=" h-4/5 w-4/5" />
+                            :
+                            <IconPencil className="h-4/5 w-4/5" />
+                    }
+                </ActionIcon>
+            </div>
         </div>
         {
             edit?
