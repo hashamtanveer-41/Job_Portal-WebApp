@@ -8,8 +8,7 @@ export const authenticateSignInUser = (sendData:any, navigate:any, setData:any, 
     try {
         const {data} = await api.post("/users/register", sendData);
         dispatch({
-            type: "SIGNUP_USER",
-            payload: data
+            type: "SIGNUP_USER"
         });
         NotificationUtil(
             "Registration Successfully!",

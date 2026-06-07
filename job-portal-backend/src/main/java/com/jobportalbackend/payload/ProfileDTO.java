@@ -1,19 +1,19 @@
-package com.jobportalbackend.model;
+package com.jobportalbackend.payload;
 
+
+import com.jobportalbackend.model.Certifications;
+import com.jobportalbackend.model.Experience;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.List;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Document(collection = "profiles")
-public class Profile {
-    @Id
+public class ProfileDTO {
     private Long Id;
     private String email;
     private String jobTitle;
