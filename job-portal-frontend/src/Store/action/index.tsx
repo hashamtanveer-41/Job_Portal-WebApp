@@ -1,6 +1,8 @@
 import api from "../../Api/api";
 import {IconCheck, IconX} from "@tabler/icons-react";
 import NotificationUtil from "../../Utils/NotificationUtil";
+import {getItem, removeItem, setItem} from "../../Utils/LocalStorageUtils";
+import {useSelector} from "react-redux";
 
 export const authenticateSignInUser = (sendData:any, navigate:any, setData:any, form:any) => async (dispatch:any) => {
     try {
@@ -39,8 +41,9 @@ export const authenticateLoginInUser = (sendData:any, navigate:any, setData:any,
             type: "LOGIN_USER",
             payload: data
         });
+        setItem("user", data);
         NotificationUtil(
-            "Login Successfull!",
+            "Login Successfully!",
             "Redirecting to Home Page",
             IconCheck,
             "teal",
@@ -142,5 +145,31 @@ export const resetPassword = (sendData:any, close:any, setOTPSending:any) => asy
         )
     }finally {
         setOTPSending(false)
+    }
+}
+
+export const logout = (navigate:any) => async (dispatch:any) => {
+    try {
+        removeItem("user")
+        dispatch({
+            type: "LOGOUT_USER"
+        });
+        NotificationUtil(
+            "Logout Successfully",
+            "Your are being redirect to login page",
+            IconCheck,
+            "teal",
+            "!border-green-500"
+        )
+        navigate("/login")
+    }catch (error:any){
+        console.log(error)
+        NotificationUtil(
+            "Logout failed",
+            error.response.data.errorMessage,
+            IconX,
+            "red",
+            "!border-red-500"
+        )
     }
 }

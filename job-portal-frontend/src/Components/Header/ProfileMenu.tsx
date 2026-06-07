@@ -10,11 +10,20 @@ import {
 } from '@phosphor-icons/react';
 import {IconArrowsLeftRight, IconFileText, IconLogout2, IconMoon, IconUserCircle} from "@tabler/icons-react";
 import {useState} from "react";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
+import {useDispatch, useSelector} from "react-redux";
+import {logout} from "../../Store/action";
 
 const ProfileMenu =()=> {
     const [checked, setChecked] = useState(false);
     const [opened, setOpened] = useState(false);
+
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+
+    const handleLogout = () => {
+        (dispatch as any)(logout(navigate))
+    }
     return (
         <Menu shadow="md" width={200} opened={opened} onChange={setOpened}>
             <Menu.Target>
@@ -54,6 +63,7 @@ const ProfileMenu =()=> {
 
                 <Menu.Divider />
                 <Menu.Item
+                    onClick={handleLogout}
                     color="red"
                     leftSection={<IconLogout2 size={14} />}
                 >
