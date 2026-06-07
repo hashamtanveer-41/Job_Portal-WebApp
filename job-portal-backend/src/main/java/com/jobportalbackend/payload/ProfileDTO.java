@@ -14,7 +14,8 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ProfileDTO {
-    private Long Id;
+    @Id
+    private Long id;
     private String email;
     private String jobTitle;
     private String company;

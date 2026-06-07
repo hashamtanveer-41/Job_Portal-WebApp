@@ -14,7 +14,7 @@ import java.util.List;
 @Document(collection = "profiles")
 public class Profile {
     @Id
-    private Long Id;
+    private Long id;
     private String email;
     private String jobTitle;
     private String company;

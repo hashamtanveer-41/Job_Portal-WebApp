@@ -40,10 +40,8 @@ public class ProfileServiceImpl implements ProfileService{
 
     @Override
     public ProfileDTO getProfile(Long id) throws JobPortalException {
-        return modelMapper
-                .map(profileRepository.findById(id)
-                    .orElseThrow(
-                            () -> new JobPortalException("PROFILE_NOT_FOUND")), ProfileDTO.class);
+        Profile savedProfile = profileRepository.findById(id).orElseThrow(()->new JobPortalException("PROFILE_NOT_FOUND"));
+        return modelMapper.map(savedProfile, ProfileDTO.class);
     }
 
     @Override
