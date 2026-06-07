@@ -4,7 +4,7 @@ import NotificationUtil from "../../Utils/NotificationUtil";
 import {getItem, removeItem, setItem} from "../../Utils/LocalStorageUtils";
 import {useSelector} from "react-redux";
 
-export const authenticateSignInUser = (sendData:any, navigate:any, setData:any, form:any) => async (dispatch:any) => {
+export const authenticateSignInUser = (sendData:any, navigate:any, setData:any, form:any, setLoading:any) => async (dispatch:any) => {
     try {
         const {data} = await api.post("/users/register", sendData);
         dispatch({
@@ -30,10 +30,11 @@ export const authenticateSignInUser = (sendData:any, navigate:any, setData:any, 
             "!border-red-500"
         )
     }finally {
+        setLoading(false)
     }
 }
 
-export const authenticateLoginInUser = (sendData:any, navigate:any, setData:any, form:any) => async (dispatch:any) => {
+export const authenticateLoginInUser = (sendData:any, navigate:any, setData:any, form:any, setLoading:any) => async (dispatch:any) => {
     try {
         console.log(sendData)
         const {data} = await api.post("/users/login", sendData);
@@ -61,6 +62,7 @@ export const authenticateLoginInUser = (sendData:any, navigate:any, setData:any,
             "!border-red-500"
         )
     }finally {
+        setLoading(false)
     }
 }
 

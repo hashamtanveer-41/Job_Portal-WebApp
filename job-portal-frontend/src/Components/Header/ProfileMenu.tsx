@@ -17,7 +17,7 @@ import {logout} from "../../Store/action";
 const ProfileMenu =()=> {
     const [checked, setChecked] = useState(false);
     const [opened, setOpened] = useState(false);
-
+    const {user} = useSelector((state:any) => state.auth);
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
@@ -28,7 +28,7 @@ const ProfileMenu =()=> {
         <Menu shadow="md" width={200} opened={opened} onChange={setOpened}>
             <Menu.Target>
                 <div className="flex items-center gap-2 cursor-pointer">
-                    <div>Marshal</div>
+                    <div>{user.name}</div>
                     <Avatar src="avatar.png" alt="it's me"/>
                 </div>
             </Menu.Target>

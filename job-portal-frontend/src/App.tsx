@@ -23,6 +23,7 @@ import SignUp from "./Components/SignUpLogin/SignUp";
 import SignUpPage from "./Pages/SignUpPage";
 import ProfilePage from "./Pages/ProfilePage";
 import {Notifications} from "@mantine/notifications";
+import AppRoutes from "./Pages/AppRoutes";
 
 
 function App() {
@@ -63,28 +64,7 @@ function App() {
     return (
       <MantineProvider defaultColorScheme="dark"  theme={theme}  >
           <Notifications position="top-center" zIndex={1000}/>
-          <BrowserRouter >
-              <div className="relative">
-              <Header />
-              <Divider  size="xs" />
-              <Routes>
-                  <Route path="/find-jobs" element={<FindJobs/>}/>
-                  <Route path="/find-talent" element={<FindTalentPage/>}/>
-                  <Route path="/talent-profile" element={<TalentProfile/>}/>
-                  <Route path="/apply-job" element={<ApplyJob/>}/>
-                  <Route path="/company" element={<CompanyPage/>}/>
-                  <Route path="/job-history" element={<JobHistoryPage/>}/>
-                  <Route path="/signup" element={<SignUpPage/>}/>
-                  <Route path="/login" element={<SignUpPage/>}/>
-                  <Route path="/profile" element={<ProfilePage/>}/>
-                  <Route path="/posted-job" element={<PostedJobPage/>}/>
-                  <Route path="/jobs" element={<JobDescription/>}/>
-                  <Route path="/post-job" element={<PostJobPage/>}/>
-                  <Route path="*" element={<HomePage/>}/>
-              </Routes>
-              <Footer />
-              </div>
-          </BrowserRouter>
+          <AppRoutes />
       </MantineProvider>
   );
 }
