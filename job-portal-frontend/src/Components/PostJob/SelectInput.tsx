@@ -2,11 +2,21 @@ import {Combobox, InputBase, ScrollArea, useCombobox} from '@mantine/core';
 import {useEffect, useState} from "react";
 
 export default function SelectInput(props:any) {
+
     useEffect(() => {
-        setData(props.options)
-        setValue(props.form.getInputProps(props.name).value);
-        setSearch(props.form.getInputProps(props.name).value)
-    }, []);
+        if (props.options) {
+            setData(props.options);
+        }
+    }, [props.options]);
+
+    const formValue = props.form.getInputProps(props.name).value;
+
+    useEffect(() => {
+        const safeValue = formValue || '';
+        setValue(safeValue);
+        setSearch(safeValue);
+    }, [formValue]);
+
     const combobox = useCombobox({
         onDropdownClose: () => combobox.resetSelectedOption(),
     });

@@ -1,8 +1,7 @@
 import React, {useState} from 'react'
 import {ActionIcon, Textarea} from "@mantine/core";
-import {IconCheck, IconDeviceFloppy, IconPencil, IconX} from "@tabler/icons-react";
+import {IconCheck, IconPencil, IconX} from "@tabler/icons-react";
 import {useDispatch, useSelector} from "react-redux";
-import {useForm} from "@mantine/form";
 import {updateProfile} from "../../Store/action";
 
 const About = () => {
