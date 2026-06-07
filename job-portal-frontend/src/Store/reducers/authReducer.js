@@ -1,4 +1,3 @@
-import {getItem} from "../../Utils/LocalStorageUtils";
 
 const initialState = {
     user: null,

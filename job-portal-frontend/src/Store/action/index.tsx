@@ -1,8 +1,6 @@
 import api from "../../Api/api";
-import {IconCheck, IconX} from "@tabler/icons-react";
-import NotificationUtil from "../../Utils/NotificationUtil";
-import {getItem, removeItem, setItem} from "../../Utils/LocalStorageUtils";
-import {useSelector} from "react-redux";
+import  {errorNotification, successNotification} from "../../Utils/NotificationUtil";
+import {removeItem, setItem} from "../../Utils/LocalStorageUtils";
 
 export const authenticateSignInUser = (sendData:any, navigate:any, setData:any, form:any, setLoading:any) => async (dispatch:any) => {
     try {
@@ -10,23 +8,17 @@ export const authenticateSignInUser = (sendData:any, navigate:any, setData:any, 
         dispatch({
             type: "SIGNUP_USER"
         });
-        NotificationUtil(
+        successNotification(
             "Registration Successfully!",
-            "Redirecting to Login Page",
-            IconCheck,
-            "teal",
-            "!border-green-500"
+            "Redirecting to Login Page"
         )
         setData(form);
         navigate("/login")
     }catch (error:any){
         console.log(error)
-        NotificationUtil(
+        errorNotification(
             "Registration Failed!",
-            error.response.data.errorMessage,
-            IconX,
-            "red",
-            "!border-red-500"
+            error.response.data.errorMessage
         )
     }finally {
         setLoading(false)
@@ -42,23 +34,17 @@ export const authenticateLoginInUser = (sendData:any, navigate:any, setData:any,
             payload: data
         });
         setItem("user", data);
-        NotificationUtil(
+        successNotification(
             "Login Successfully!",
-            "Redirecting to Home Page",
-            IconCheck,
-            "teal",
-            "!border-green-500"
+            "Redirecting to Home Page"
         )
         setData(form)
         navigate("/")
     }catch (error:any){
         console.log(error)
-        NotificationUtil(
+        errorNotification(
             "Login Failed!",
-            error.response.data.errorMessage,
-            IconX,
-            "red",
-            "!border-red-500"
+            error.response.data.errorMessage
         )
     }finally {
         setLoading(false)
@@ -73,25 +59,14 @@ export const sendOTP = (email:any, setOTPSent:any, setOTPSending:any, setResendL
             type: "OTP_SENT",
             payload: data
         });
-        NotificationUtil(
-            "OTP Request",
-            "OTP sent Successfully!",
-            IconCheck,
-            "teal",
-            "!border-green-500"
+        successNotification("OTP Request", "OTP sent Successfully!",
         )
         setOTPSent(true)
         setResendLoader(true)
         interval.start();
     }catch (error:any){
         console.log(error)
-        NotificationUtil(
-            "OTP Request",
-            error.response.data.errorMessage,
-            IconX,
-            "red",
-            "!border-red-500"
-        )
+        errorNotification("OTP Request", error)
     }finally {
         setOTPSending(false)
     }
@@ -104,22 +79,13 @@ export const verifyOTP = (email:any, otp:any, setVerified:any) => async (dispatc
             type: "OTP_VERIFY",
             payload: data
         });
-        NotificationUtil(
-            "OTP Verification",
-            "OTP verified Successfully!",
-            IconCheck,
-            "teal",
-            "!border-green-500"
-        )
+        successNotification("OTP Verification", "OTP verified Successfully!")
         setVerified(true)
     }catch (error:any){
         console.log(error)
-        NotificationUtil(
+        errorNotification(
             "OTP Verification",
-            error.response.data.errorMessage,
-            IconX,
-            "red",
-            "!border-red-500"
+            error.response.data.errorMessage
         )
     }
 }
@@ -127,22 +93,16 @@ export const verifyOTP = (email:any, otp:any, setVerified:any) => async (dispatc
 export const resetPassword = (sendData:any, close:any, setOTPSending:any) => async (dispatch:any) => {
     try {
         const {data} = await api.post(`/users/forgetPassword`, sendData);
-        NotificationUtil(
+        successNotification(
             "Password Reset",
-            "Your password has reset successfully",
-            IconCheck,
-            "teal",
-            "!border-green-500"
+            "Your password has reset successfully"
         )
         close(true)
     }catch (error:any){
         console.log(error)
-        NotificationUtil(
+        errorNotification(
             "Password Reset",
-            error.response.data.errorMessage,
-            IconX,
-            "red",
-            "!border-red-500"
+            error.response.data.errorMessage
         )
     }finally {
         setOTPSending(false)
@@ -155,22 +115,36 @@ export const logout = (navigate:any) => async (dispatch:any) => {
         dispatch({
             type: "LOGOUT_USER"
         });
-        NotificationUtil(
+        successNotification(
             "Logout Successfully",
-            "Your are being redirect to login page",
-            IconCheck,
-            "teal",
-            "!border-green-500"
+            "Your are being redirect to login page"
         )
         navigate("/login")
     }catch (error:any){
         console.log(error)
-        NotificationUtil(
+        errorNotification(
             "Logout failed",
-            error.response.data.errorMessage,
-            IconX,
-            "red",
-            "!border-red-500"
+            error.response.data.errorMessage
+        )
+    }
+}
+
+export const getProfileId = (navigate:any) => async (dispatch:any) => {
+    try {
+        removeItem("user")
+        dispatch({
+            type: "LOGOUT_USER"
+        });
+        successNotification(
+            "Logout Successfully",
+            "Your are being redirect to login page"
+        )
+        navigate("/login")
+    }catch (error:any){
+        console.log(error)
+        errorNotification(
+            "Logout failed",
+            error.response.data.errorMessage
         )
     }
 }
