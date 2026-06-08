@@ -8,7 +8,6 @@ import {useDispatch, useSelector} from "react-redux";
 import {updateProfile} from "../../Store/action";
 
 const CertificationsInput = (props:any) => {
-    const [issueDate, setIssueDate] = useState<string | null>(null)
     const {profile} = useSelector((state:any) => state.profile)
     const dispatch = useDispatch();
     const form = useForm({

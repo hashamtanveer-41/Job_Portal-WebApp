@@ -1,9 +1,23 @@
-import React from 'react'
+import React, {useState} from 'react'
 import {IconTrash} from "@tabler/icons-react";
 import {ActionIcon} from "@mantine/core";
 import {FormatDate} from "../../Utils/FormatDate";
+import {updateProfile} from "../../Store/action";
+import {useDispatch, useSelector} from "react-redux";
 
 const CertificationCard = (props:any) => {
+    const {profile} = useSelector((state:any)=> state.profile);
+    const dispatch = useDispatch();
+
+    const handleDelete = () => {
+        let  certi = [...profile.certifications]
+        certi.splice(props.index, 1);
+        let updatedProfile = {...profile, certifications: certi};
+        if (typeof props.external === 'function') {
+            props.external(false);
+        }
+        (dispatch as any)(updateProfile(updatedProfile, "Certification deleted successfully!"))
+    }
     return (
         <div>
             <div className="flex justify-between">
@@ -26,7 +40,7 @@ const CertificationCard = (props:any) => {
                             variant="subtle"
                             color="red.8"
                         >
-                            <IconTrash stroke={1.5} className="h-4/5 w-4/5"/>
+                            <IconTrash stroke={1.5} onClick={handleDelete} className="h-4/5 w-4/5"/>
                         </ActionIcon>}
                 </div>
             </div>

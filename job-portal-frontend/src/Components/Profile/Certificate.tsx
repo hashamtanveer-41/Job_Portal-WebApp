@@ -1,10 +1,9 @@
  import React, {useState} from 'react'
 import {ActionIcon} from "@mantine/core";
- import {IconCheck, IconDeviceFloppy, IconPencil, IconPlus, IconX} from "@tabler/icons-react";
+ import {IconCheck, IconPencil, IconPlus, IconX} from "@tabler/icons-react";
  import CertificationCard from "./CertificationCard";
  import CertificationsInput from "./CertificationsInput";
  import {useDispatch, useSelector} from "react-redux";
- import {isNotEmpty, useForm} from "@mantine/form";
 
 const Certificate = () => {
 
@@ -66,7 +65,7 @@ const Certificate = () => {
             {
                 profile?.certifications.map((item:any, index:any) => (
                     <div className="mb-10" key={index}>
-                        <CertificationCard {...item} edit={edit}/>
+                        <CertificationCard {...item} index={index} edit={edit} external={setEdit}/>
                     </div>
                 ))
             }
