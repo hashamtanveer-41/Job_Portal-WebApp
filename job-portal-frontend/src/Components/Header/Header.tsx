@@ -3,12 +3,19 @@ import {Avatar, Button, Indicator} from "@mantine/core";
 import NavLinks from "./NavLinks";
 import {Link, useLocation} from "react-router-dom";
 import ProfileMenu from "./ProfileMenu";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
+import {useEffect} from "react";
+import {getProfile} from "../../Store/action";
 
 const Header = () => {
     const location = useLocation();
     const {user} = useSelector((state:any) => state.auth);
+    const {profile} = useSelector((state:any)=> state.profile);
+    const dispatch = useDispatch();
 
+    useEffect(() => {
+        (dispatch as any)(getProfile(user))
+    }, []);
     return (
         (location.pathname !="/signup" && location.pathname !="/login") ?
             <>

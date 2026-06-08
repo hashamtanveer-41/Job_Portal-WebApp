@@ -29,22 +29,11 @@ const Profile = () => {
     return (
         <div className="w-4/5 mx-auto">
             <div className="">
-                <div className="relative">
+                <div className="relative mb-6">
                     <img src="/Profile/banner.jpg" alt="banner" className="rounded-t-2xl"/>
                     <div ref={ref} className=" flex items-center justify-center absolute -bottom-1/3 left-3">
-                        {/*<Indicator*/}
-                        {/*    className="[&_.mantine-Indicator-indicator]:!border-4 [&_img]:hover:opacity-80"*/}
-                        {/*    autoContrast*/}
-                        {/*    inline*/}
-                        {/*    offset={30}*/}
-                        {/*    label={<IconPencil className="w-4/5 h-4/5" />}*/}
-                        {/*    size={45}*/}
-                        {/*    position="bottom-end"*/}
-                        {/*    color="brightSun.4"*/}
-                        {/*    withBorder*/}
-                        {/*>*/}
                             <Avatar
-                                className="!w-48 !h-48 bg-mine-shaft-950 border-8 rounded-full"
+                                className="!w-48 !h-48 bg-mine-shaft-950 border-8 rounded-full mb-3"
                                 src={profile.image}
                                 alt=""
                             />
@@ -67,7 +56,6 @@ const Profile = () => {
                                 variant="transparent"
                                 accept="image/png, image/jpeg"
                         />}
-                        {/*</Indicator>*/}
                     </div>
                 </div>
                 <div className="px-3 mt-16">
