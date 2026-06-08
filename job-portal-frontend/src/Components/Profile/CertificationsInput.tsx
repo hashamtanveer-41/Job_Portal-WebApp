@@ -1,4 +1,4 @@
-import SelectInput from "../PostJob/SelectInput";
+import SelectInput from "../Profile/SelectInput";
 import fields from "../../../public/Data/Profile";
 import React, {useState} from "react";
 import {Button, TextInput} from "@mantine/core";

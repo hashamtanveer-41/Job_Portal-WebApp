@@ -166,3 +166,14 @@ export const uploadProfileImage = (formData:any, profile:any) => async (dispatch
         errorNotification("Error!", error.response.data.errorMessage)
     }
 }
+
+export const postJob = (formData:any, navigate:any) => async (dispatch:any) => {
+    try {
+        const {data} = await api.post(`/jobs/post`, formData);
+        successNotification("Success","Job Posted Successfully")
+        navigate("/posted-jobs")
+    }catch (error:any){
+        console.log(error)
+        errorNotification("Error!", error.response.data.errorMessage)
+    }
+}

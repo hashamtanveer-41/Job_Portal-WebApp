@@ -7,7 +7,7 @@ import TextAlign from "@tiptap/extension-text-align";
 import {RichTextEditor, Link} from "@mantine/tiptap";
 import {content} from "../../../public/Data/PostJob";
 
-const TextEditor =()=> {
+const TextEditor =(props:any)=> {
     const editor = useEditor({
         shouldRerenderOnTransaction: true,
         extensions: [
@@ -18,7 +18,10 @@ const TextEditor =()=> {
             Highlight,
             TextAlign.configure({ types: ['heading', 'paragraph'] }),
         ],
-        content,
+        content: props.form.getValues().description,
+        onUpdate: ({ editor }) => {
+            props.form.setFieldValue('description', editor.getHTML());
+        },
     });
 
     return (

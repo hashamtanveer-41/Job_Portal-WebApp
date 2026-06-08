@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import {ActionIcon} from "@mantine/core";
 import {IconBriefcase, IconCheck, IconDeviceFloppy, IconMapPin, IconPencil, IconX} from "@tabler/icons-react";
-import SelectInput from "../PostJob/SelectInput";
+import SelectInput from "../Profile/SelectInput";
 import fields from "../../../public/Data/Profile";
 import {useDispatch, useSelector} from "react-redux";
 import {useForm} from "@mantine/form";

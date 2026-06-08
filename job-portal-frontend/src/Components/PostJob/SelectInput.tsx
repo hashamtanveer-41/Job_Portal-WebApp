@@ -2,7 +2,6 @@ import {Combobox, InputBase, ScrollArea, useCombobox} from '@mantine/core';
 import {useEffect, useState} from "react";
 
 export default function SelectInput(props:any) {
-
     useEffect(() => {
         if (props.options) {
             setData(props.options);
@@ -28,7 +27,7 @@ export default function SelectInput(props:any) {
     const exactOptionMatch = data.some((item) => item === search);
     const filteredOptions = exactOptionMatch
         ? data
-        : data?.filter((item) => item.toLowerCase().includes(search?.toLowerCase().trim()));
+        : data.filter((item) => item.toLowerCase().includes(search?.toLowerCase().trim()));
 
     const options = filteredOptions.map((item) => (
         <Combobox.Option value={item} key={item}>
@@ -49,7 +48,9 @@ export default function SelectInput(props:any) {
                     setValue(val);
                     setSearch(val);
                     props.form.setFieldValue(props.name, val);
+
                 }
+
                 combobox.closeDropdown();
             }}
         >
@@ -57,34 +58,33 @@ export default function SelectInput(props:any) {
                 <InputBase
                     {...props.form.getInputProps(props.name)}
                     withAsterisk
-                    className="[&_input]:font-medium"
-                    label={props.label}
-                    value={search}
-                    leftSection={<props.leftSection/>}
-                    rightSection={<Combobox.Chevron />}
-                    onChange={(event) => {
-                        combobox.openDropdown();
-                        combobox.updateSelectedOptionIndex();
-                        setSearch(event.currentTarget.value);
-                    }}
-                    onClick={() => combobox.openDropdown()}
-                    onFocus={() => combobox.openDropdown()}
-                    onBlur={() => {
-                        combobox.closeDropdown();
-                        setSearch(value || '');
-                    }}
-                    placeholder={props.placeholder}
-                    rightSectionPointerEvents="none"
+                           // leftSection={<props.leftSection stroke={1.5} />}
+                           label={props.label}
+                           rightSection={<Combobox.Chevron />}
+                           value={search}
+                           onChange={(event) => {
+                               combobox.openDropdown();
+                               combobox.updateSelectedOptionIndex();
+                               setSearch(event.currentTarget.value);
+                           }}
+                           onClick={() => combobox.openDropdown()}
+                           onFocus={() => combobox.openDropdown()}
+                           onBlur={() => {
+                               combobox.closeDropdown();
+                               setSearch(value || '');
+                           }}
+                           placeholder={props.placeholder}
+                           rightSectionPointerEvents="none"
                 />
             </Combobox.Target>
 
             <Combobox.Dropdown>
                 <Combobox.Options>
                     <ScrollArea.Autosize mah={200} type="scroll">
-                    {options}
-                    {!exactOptionMatch && search?.trim().length > 0 && (
-                        <Combobox.Option value="$create">+ Create {search}</Combobox.Option>
-                    )}
+                        {options}
+                        {!exactOptionMatch && search?.trim().length > 0 && (
+                            <Combobox.Option value="$create">+ Create {search}</Combobox.Option>
+                        )}
                     </ScrollArea.Autosize>
                 </Combobox.Options>
             </Combobox.Dropdown>

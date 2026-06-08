@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react'
-import SelectInput from "../PostJob/SelectInput";
+import SelectInput from "../Profile/SelectInput";
 import fields from "../../../public/Data/Profile";
 import {Anchor, Button, Checkbox, Textarea} from "@mantine/core";
 import {MonthPickerInput} from "@mantine/dates";
