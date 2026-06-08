@@ -16,10 +16,6 @@ const Certificate = () => {
     const handleEdit = () => {
         setEdit(!edit)
     }
-    const handleSave =()=> {
-
-    }
-
 
     return (
         <>
@@ -34,17 +30,6 @@ const Certificate = () => {
                         <IconPlus className="text-bright-sun-400 h-4/5 w-4/5" />
                     </ActionIcon>
                     <div>
-                        {
-                            edit &&
-                            <ActionIcon
-                                color="green.8"
-                                onClick={() => handleSave()}
-                                size="lg"
-                                variant="subtle"
-                            >
-                                <IconCheck className="h-4/5 w-4/5" />
-                            </ActionIcon>
-                        }
                         <ActionIcon
                             color={edit?"red.8":"brightSun.4"}
                             onClick={() => handleEdit()}

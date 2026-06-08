@@ -11,22 +11,11 @@ import Certificate from "./Certificate";
 const Profile = () => {
 
     const {user} = useSelector((state:any)=> state.auth);
-    const {profile} = useSelector((state:any)=> state.profile);
     const dispatch = useDispatch();
 
     useEffect(() => {
         (dispatch as any)(getProfile(user))
     }, []);
-
-    const [edit, setEdit] = useState([false, false, false, false, false]);
-
-    const handleEdit = (index:any) => {
-        if (index ===4 ) setAddCerti(!addCerti)
-        const newEdit = [...edit];
-        newEdit[index] = !newEdit[index];
-        setEdit(newEdit);
-    }
-
     return (
         <div className="w-4/5 mx-auto">
             <div className="">
