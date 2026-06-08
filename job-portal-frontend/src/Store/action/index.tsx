@@ -142,7 +142,7 @@ export const getProfile = (users:any) => async (dispatch:any) => {
     }
 }
 
-export const updateProfile = (profile:any) => async (dispatch:any) => {
+export const updateProfile = (profile:any, message:any = null) => async (dispatch:any) => {
     try {
         const {data} = await api.put(`/profiles`, profile);
         dispatch({
@@ -150,7 +150,7 @@ export const updateProfile = (profile:any) => async (dispatch:any) => {
             payload: data,
         });
         getProfile(profile.id);
-        successNotification("Success", "Profile Updated Successfully")
+        successNotification("Success", message? message :"Profile Updated Successfully")
     }catch (error:any){
         console.log(error)
         errorNotification("Error!", error.response.data.errorMessage)

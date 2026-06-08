@@ -53,7 +53,7 @@ const Experience = () => {
             </div>
             {
                 profile?.experiences?.map((item:any, index:any) => (
-                    <ExperienceCard key={index} {...item} edit={edit}/>
+                    <ExperienceCard key={index} index={index} {...item}  external={setEdit} edit={edit}/>
                 ))
             }
             {addExp && <ExperienceInput add setEdit={setAddExp}/>}
