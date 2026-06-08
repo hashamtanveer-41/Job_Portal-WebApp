@@ -65,7 +65,7 @@ const ExperienceInput = (props:any) => {
         let updatedProfile = {...profile, experiences: exp};
         props.setEdit(false);
         if (!props.add)props.pencil(false);
-        (dispatch as any)(updateProfile(updatedProfile, `Experience ${props.add? "Added":"Updated"}`))
+        (dispatch as any)(updateProfile(updatedProfile, `Experience ${props.add? "Added":"Updated"} Successfully`))
     }
     return (
         <div className="flex flex-col gap-3">
