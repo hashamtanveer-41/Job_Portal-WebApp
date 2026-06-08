@@ -156,3 +156,13 @@ export const updateProfile = (profile:any, message:any = null) => async (dispatc
         errorNotification("Error!", error.response.data.errorMessage)
     }
 }
+export const uploadProfileImage = (formData:any, profile:any) => async (dispatch:any) => {
+    try {
+        const {data} = await api.put(`/profiles/${profile.id}/image`, formData);
+        getProfile(profile.id);
+        successNotification("Success","Profile Image Updated Successfully")
+    }catch (error:any){
+        console.log(error)
+        errorNotification("Error!", error.response.data.errorMessage)
+    }
+}

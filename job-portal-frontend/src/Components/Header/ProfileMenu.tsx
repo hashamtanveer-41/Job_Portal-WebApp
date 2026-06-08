@@ -20,6 +20,8 @@ const ProfileMenu =()=> {
     const {user} = useSelector((state:any) => state.auth);
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const {profile} = useSelector((state:any)=> state.profile);
+
 
     const handleLogout = () => {
         (dispatch as any)(logout(navigate))
@@ -29,7 +31,7 @@ const ProfileMenu =()=> {
             <Menu.Target>
                 <div className="flex items-center gap-2 cursor-pointer">
                     <div>{user.name}</div>
-                    <Avatar src="avatar.png" alt="it's me"/>
+                    <Avatar src={profile.image} alt="it's me"/>
                 </div>
             </Menu.Target>
 
