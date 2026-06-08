@@ -10,7 +10,7 @@ import java.io.IOException;
 import java.util.Map;
 
 @Service
-public class FileServiceImpl {
+public class FileServiceImpl implements FileService{
     @Autowired
     private Cloudinary cloudinary;
 

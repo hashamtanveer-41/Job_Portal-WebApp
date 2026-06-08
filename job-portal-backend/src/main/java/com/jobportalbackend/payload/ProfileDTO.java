@@ -18,6 +18,7 @@ public class ProfileDTO {
     private Long id;
     private String email;
     private String role;
+    private String image;
     private String company;
     private String location;
     private String about;
