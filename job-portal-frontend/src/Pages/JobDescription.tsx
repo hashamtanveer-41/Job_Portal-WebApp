@@ -14,7 +14,7 @@ const JobDescription = () => {
     useEffect(() => {
         window.scroll(0, 0);
         (dispatch as any)(getJobWithId(setJob, id));
-    }, []);
+    }, [id]);
     return (
         <div className="min-h-[100vh] bg-mine-shaft-950 font-['poppins'] p-4">
             <Link className="my-4 inline-block" to="/find-jobs">

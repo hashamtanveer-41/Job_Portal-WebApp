@@ -28,8 +28,8 @@ const AppRoutes = () => {
                     <Route path="/find-jobs" element={<FindJobs/>}/>
                     <Route path="/find-talent" element={<FindTalentPage/>}/>
                     <Route path="/talent-profile" element={<TalentProfile/>}/>
-                    <Route path="/apply-job" element={<ApplyJob/>}/>
-                    <Route path="/company" element={<CompanyPage/>}/>
+                    <Route path="/apply-job/:id" element={<ApplyJob/>}/>
+                    <Route path="/company/:name" element={<CompanyPage/>}/>
                     <Route path="/job-history" element={<JobHistoryPage/>}/>
                     <Route path="/signup" element={user? <Navigate to="/"/>:<SignUpPage/>}/>
                     <Route path="/login" element={user?  <Navigate to="/"/>:<SignUpPage/>}/>
