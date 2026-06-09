@@ -177,3 +177,13 @@ export const postJob = (formData:any, navigate:any) => async (dispatch:any) => {
         errorNotification("Error!", error.response.data.errorMessage)
     }
 }
+
+export const getAllJobs = (setJobList:any) => async (dispatch:any) => {
+    try {
+        const {data} = await api.get(`/jobs`);
+        setJobList(data)
+    }catch (error:any){
+        console.log(error)
+        errorNotification("Error!", error.response.data.errorMessage)
+    }
+}
