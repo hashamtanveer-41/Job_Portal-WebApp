@@ -4,6 +4,7 @@ import {ActionIcon, Button, Divider} from "@mantine/core";
 import {Link} from "react-router-dom";
 import {card, desc, skills} from "../../../public/Data/JobDescData";
 import DOMPurify from "dompurify";
+import {timeAgo} from "../../Utils/Utilities";
 
 const JobDesc = (props:any) => {
     return (
@@ -11,14 +12,14 @@ const JobDesc = (props:any) => {
             <div className="flex justify-between">
                 <div className="flex gap-2 items-center">
                     <div className="p-3 bg-mine-shaft-800 rounded-xl">
-                        <img className="h-14" src={`/Icons/Google.png`} alt='Microsoft' /></div>
+                        <img className="h-14" src={`/Icons/${props.company}.png`} alt='Microsoft' /></div>
                     <div className="flex flex-col gap-1">
-                        <div className="font-semibold text-2xl">Software Engineer</div>
-                        <div className="text-lg text-mine-shaft-300">Google &bull; 3 days ago &bull; 48 Applicants</div>
+                        <div className="font-semibold text-2xl">{props.jobTitle}</div>
+                        <div className="text-lg text-mine-shaft-300">{props.company} &bull; {timeAgo(props.postTime)} &bull; {props.applicants?props.applicants.length:0} Applicants</div>
                     </div>
                 </div>
                 <div className="flex flex-col gap-2 items-center">
-                    <Link to="/apply-job" >
+                    <Link to={`/apply-job/${props.id}`} >
                         <Button  color="brightSun.4" size="sm" variant="outline">{props.edit?"Edit":"Apply"}</Button>
                     </Link>
                     {props.edit?<Button  color="red.5" size="sm" variant="outline">Delete</Button>:<IconBookmark className="text-bright-sun-400 cursor-pointer "/>}
@@ -33,7 +34,8 @@ const JobDesc = (props:any) => {
                                 <item.icon className="h-4/5 w-4/5" stroke={1.5} />
                             </ActionIcon>
                             <div className="text-mine-shaft-300 text-sm">{item.name}</div>
-                            <div className="font-semibold">{item.value}</div>
+                            <div className="font-semibold">{props?props[item.id]:"NA"}</div>
+                            {item.id=="packageOffered" && <>LPA</>}
                         </div>
                     ))
                 }
@@ -43,7 +45,7 @@ const JobDesc = (props:any) => {
                 <div className="text-xl font-semibold mb-5">Required Skills</div>
                 <div className="flex flex-wrap gap-2">
                     {
-                        skills.map((skill:any, index:number) => (
+                        props?.skillsRequired?.map((skill:any, index:number) => (
                             <ActionIcon color="brightSun.4" p="xs" className="!h-fit !w-fit font-medium !text-sm" variant="outline" radius="xl" aria-label="Settings">
                                 {skill}
                             </ActionIcon>
@@ -53,7 +55,7 @@ const JobDesc = (props:any) => {
             </div>
             <Divider my="xl"/>
             <div className="[&_h4]:text-xl [&_h4]:my-5 [&_h4]:font-semibold [&_h4]:text-mine-shaft-200 [&_p]:text-justify [&_*]:text-mine-shaft-300 [&_li]:marker:text-bright-sun-400 [&_li]:mb-1"
-                 dangerouslySetInnerHTML={{__html:DOMPurify.sanitize(desc)}}>
+                 dangerouslySetInnerHTML={{__html:DOMPurify.sanitize(props.description)}}>
             </div>
             <Divider my="xl"/>
             <div>
@@ -61,13 +63,13 @@ const JobDesc = (props:any) => {
                 <div className="flex justify-between mb-3">
                     <div className="flex gap-2 items-center">
                         <div className="p-3 bg-mine-shaft-800 rounded-xl">
-                            <img className="h-8" src={`/Icons/Google.png`} alt='Microsoft' /></div>
+                            <img className="h-8" src={`/Icons/${props.company}.png`} alt='Microsoft' /></div>
                         <div className="flex flex-col">
-                            <div className="font-medium text-lg">Google</div>
+                            <div className="font-medium text-lg">{props.company}</div>
                             <div className="text-mine-shaft-300">10K+ Employees</div>
                         </div>
                     </div>
-                        <Link to="/" >
+                        <Link to={`/company/${props.company}`} >
                             <Button  color="brightSun.4" size="sm" variant="outline">Company Page</Button>
                         </Link>
                 </div>

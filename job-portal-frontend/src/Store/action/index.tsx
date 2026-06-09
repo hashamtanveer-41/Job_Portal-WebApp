@@ -187,3 +187,13 @@ export const getAllJobs = (setJobList:any) => async (dispatch:any) => {
         errorNotification("Error!", error.response.data.errorMessage)
     }
 }
+
+export const getJobWithId = (setJob:any, id:any) => async (dispatch:any) => {
+    try {
+        const {data} = await api.get(`/jobs/job/${id}`);
+        setJob(data)
+    }catch (error:any){
+        console.log(error)
+        errorNotification("Error!", error.response.data.errorMessage)
+    }
+}
