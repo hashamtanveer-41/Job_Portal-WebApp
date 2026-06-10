@@ -1,14 +1,18 @@
 package com.jobportalbackend.controller;
 
 import com.jobportalbackend.exceptions.JobPortalException;
+import com.jobportalbackend.payload.ApplicantDTO;
 import com.jobportalbackend.payload.JobDTO;
+import com.jobportalbackend.payload.ResponseDTO;
 import com.jobportalbackend.service.JobService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -35,5 +39,9 @@ public class JobController {
         return new ResponseEntity<>(jobService.getJob(id), HttpStatus.OK);
     }
 
+    @PostMapping(value = "/apply/{id}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<ResponseDTO> applyJob(@RequestPart("applicant") @Valid ApplicantDTO applicantDTO, @PathVariable Long id, @RequestPart("resume")MultipartFile file) throws Exception {
+        return new ResponseEntity<>(jobService.applyJob(applicantDTO, id, file), HttpStatus.OK);
+    }
 
 }

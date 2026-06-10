@@ -13,10 +13,18 @@ import java.util.Map;
 public class FileServiceImpl implements FileService{
     @Autowired
     private Cloudinary cloudinary;
-
+    @Override
     public String uploadImage(MultipartFile file) throws IOException {
         Map uploadResult = cloudinary.uploader().upload(file.getBytes(),
                 ObjectUtils.asMap("resource_type", "auto"));
+
+        return uploadResult.get("secure_url").toString();
+    }
+
+    @Override
+    public String uploadResumes(MultipartFile file) throws IOException {
+        Map uploadResult = cloudinary.uploader().upload(file.getBytes(),
+                ObjectUtils.asMap("resource_type", "raw", "folder", "resumes"));
 
         return uploadResult.get("secure_url").toString();
     }
