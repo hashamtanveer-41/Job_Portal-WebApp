@@ -167,11 +167,11 @@ export const uploadProfileImage = (formData:any, profile:any) => async (dispatch
     }
 }
 
-export const postJob = (formData:any, navigate:any) => async (dispatch:any) => {
+export const postJob = (formData:any, navigate:any, message=null) => async (dispatch:any) => {
     try {
         const {data} = await api.post(`/jobs/post`, formData);
-        successNotification("Success","Job Posted Successfully")
-        navigate("/posted-jobs")
+        successNotification("Success",message?message:"Job Posted Successfully")
+        navigate(`/posted-jobs/${data.id}`)
     }catch (error:any){
         console.log(error)
         errorNotification("Error!", error)
@@ -214,6 +214,31 @@ export const applyJob = (formData:any, navigate:any, id:any) => async (dispatch:
         const {data} = await api.post(`/jobs/apply/${id}`, formData);
         successNotification("Success","You have applied for the job")
         navigate("/job-history")
+    }catch (error:any){
+        console.log(error)
+        errorNotification("Error!", error)
+    }finally {
+
+    }
+}
+
+export const getJobPostedBy = (id:any, setJob:any, setJobList:any) => async (dispatch:any) => {
+    try {
+        const {data} = await api.get(`/jobs/jobBy/${id}`);
+        setJob(data)
+        setJobList(data.find((item:any)=>item.id==id));
+    }catch (error:any){
+        console.log(error)
+        errorNotification("Error!", error)
+    }finally {
+
+    }
+}
+
+export const changeApplicationStatus = (application:any) => async (dispatch:any) => {
+    try {
+        const {data} = await api.post(`/jobs/appStatus/`, application);
+        successNotification("Success","Your application status has been successfully changed")
     }catch (error:any){
         console.log(error)
         errorNotification("Error!", error)
