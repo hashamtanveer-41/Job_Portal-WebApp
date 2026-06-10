@@ -1,10 +1,9 @@
 import React, {useState} from 'react'
-import {Button, FileInput, LoadingOverlay, NumberInput, Textarea, TextInput} from "@mantine/core";
+import {Button, FileInput, NumberInput, Textarea, TextInput} from "@mantine/core";
 import {IconPaperclip} from "@tabler/icons-react";
 import {useNavigate} from "react-router-dom";
 import {isNotEmpty, useForm} from "@mantine/form";
-import {applyJob, uploadProfileImage} from "../../Store/action";
-import app from "../../App";
+import {applyJob} from "../../Store/action";
 import {useDispatch, useSelector} from "react-redux";
 
 const ApplicationForm = (props:any) => {
@@ -44,6 +43,7 @@ const ApplicationForm = (props:any) => {
         props.setSubmit(true)
         const {resume, ...applicantData} = form.getValues();
         const formData = new FormData();
+        // @ts-ignore
         formData.append("resume", resume);
         const applicantBlob = new Blob(
             [JSON.stringify({
