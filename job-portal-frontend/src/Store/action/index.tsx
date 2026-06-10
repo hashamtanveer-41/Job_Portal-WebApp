@@ -18,7 +18,7 @@ export const authenticateSignInUser = (sendData:any, navigate:any, setData:any, 
         console.log(error)
         errorNotification(
             "Registration Failed!",
-            error.response.data.errorMessage
+            error
         )
     }finally {
         setLoading(false)
@@ -44,7 +44,7 @@ export const authenticateLoginInUser = (sendData:any, navigate:any, setData:any,
         console.log(error)
         errorNotification(
             "Login Failed!",
-            error.response.data.errorMessage
+            error
         )
     }finally {
         setLoading(false)
@@ -85,7 +85,7 @@ export const verifyOTP = (email:any, otp:any, setVerified:any) => async (dispatc
         console.log(error)
         errorNotification(
             "OTP Verification",
-            error.response.data.errorMessage
+            error
         )
     }
 }
@@ -102,7 +102,7 @@ export const resetPassword = (sendData:any, close:any, setOTPSending:any) => asy
         console.log(error)
         errorNotification(
             "Password Reset",
-            error.response.data.errorMessage
+            error
         )
     }finally {
         setOTPSending(false)
@@ -124,7 +124,7 @@ export const logout = (navigate:any) => async (dispatch:any) => {
         console.log(error)
         errorNotification(
             "Logout failed",
-            error.response.data.errorMessage
+            error
         )
     }
 }
@@ -153,7 +153,7 @@ export const updateProfile = (profile:any, message:any = null) => async (dispatc
         successNotification("Success", message? message :"Profile Updated Successfully")
     }catch (error:any){
         console.log(error)
-        errorNotification("Error!", error.response.data.errorMessage)
+        errorNotification("Error!", error)
     }
 }
 export const uploadProfileImage = (formData:any, profile:any) => async (dispatch:any) => {
@@ -163,7 +163,7 @@ export const uploadProfileImage = (formData:any, profile:any) => async (dispatch
         successNotification("Success","Profile Image Updated Successfully")
     }catch (error:any){
         console.log(error)
-        errorNotification("Error!", error.response.data.errorMessage)
+        errorNotification("Error!", error)
     }
 }
 
@@ -174,7 +174,7 @@ export const postJob = (formData:any, navigate:any) => async (dispatch:any) => {
         navigate("/posted-jobs")
     }catch (error:any){
         console.log(error)
-        errorNotification("Error!", error.response.data.errorMessage)
+        errorNotification("Error!", error)
     }
 }
 
@@ -184,7 +184,7 @@ export const getAllJobs = (setJobList:any) => async (dispatch:any) => {
         setJobList(data)
     }catch (error:any){
         console.log(error)
-        errorNotification("Error!", error.response.data.errorMessage)
+        errorNotification("Error!", error)
     }
 }
 
@@ -194,6 +194,19 @@ export const getJobWithId = (setJob:any, id:any) => async (dispatch:any) => {
         setJob(data)
     }catch (error:any){
         console.log(error)
-        errorNotification("Error!", error.response.data.errorMessage)
+        errorNotification("Error!", error)
+    }
+}
+
+export const applyJob = (formData:any, navigate:any, id:any) => async (dispatch:any) => {
+    try {
+        const {data} = await api.post(`/jobs/apply/${id}`, formData);
+        successNotification("Success","You have applied for the job")
+        navigate("/job-history")
+    }catch (error:any){
+        console.log(error)
+        errorNotification("Error!", error)
+    }finally {
+
     }
 }
