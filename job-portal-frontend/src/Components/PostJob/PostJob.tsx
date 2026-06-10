@@ -4,11 +4,12 @@ import {content, fields} from "../../../public/Data/PostJob";
 import {Button, NumberInput, TagsInput, Textarea} from "@mantine/core";
 import TextEditor from "./TextEditor";
 import {isNotEmpty, useForm} from "@mantine/form";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {postJob} from "../../Store/action";
 import {useNavigate} from "react-router-dom";
 
 const PostJob = () => {
+    const {user } = useSelector((state:any) => state.auth);
     const selectField = fields;
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -42,7 +43,11 @@ const PostJob = () => {
     const handleSubmit = async () => {
         form.validate();
         if(!form.isValid())return;
-        (dispatch as any)(postJob(form.getValues(), navigate))
+        (dispatch as any)(postJob({...form.getValues(), postedBy: user.id, jobStatus: "ACTIVE"}, navigate))
+    }
+
+    const handleDraft = async () => {
+        (dispatch as any)(postJob({...form.getValues(), postedBy: user.id, jobStatus: "DRAFT"}, navigate, "Job drafted Successfully"))
     }
     return (
         <div className="w-4/5 mx-auto">
@@ -76,7 +81,7 @@ const PostJob = () => {
                 </div>
                 <div className="flex gap-4">
                     <Button onClick={handleSubmit} color="brightSun.4" variant="light">Publish Job</Button>
-                    <Button color="brightSun.4" variant="outline">Save as Draft</Button>
+                    <Button onClick={handleDraft} color="brightSun.4" variant="outline">Save as Draft</Button>
                 </div>
             </div>
         </div>

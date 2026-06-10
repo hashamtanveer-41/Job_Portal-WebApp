@@ -167,7 +167,7 @@ export const uploadProfileImage = (formData:any, profile:any) => async (dispatch
     }
 }
 
-export const postJob = (formData:any, navigate:any, message=null) => async (dispatch:any) => {
+export const postJob = (formData:any, navigate:any, message:any=null) => async (dispatch:any) => {
     try {
         const {data} = await api.post(`/jobs/post`, formData);
         successNotification("Success",message?message:"Job Posted Successfully")

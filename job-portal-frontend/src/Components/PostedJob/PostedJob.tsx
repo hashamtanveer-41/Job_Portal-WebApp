@@ -6,7 +6,7 @@ import CompanyEmployee from "../CompanyProfile/CompanyEmployee";
 import {activeJobs} from "../../../public/Data/PostedJob";
 import PostedJobCard from "./PostedJobCard";
 
-const PostedJob = () => {
+const PostedJob = (props:any) => {
     return (
         <div className="w-1/6 mt-5">
             <div className="text-2xl font-semibold mb-5 ">Jobs</div>
