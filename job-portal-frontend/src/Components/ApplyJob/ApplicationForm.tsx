@@ -3,29 +3,22 @@ import {Button, FileInput, LoadingOverlay, NumberInput, Textarea, TextInput} fro
 import {IconPaperclip} from "@tabler/icons-react";
 import {useNavigate} from "react-router-dom";
 import {isNotEmpty, useForm} from "@mantine/form";
+import {applyJob, uploadProfileImage} from "../../Store/action";
+import app from "../../App";
+import {useDispatch, useSelector} from "react-redux";
 
 const ApplicationForm = (props:any) => {
     const [preview, setPreview] = useState(false);
-
+    const dispatch = useDispatch();
+    const { user } = useSelector((state:any) => state.auth)
     const [sec, setSec] = useState(5);
     const navigate = useNavigate();
-    const handleSubmit = () => {
-        props.setSubmit(true)
-        let x =5;
-        setInterval(()=>{
-            x--;
-            setSec(x)
-            if (x==0){
-                navigate('/find-jobs')
-            }
-        },1000)
-    }
+
     const handlePreview = () => {
         form.validate();
         if (!form.isValid())return;
         window.scroll({top:0, behavior:'smooth'})
         setPreview(!preview)
-        console.log(form.getValues())
     }
     const form = useForm({
         mode: "controlled",
@@ -47,6 +40,23 @@ const ApplicationForm = (props:any) => {
             coverLetter: isNotEmpty("Cover letter is required"),
         }
     })
+    const handleSubmit = () => {
+        props.setSubmit(true)
+        const {resume, ...applicantData} = form.getValues();
+        const formData = new FormData();
+        formData.append("resume", resume);
+        const applicantBlob = new Blob(
+            [JSON.stringify({
+                ...applicantData,
+                applicantId: user.id
+            })],
+            {type: "application/json"}
+        )
+        formData.append("applicant",applicantBlob);
+        (dispatch as any)(applyJob(formData, navigate, props.id))
+        props.setSubmit(false)
+    }
+
     return (
         <>
             <div className="flex flex-col gap-5">

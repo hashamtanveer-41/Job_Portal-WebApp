@@ -19,7 +19,7 @@ const ApplyJob = () => {
     return (
         <div className="min-h-[100vh] bg-mine-shaft-950 font-['poppins'] p-4">
                 <Button  my="md" onClick={()=>navigate(-1)} leftSection={<IconArrowLeft size={20} />} color="brightSun.4" variant="outline">Back</Button>
-            <ApplyJobComp {...job} />
+            <ApplyJobComp {...job} id={id}/>
         </div>
 
     )
