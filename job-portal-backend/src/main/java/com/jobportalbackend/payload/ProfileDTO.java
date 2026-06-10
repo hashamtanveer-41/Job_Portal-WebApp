@@ -25,4 +25,6 @@ public class ProfileDTO {
     private List<String> skills;
     private List<Experience> experiences;
     private List<Certifications> certifications;
+    private List<Long> savedJobs;
+
 }
