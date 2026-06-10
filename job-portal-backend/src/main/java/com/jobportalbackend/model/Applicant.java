@@ -19,4 +19,6 @@ public class Applicant {
     private String coverLetter;
     private LocalDateTime timeStamp;
     private ApplicationStatus applicationStatus;
+    private LocalDateTime interviewTime;
+
 }
