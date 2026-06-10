@@ -178,10 +178,21 @@ export const postJob = (formData:any, navigate:any) => async (dispatch:any) => {
     }
 }
 
-export const getAllJobs = (setJobList:any) => async (dispatch:any) => {
+export const getAllJobs = (setJobList:any, setShowList:any=null, user:any=null) => async (dispatch:any) => {
     try {
         const {data} = await api.get(`/jobs`);
         setJobList(data)
+        if (setShowList) {
+            if (!user?.id) {
+                setShowList([]);
+                return;
+            }
+            setShowList(data.filter((job: any) =>
+                job.applicants?.some((applicant: any) =>
+                    applicant.applicantId == user.id && applicant.applicationStatus === "APPLIED"
+                )
+            ));
+        }
     }catch (error:any){
         console.log(error)
         errorNotification("Error!", error)

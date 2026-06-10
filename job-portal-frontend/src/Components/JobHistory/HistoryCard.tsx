@@ -38,7 +38,7 @@ const HistoryCard = (props:any) => {
                         <img className="h-7" src={`/Icons/${props.company}.png`} alt='Microsoft' /></div>
                     <div>
                         <div className="font-semibold">{props.jobTitle}</div>
-                        <div className="text-xs text-mine-shaft-300">{props.company} &#x022; {props.applicants?props.applicants.length:0} Applicants</div>
+                        <div className="text-xs text-mine-shaft-300">{props.company} &bull; {props.applicants?props.applicants.length:0} Applicants</div>
                     </div>
                 </div>
                 <div>
@@ -70,12 +70,12 @@ const HistoryCard = (props:any) => {
                     <IconClockHour3 className="w-5 h-5" stroke={1.5}/>
                     {
                         (props.applied || props.interviewing)?
-                            "Applied"
+                            "Applied "
                             :
                             props.offered?
-                                "Interviewed"
+                                "Interviewed "
                                 :
-                                "Posted"
+                                "Posted "
                     }
                      {timeAgo(props.postTime)}
                 </div>
