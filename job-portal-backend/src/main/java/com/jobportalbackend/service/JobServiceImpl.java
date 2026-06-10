@@ -5,10 +5,7 @@ import com.jobportalbackend.model.Applicant;
 import com.jobportalbackend.model.ApplicationStatus;
 import com.jobportalbackend.model.Job;
 import com.jobportalbackend.model.Profile;
-import com.jobportalbackend.payload.ApplicantDTO;
-import com.jobportalbackend.payload.JobDTO;
-import com.jobportalbackend.payload.ProfileDTO;
-import com.jobportalbackend.payload.ResponseDTO;
+import com.jobportalbackend.payload.*;
 import com.jobportalbackend.repositories.JobRepository;
 import com.jobportalbackend.utils.Utilities;
 import org.modelmapper.ModelMapper;
@@ -73,6 +70,36 @@ public class JobServiceImpl implements JobService{
         job.setApplicants(applicants);
         jobRepository.save(job);
         return new ResponseDTO("You have successfully applied for the job.");
+    }
+
+    @Override
+    public List<JobDTO> getjobsPostedBy(Long id) {
+        List<Job> jobs = jobRepository.findByPostedBy(id);
+        return  jobs
+                .stream()
+                .map(
+                        (job)->modelMapper.map(job, JobDTO.class)).toList();
+
+    }
+
+    @Override
+    public ResponseDTO changeApplicationStatus(Application application) throws JobPortalException{
+        Job job = jobRepository
+                .findById(application.getId())
+                .orElseThrow(
+                        ()->new JobPortalException("JOB_NOT_FOUND"));
+        List<Applicant> applicants = job.getApplicants().stream().map((applicant)->{
+            if (application.getApplicantId().equals(applicant.getApplicantId())){
+                applicant.setApplicationStatus(application.getApplicationStatus());
+                if (application.getApplicationStatus().equals(ApplicationStatus.INTERVIEWING)){
+                    applicant.setInterviewTime(application.getInterviewTime());
+                }
+            }
+            return applicant;
+        }).toList();
+        job.setApplicants(applicants);
+        jobRepository.save(job);
+        return new ResponseDTO("Application Status Changed Successfully.");
     }
 
 
