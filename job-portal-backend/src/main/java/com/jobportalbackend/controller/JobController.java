@@ -2,6 +2,7 @@ package com.jobportalbackend.controller;
 
 import com.jobportalbackend.exceptions.JobPortalException;
 import com.jobportalbackend.payload.ApplicantDTO;
+import com.jobportalbackend.payload.Application;
 import com.jobportalbackend.payload.JobDTO;
 import com.jobportalbackend.payload.ResponseDTO;
 import com.jobportalbackend.service.JobService;
@@ -42,6 +43,16 @@ public class JobController {
     @PostMapping(value = "/apply/{id}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<ResponseDTO> applyJob(@RequestPart("applicant") @Valid ApplicantDTO applicantDTO, @PathVariable Long id, @RequestPart("resume")MultipartFile file) throws Exception {
         return new ResponseEntity<>(jobService.applyJob(applicantDTO, id, file), HttpStatus.OK);
+    }
+
+    @GetMapping("/jobBy/{id}")
+    public ResponseEntity<List<JobDTO>> getJobPostedBy(@PathVariable Long id) throws JobPortalException {
+        return new ResponseEntity<>(jobService.getjobsPostedBy(id), HttpStatus.OK);
+    }
+
+    @PostMapping("/appStatus")
+    public ResponseEntity<ResponseDTO> changeApplicationStatus(@RequestPart("applicant") @Valid Application application) throws JobPortalException {
+        return new ResponseEntity<>(jobService.changeApplicationStatus(application), HttpStatus.OK);
     }
 
 }

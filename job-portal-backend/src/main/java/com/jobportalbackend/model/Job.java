@@ -28,4 +28,6 @@ public class Job {
     private String description;
     private List<String> skillsRequired;
     private JobStatus jobStatus;
+    private Long postedBy;
 }
+
