@@ -1,5 +1,6 @@
 import React from 'react'
 import {IconBookmark} from "@tabler/icons-react";
+import {FormatDate} from "../../Utils/FormatDate";
 
 const ExperienceCard = (props:any) => {
     return (
@@ -14,7 +15,7 @@ const ExperienceCard = (props:any) => {
                     </div>
                 </div>
                 <div>
-                    {props.startDate} -{props.endDate}
+                    {FormatDate(props.startDate)} -{FormatDate(props.endDate)}
                 </div>
             </div>
             <div className="text-sm text-mine-shaft-300 text-justify">
