@@ -279,3 +279,13 @@ export const changeApplicationStatus = (application:any, status:any) => async (d
 
     }
 }
+
+export const getAllProfiles = (setTalent:any) => async (dispatch:any) => {
+    try {
+        const {data} = await api.get(`/profiles`);
+        setTalent(data);
+    }catch (error:any){
+        console.log(error)
+        errorNotification("Error!", error)
+    }
+}
