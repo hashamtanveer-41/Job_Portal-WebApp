@@ -7,11 +7,14 @@ import {DateInput, TimeInput} from "@mantine/dates";
 import {useDispatch, useSelector} from "react-redux";
 import {changeApplicationStatus, getProfile, getProfileById} from "../../Store/action";
 import {errorNotification} from "../../Utils/NotificationUtil";
+import {formatInterviewTime} from "../../Utils/Utilities";
 
 const TalentCard = (props:any) => {
     const {id} = useParams();
     const [profile, setProfile] = useState<any>({});
     const [opened, {open, close}] = useDisclosure(false);
+    const [app, {open: openApp, close: closeApp}] = useDisclosure(false);
+
     const [date, setDate] = useState<Date | null>(null);
     const [time, setTime] = useState<any>(null)
     const ref = useRef<HTMLInputElement>(null);
@@ -25,20 +28,19 @@ const TalentCard = (props:any) => {
         }
     }, [props]);
     const handleOffer = (status: string) => {
-        if (!date || !time) {
-            errorNotification("Error!", "Please pick both a date and a time.");
-            return;
-        }
-            const updatedDate = new Date(date);
-            const [hours, minutes] = time.split(":").map(Number);
-            updatedDate.setHours(hours, minutes, 0, 0);
             let interview: any = {
                 id: Number(id),
                 applicantId: Number(profile?.id || props.applicantId),
                 applicationStatus: status,
-                interviewTime: updatedDate
             };
-            (dispatch as any)(changeApplicationStatus(interview));
+            if(status=="INTERVIEWING"){
+                const updatedDate = new Date(date);
+                const [hours, minutes] = time.split(":").map(Number);
+                updatedDate.setHours(hours, minutes, 0, 0);
+                interview = {...interview, interviewTime:updatedDate}
+            }
+
+            (dispatch as any)(changeApplicationStatus(interview, status));
     };
 
     return (
@@ -71,25 +73,20 @@ const TalentCard = (props:any) => {
                 {profile.about}
             </Text>
             <Divider color='mine-shaft.7'  size="xs" />
-            {
-                props.invited?
-                    (
-                        <div className="flex gap-1 text-mine-shaft-200 text-sm items-center">
-                            <IconCalendarMonth stroke={1.5} className="w-5 h-5"/> Interview August 24, 2043 10:00 AM
-                        </div>
-                    )
-                    :
-                    (
-                        <div className="flex justify-between">
-                            <div className="font-semibold text-mine-shaft-200">
-                                {props.expectedCtc}
-                            </div>
-                            <div className="flex gap-1 text-mine-shaft-400 text-xs items-center">
-                                <IconMapPin className="w-5 h-5" stroke={1.5}/> {profile?.location}
-                            </div>
-                        </div>
-                    )
-            }
+            {props.invited? (
+                <div className="flex gap-1 text-mine-shaft-200 text-sm items-center">
+                    <IconCalendarMonth stroke={1.5} className="w-5 h-5"/> Interview: {formatInterviewTime(props.interviewTime)}
+                </div>
+            ) : (
+                <div className="flex justify-between">
+                    <div className="font-semibold text-mine-shaft-200">
+                        {props.expectedCtc}
+                    </div>
+                    <div className="flex gap-1 text-mine-shaft-400 text-xs items-center">
+                        <IconMapPin className="w-5 h-5" stroke={1.5}/> {profile?.location}
+                    </div>
+                </div>
+            )}
 
             <Divider color='mine-shaft.7'  size="xs" />
             <div className="flex [&>*]:w-1/2 [&>*]:p-1 items-center">
@@ -113,14 +110,17 @@ const TalentCard = (props:any) => {
                     props.invited &&
                     <>
                         <div>
-                            <Button color="brightSun.4" variant="light" fullWidth>Accept</Button>
+                            <Button color="brightSun.4" onClick={()=>handleOffer("OFFERED")} variant="light" fullWidth>Accept</Button>
                         </div>
                         <div>
-                            <Button color="red.4" variant="outline" fullWidth>Reject</Button>
+                            <Button color="red.4" onClick={()=>handleOffer("REJECTED")} variant="outline" fullWidth>Reject</Button>
                         </div>
                     </>
                 }
             </div>
+            {
+                (props.invited || props.posted) && <Button color="brightSun.4" onClick={openApp} variant="filled" fullWidth autoContrast>View Application</Button>
+            }
             <Modal opened={opened} onClose={close} title="Schedule Interview" centered>
                 <div className="flex flex-col gap-4">
                 <DateInput
@@ -138,6 +138,25 @@ const TalentCard = (props:any) => {
                     onClick={()=>ref.current?.showPicker()}
                 />
                     <Button onClick={()=>handleOffer("INTERVIEWING")}  color="brightSun.4" variant="light" fullWidth>Schedule</Button>
+                </div>
+            </Modal>
+            <Modal opened={app} onClose={closeApp} title="Application" centered>
+                <div className="flex flex-col gap-4">
+                    <div>
+                        Email: &emsp; <a className="text-bright-sun-400 hover:underline cursor-pointer text-center" href={`mailto:${props.email}`}>{props.email}</a>
+                    </div>
+                    <div>
+                        Website: &emsp; <a target="_blank" className="text-bright-sun-400 hover:underline cursor-pointer text-center" href={props.website}>{props.website}</a>
+                    </div>
+                    <div>
+                        <span className="font-medium text-mine-shaft-300">Resume:</span> &emsp;
+                        <a target="_blank" rel="noopener noreferrer" className="text-bright-sun-400 hover:underline cursor-pointer" href={props.resume}>
+                            {props.name}
+                        </a>
+                    </div>
+                    <div>
+                        Cover Letter: &emsp; <div>{props.coverLetter}</div>
+                    </div>
                 </div>
             </Modal>
         </div>

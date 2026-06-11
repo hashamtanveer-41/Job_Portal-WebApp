@@ -48,6 +48,24 @@ const PostedJobDesc = (props:any) => {
                             }
                         </div>
                     </TabsPanel>
+                    <TabsPanel value="offered">
+                        <div className="mt-10 flex flex-wrap gap-5 justify-around">
+                            {
+                                props.applicants?.filter((applicant:any)=>applicant.applicationStatus=="OFFERED").map((talent:any, index:any)=>(
+                                    index <6 && <TalentCard key={index} {...talent} offered/>
+                                ))
+                            }
+                        </div>
+                    </TabsPanel>
+                    <TabsPanel value="offered">
+                        <div className="mt-10 flex flex-wrap gap-5 justify-around">
+                            {
+                                props.applicants?.filter((applicant:any)=>applicant.applicationStatus=="REJECTED").map((talent:any, index:any)=>(
+                                    index <6 && <TalentCard key={index} {...talent} rejected/>
+                                ))
+                            }
+                        </div>
+                    </TabsPanel>
                 </Tabs>
             </div>
         </div>

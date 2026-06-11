@@ -41,3 +41,14 @@ export function timeAgo(time:string) {
     const years = Math.round(elapsed / msPerYear);
     return years === 1 ? '1 year ago' : `${years} years ago`;
 }
+
+export const formatInterviewTime = (dateStr:any)=>{
+    const date = new Date(dateStr)
+    return date.toLocaleString('en-US', {
+        year: 'numeric',
+        month: 'long',
+        day:'numeric' ,
+        hour: 'numeric',
+        hour12:true,
+    });
+}
