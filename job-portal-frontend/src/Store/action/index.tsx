@@ -222,11 +222,11 @@ export const applyJob = (formData:any, navigate:any, id:any) => async (dispatch:
     }
 }
 
-export const getJobPostedBy = (id:any, setJob:any, setJobList:any) => async (dispatch:any) => {
+export const getJobPostedBy = (id:any, setJob:any, setJobList:any=null) => async (dispatch:any) => {
     try {
         const {data} = await api.get(`/jobs/jobBy/${id}`);
         setJob(data)
-        setJobList(data.find((item:any)=>item.id==id));
+        // setJobList(data.find((item:any)=>item.id==id));
     }catch (error:any){
         console.log(error)
         errorNotification("Error!", error)
