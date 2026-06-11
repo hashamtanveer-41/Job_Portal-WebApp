@@ -75,6 +75,7 @@ public class JobServiceImpl implements JobService{
     @Override
     public List<JobDTO> getjobsPostedBy(Long id) {
         List<Job> jobs = jobRepository.findByPostedBy(id);
+        System.out.println("Jobs with id "+id+" "+jobs);
         return  jobs
                 .stream()
                 .map(

@@ -5,12 +5,12 @@ import JobDesc from "../JobDesc/JobDesc";
 import {talents} from "../../../public/Data/TalentData";
 import TalentCard from "../FindTalent/TalentCard";
 
-const PostedJobDesc = () => {
+const PostedJobDesc = (props:any) => {
     return (
         <div className="mt-5 w-3/4 px-5">
-            <div className="text-2xl font-semibold flex items-center">Software Engineer <Badge variant="light" ml="sm" color="brightSun.4" size="sm">Active</Badge></div>
+            <div className="text-2xl font-semibold flex items-center">{props.jobTitle} <Badge variant="light" ml="sm" color="brightSun.4" size="sm">{props.jobStatus}</Badge></div>
             <div className="font-medium text-mine-shaft-200 mb-5">
-                New Jersey, United States
+                {props.location}
             </div>
             <div>
                 <Tabs variant="outline" radius="lg" defaultValue="invited">
@@ -18,6 +18,8 @@ const PostedJobDesc = () => {
                         <Tabs.Tab value="overview">Overview</Tabs.Tab>
                         <Tabs.Tab value="applicants">Applicants</Tabs.Tab>
                         <Tabs.Tab value="invited">Invited</Tabs.Tab>
+                        <Tabs.Tab value="offered">Offered</Tabs.Tab>
+                        <Tabs.Tab value="rejected">Rejected</Tabs.Tab>
                     </TabsList>
                     <TabsPanel value="overview" className="[&>div]:w-full">
                         <JobDesc edit={true}/>

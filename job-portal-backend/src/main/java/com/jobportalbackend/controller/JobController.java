@@ -47,6 +47,7 @@ public class JobController {
 
     @GetMapping("/jobBy/{id}")
     public ResponseEntity<List<JobDTO>> getJobPostedBy(@PathVariable Long id) throws JobPortalException {
+        System.out.println(id);
         return new ResponseEntity<>(jobService.getjobsPostedBy(id), HttpStatus.OK);
     }
 

@@ -13,8 +13,7 @@ const PostedJobPage = () => {
     const [job, setJob] = useState<any>({})
     useEffect(() => {
         window.scroll(0, 0);
-        (dispatch as any)(getJobPostedBy(id, setJob));
-        (dispatch as any)(getAllJobs(setJobList))
+        (dispatch as any)(getJobPostedBy(user.id, id,  setJob, setJobList));
     }, [id]);
     return (
         <div className="min-h-[100vh] bg-mine-shaft-950 font-['poppins'] px-4">

@@ -9,14 +9,14 @@ import PostedJobCard from "./PostedJobCard";
 const PostedJob = (props:any) => {
     const [activeTab, setActiveTab] = useState<string| null>('ACTIVE')
     useEffect(() => {
-        setActiveTab(props.jobs?.jobStatus || "ACTIVE")
-        console.log(props.jobList)
+        setActiveTab(props.job?.jobStatus || "ACTIVE")
+        console.log(props)
     }, [props.job]);
     return (
         <div className="w-1/6 mt-5">
             <div className="text-2xl font-semibold mb-5 ">Jobs</div>
             <div>
-                <Tabs value={activeTab} onChange={setActiveTab} autoContrast variant="pills" defaultValue="active">
+                <Tabs value={activeTab} onChange={setActiveTab} autoContrast variant="pills">
                     <TabsList className="[&_button[aria-selected='false']]:bg-mine-shaft-900 font-medium">
                         <Tabs.Tab value="ACTIVE">Active [{props.jobList?.filter((job:any) => job?.jobStatus=="ACTIVE").length}]</Tabs.Tab>
                         <Tabs.Tab value="DRAFT">Drafts [{props.jobList?.filter((job:any) => job?.jobStatus=="DRAFT").length}]</Tabs.Tab>
