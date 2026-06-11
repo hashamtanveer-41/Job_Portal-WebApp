@@ -142,6 +142,16 @@ export const getProfile = (users:any) => async (dispatch:any) => {
     }
 }
 
+export const getProfileById = (usersId:any, setProfile:any) => async (dispatch:any) => {
+    try {
+        const {data} = await api.get(`/profiles/${usersId.applicantId}`);
+        setProfile(data)
+        console.log(data)
+    }catch (error:any){
+        console.log(error)
+    }
+}
+
 export const updateProfile = (profile:any, message:any = null) => async (dispatch:any) => {
     try {
         const {data} = await api.put(`/profiles`, profile);
@@ -222,10 +232,15 @@ export const applyJob = (formData:any, navigate:any, id:any) => async (dispatch:
     }
 }
 
-export const getJobPostedBy = (userId:any, id:any,  setJob:any, setJobList:any=null) => async (dispatch:any) => {
+export const getJobPostedBy = (userId:any, id:any,  setJob:any, setJobList:any=null, navigate:any=null) => async (dispatch:any) => {
     try {
         const {data} = await api.get(`/jobs/jobBy/${userId}`);
-        if (Array.isArray(data) && data.length > 0) {
+        if (data && data.length > 0 && Number(id)==0) {
+            if (navigate){
+                navigate(`/posted-jobs/${data[0].id}`)
+            }
+        }
+        if (data.length > 0) {
             let singleJob = data.find((item: any) => (item.id) == (id));
             setJob(singleJob);
         }
@@ -242,8 +257,9 @@ export const getJobPostedBy = (userId:any, id:any,  setJob:any, setJobList:any=n
 
 export const changeApplicationStatus = (application:any) => async (dispatch:any) => {
     try {
-        const {data} = await api.post(`/jobs/appStatus/`, application);
-        successNotification("Success","Your application status has been successfully changed")
+        const {data} = await api.post(`/jobs/appStatus`, application);
+        successNotification("Interview Scheduled","Interview Scheduled Successfully")
+        window.location.reload();
     }catch (error:any){
         console.log(error)
         errorNotification("Error!", error)
