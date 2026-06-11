@@ -9,6 +9,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.List;
+
+
 @RestController
 @RequestMapping("/profiles")
 public class ProfileController {
@@ -29,5 +32,9 @@ public class ProfileController {
     public ResponseEntity<ProfileDTO> updateProductImage(@PathVariable Long profileId, @RequestParam("image") MultipartFile image) throws Exception {
         ProfileDTO profileDTO = profileService.updateProfileImage(profileId, image);
         return new ResponseEntity<>(profileDTO, HttpStatus.OK);
+    }
+    @GetMapping("")
+    public ResponseEntity<List<ProfileDTO>> getAllProfiles() throws JobPortalException {
+        return new ResponseEntity<>(profileService.getAllProfiles(), HttpStatus.OK);
     }
 }

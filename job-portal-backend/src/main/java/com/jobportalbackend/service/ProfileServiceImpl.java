@@ -18,6 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service("profileService")
@@ -73,4 +74,14 @@ public class ProfileServiceImpl implements ProfileService{
         profileDTO.setImage(filename);
         return profileDTO;
     }
+
+    @Override
+    public List<ProfileDTO> getAllProfiles() {
+        return profileRepository
+                .findAll()
+                .stream()
+                .map((profile)->modelMapper.map(profile, ProfileDTO.class))
+                .toList();
+    }
+
 }
