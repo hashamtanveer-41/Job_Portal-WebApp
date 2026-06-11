@@ -1,23 +1,56 @@
-import React, {useRef, useState} from 'react'
+import React, {useEffect, useRef, useState} from 'react'
 import {IconCalendarMonth, IconHeart, IconMapPin} from "@tabler/icons-react";
 import {Avatar, Button, Divider, Modal, Text} from "@mantine/core";
-import {Link} from "react-router-dom";
+import {Link, useParams} from "react-router-dom";
 import {useDisclosure} from "@mantine/hooks";
 import {DateInput, TimeInput} from "@mantine/dates";
+import {useDispatch, useSelector} from "react-redux";
+import {changeApplicationStatus, getProfile, getProfileById} from "../../Store/action";
+import {errorNotification} from "../../Utils/NotificationUtil";
 
 const TalentCard = (props:any) => {
+    const {id} = useParams();
+    const [profile, setProfile] = useState<any>({});
     const [opened, {open, close}] = useDisclosure(false);
-    const [value, setValue ] = useState<string | null>(null);
+    const [date, setDate] = useState<Date | null>(null);
+    const [time, setTime] = useState<any>(null)
     const ref = useRef<HTMLInputElement>(null);
+
+    const dispatch = useDispatch();
+    useEffect(() => {
+        if (props.applicantId){
+            (dispatch as any)(getProfileById(props, setProfile))
+        }else{
+            setProfile(props)
+        }
+    }, [props]);
+    const handleOffer = (status: string) => {
+        if (!date || !time) {
+            errorNotification("Error!", "Please pick both a date and a time.");
+            return;
+        }
+            const updatedDate = new Date(date);
+            const [hours, minutes] = time.split(":").map(Number);
+            updatedDate.setHours(hours, minutes, 0, 0);
+            let interview: any = {
+                id: Number(id),
+                applicantId: Number(profile?.id || props.applicantId),
+                applicationStatus: status,
+                interviewTime: updatedDate
+            };
+            (dispatch as any)(changeApplicationStatus(interview));
+    };
+
     return (
         <div className="bg-mine-shaft-900 p-4 w-96 flex flex-col gap-3 rounded-xl hover:shadow-[0_0_5px_1px_yellow] !shadow-bright-sun-400">
             <div className="flex justify-between">
                 <div className="flex gap-2 items-center">
                     <div className="p-2 bg-mine-shaft-800 rounded-full">
-                        <Avatar size="lg" src={`/${props.image}.png`} alt='Microsoft' /></div>
+                        <Avatar src={profile.image} alt="it's me"/>
+                    </div>
                     <div>
                         <div className="font-semibold text-xl">{props.name}</div>
-                        <div className="text-sm text-mine-shaft-300">{props.role} &bull; {props.company} </div>
+                        <div className="text-sm text-mine-shaft-300">{profile?.role} &bull; {profile?.company} </div>
                     </div>
                 </div>
                 <div>
@@ -26,32 +59,36 @@ const TalentCard = (props:any) => {
             </div>
             <div className="flex gap-2">
                 {
-                    props.topSkills.map((skill:any, index:any)=>(
-                            <div className="py-1 px-2 bg-mine-shaft-800 text-bright-sun-400 rounded-lg text-xs">{skill}</div>
-
+                    profile.skills?.map((skill:any, index:any)=>(
+                        index <5 &&
+                            <div key={index} className="py-1 px-2 bg-mine-shaft-800 text-bright-sun-400 rounded-lg text-xs">{skill}</div>
                     ))
                 }
             </div>
 
 
             <Text className="!text-xs text-justify !text-mine-shaft-300" lineClamp={3}>
-                {props.about}
+                {profile.about}
             </Text>
             <Divider color='mine-shaft.7'  size="xs" />
             {
-                props.invited ?
-                    <div className="flex gap-1 text-mine-shaft-200 text-sm items-center">
-                        <IconCalendarMonth stroke={1.5} className="w-5 h-5"/> Interview August 24, 2043 10:00 AM
-                    </div>
+                props.invited?
+                    (
+                        <div className="flex gap-1 text-mine-shaft-200 text-sm items-center">
+                            <IconCalendarMonth stroke={1.5} className="w-5 h-5"/> Interview August 24, 2043 10:00 AM
+                        </div>
+                    )
                     :
-                    <div className="flex justify-between">
-                        <div className="font-semibold text-mine-shaft-200">
-                            {props.expectedCtc}
+                    (
+                        <div className="flex justify-between">
+                            <div className="font-semibold text-mine-shaft-200">
+                                {props.expectedCtc}
+                            </div>
+                            <div className="flex gap-1 text-mine-shaft-400 text-xs items-center">
+                                <IconMapPin className="w-5 h-5" stroke={1.5}/> {profile?.location}
+                            </div>
                         </div>
-                        <div className="flex gap-1 text-mine-shaft-400 text-xs items-center">
-                            <IconMapPin className="w-5 h-5" stroke={1.5}/> {props.location}
-                        </div>
-                    </div>
+                    )
             }
 
             <Divider color='mine-shaft.7'  size="xs" />
@@ -87,18 +124,20 @@ const TalentCard = (props:any) => {
             <Modal opened={opened} onClose={close} title="Schedule Interview" centered>
                 <div className="flex flex-col gap-4">
                 <DateInput
-                    value={value}
+                    value={date}
                     minDate={new Date()}
-                    onChange={setValue}
+                    onChange={setDate}
                     label="Date"
                     placeholder="Enter Date"
                 />
                 <TimeInput
+                    value={time}
+                    onChange={(event)=>setTime(event.currentTarget.value)}
                     label="Time"
                     ref={ref}
                     onClick={()=>ref.current?.showPicker()}
                 />
-                    <Button  color="brightSun.4" variant="light" fullWidth>Schedule</Button>
+                    <Button onClick={()=>handleOffer("INTERVIEWING")}  color="brightSun.4" variant="light" fullWidth>Schedule</Button>
                 </div>
             </Modal>
         </div>
