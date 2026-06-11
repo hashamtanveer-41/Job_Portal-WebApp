@@ -255,10 +255,12 @@ export const getJobPostedBy = (userId:any, id:any,  setJob:any, setJobList:any=n
     }
 }
 
-export const changeApplicationStatus = (application:any) => async (dispatch:any) => {
+export const changeApplicationStatus = (application:any, status:any) => async (dispatch:any) => {
     try {
         const {data} = await api.post(`/jobs/appStatus`, application);
-        successNotification("Interview Scheduled","Interview Scheduled Successfully")
+        if (status=="INTERVIEW") successNotification("Interview Scheduled","Interview Scheduled Successfully")
+        else if (status=="OFFERED") successNotification("Offered","Offer had been sent successfully.")
+        else if (status=="REJECTED") successNotification("Rejected","Applicant had been rejected")
         window.location.reload();
     }catch (error:any){
         console.log(error)

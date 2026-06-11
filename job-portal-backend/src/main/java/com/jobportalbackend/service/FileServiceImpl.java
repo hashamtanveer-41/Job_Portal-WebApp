@@ -24,7 +24,7 @@ public class FileServiceImpl implements FileService{
     @Override
     public String uploadResumes(MultipartFile file) throws IOException {
         Map uploadResult = cloudinary.uploader().upload(file.getBytes(),
-                ObjectUtils.asMap("resource_type", "raw", "folder", "resumes"));
+                ObjectUtils.asMap("resource_type", "image", "folder", "resumes"));
 
         return uploadResult.get("secure_url").toString();
     }
