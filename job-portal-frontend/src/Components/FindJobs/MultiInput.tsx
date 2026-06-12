@@ -1,9 +1,11 @@
 import {Checkbox, CheckIcon, Combobox, Group, Input, Pill, PillsInput, useCombobox} from '@mantine/core';
 import {JSXElementConstructor, Key, ReactElement, ReactNode, ReactPortal, useEffect, useState} from "react";
 import {IconSearch, IconSelector} from "@tabler/icons-react";
+import {useDispatch} from "react-redux";
 
 
 export function MultiInput(props: any) {
+    const dispatch = useDispatch();
     useEffect(() => {
         setData(props.options)
     }, []);
@@ -24,15 +26,30 @@ export function MultiInput(props: any) {
         if (val === '$create') {
             setData((current) => [...current, search]);
             setValue((current) => [...current, search]);
+            dispatch({
+                type: "UPDATE_FILTER",
+                payload: {[props.title]: [...value, search]}
+            });
+
         } else {
+            dispatch({
+                type: "UPDATE_FILTER",
+                payload: {[props.title]: value.includes(val)?value.filter((v)=>v!==val):[...value, val]}
+            });
+
             setValue((current) =>
                 current.includes(val) ? current.filter((v) => v !== val) : [...current, val]
             );
         }
     };
 
-    const handleValueRemove = (val: string) =>
+    const handleValueRemove = (val: string) => {
+        dispatch({
+            type: "UPDATE_FILTER",
+            payload: {[props.title]: value.filter((v:any)=>v!==val)}
+        });
         setValue((current) => current.filter((v) => v !== val));
+    }
 
     const values = value
         .slice(0, 1)

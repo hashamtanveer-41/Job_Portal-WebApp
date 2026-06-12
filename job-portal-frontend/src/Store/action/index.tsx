@@ -285,11 +285,6 @@ export const changeApplicationStatus = (application:any, status:any) => async (d
 export const getAllProfiles = (setTalent:any) => async (dispatch:any) => {
     try {
         const {data} = await api.get(`/profiles`);
-        setItem("talents", data);
-        dispatch({
-            type: "GET_ALL_TALENTS",
-            payload: data
-        });
         setTalent(data);
     }catch (error:any){
         console.log(error)

@@ -52,7 +52,7 @@ const TalentCard = (props:any) => {
                         <Avatar src={profile.image} alt="it's me"/>
                     </div>
                     <div>
-                        <div className="font-semibold text-xl">{props.name}</div>
+                        <div className="font-semibold text-xl">{profile.name}</div>
                         <div className="text-sm text-mine-shaft-300">{profile?.role} &bull; {profile?.company} </div>
                     </div>
                 </div>

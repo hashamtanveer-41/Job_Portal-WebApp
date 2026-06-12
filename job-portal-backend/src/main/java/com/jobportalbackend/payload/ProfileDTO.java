@@ -17,6 +17,7 @@ public class ProfileDTO {
     @Id
     private Long id;
     private String email;
+    private String name;
     private String role;
     private String image;
     private String company;
