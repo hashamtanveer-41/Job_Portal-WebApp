@@ -55,12 +55,7 @@ export const sendOTP = (email:any, setOTPSent:any, setOTPSending:any, setResendL
     try {
         setOTPSending(true)
         const {data} = await api.post(`/users/sendOTP/${email}`, email);
-        dispatch({
-            type: "OTP_SENT",
-            payload: data
-        });
-        successNotification("OTP Request", "OTP sent Successfully!",
-        )
+        successNotification("OTP Request", "OTP sent Successfully!",)
         setOTPSent(true)
         setResendLoader(true)
         interval.start();

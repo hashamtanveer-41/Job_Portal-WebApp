@@ -9,7 +9,7 @@ export const authReducer = (state = initialState, action ) => {
         case "LOGIN_USER":
             return {...state, user: action.payload}
         case "OTP_SENT":
-            return {...state, user: action.payload}
+           break;
         case "LOGOUT_USER":
             return {user: null}
         default:
