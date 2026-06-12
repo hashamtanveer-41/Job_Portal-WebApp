@@ -16,13 +16,13 @@ import java.util.List;
 public class ProfileDTO {
     @Id
     private Long id;
-    private String name;
     private String email;
     private String role;
     private String image;
     private String company;
     private String location;
     private String about;
+    private Long totalExp;
     private List<String> skills;
     private List<Experience> experiences;
     private List<Certifications> certifications;

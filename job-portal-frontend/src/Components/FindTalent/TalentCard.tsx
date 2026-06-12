@@ -43,6 +43,7 @@ const TalentCard = (props:any) => {
             (dispatch as any)(changeApplicationStatus(interview, status));
     };
 
+    // @ts-ignore
     return (
         <div className="bg-mine-shaft-900 p-4 w-96 flex flex-col gap-3 rounded-xl hover:shadow-[0_0_5px_1px_yellow] !shadow-bright-sun-400">
             <div className="flex justify-between">
@@ -79,8 +80,8 @@ const TalentCard = (props:any) => {
                 </div>
             ) : (
                 <div className="flex justify-between">
-                    <div className="font-semibold text-mine-shaft-200">
-                        {props.expectedCtc}
+                    <div className=" text-mine-shaft-w00">
+                       Exp: {props.totalExp?props.totalExp:"1"} Years
                     </div>
                     <div className="flex gap-1 text-mine-shaft-400 text-xs items-center">
                         <IconMapPin className="w-5 h-5" stroke={1.5}/> {profile?.location}

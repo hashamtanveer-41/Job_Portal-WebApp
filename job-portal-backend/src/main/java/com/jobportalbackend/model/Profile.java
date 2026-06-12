@@ -22,6 +22,7 @@ public class Profile {
     private String company;
     private String location;
     private String about;
+    private Long totalExp;
     private List<String> skills;
     private List<Experience> experiences;
     private List<Certifications> certifications;
