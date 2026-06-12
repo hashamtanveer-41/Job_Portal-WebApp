@@ -54,6 +54,7 @@ const SearchBar = () => {
                     onChangeEnd={(e)=>handleChange("exp", e)}
                     max={50}
                     min={1}
+                    minRange={1}
                     size="xs"
                     color="brightSun.4"
                     value={value}
