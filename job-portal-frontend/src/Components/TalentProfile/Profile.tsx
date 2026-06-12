@@ -31,8 +31,11 @@ const Profile = (props:any) => {
                     <IconBriefcase className="w-5 h-5" stroke={1.5} />
                     {profile?.role}  &bull; {profile.company}
                 </div>
-                <div className="text-lg flex gap-1 text-mine-shaft-400 text-xs items-center">
+                <div className="text-lg flex gap-1 text-mine-shaft-400 items-center">
                     <IconMapPin className="w-5 h-5" stroke={1.5}/> {profile.location}
+                </div>
+                <div className="text-lg flex gap-1 text-mine-shaft-400 items-center">
+                    <IconBriefcase className="w-5 h-5" stroke={1.5}/>Experience: {profile.totalExp}
                 </div>
             </div>
             <Divider mx="xs"  my="xl"/>
