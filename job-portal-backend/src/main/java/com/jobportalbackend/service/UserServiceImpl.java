@@ -2,9 +2,11 @@ package com.jobportalbackend.service;
 
 import com.jobportalbackend.exceptions.JobPortalException;
 import com.jobportalbackend.model.User;
+import com.jobportalbackend.payload.NotificationDTO;
 import com.jobportalbackend.payload.ResponseDTO;
 import com.jobportalbackend.payload.UserDTO;
 import com.jobportalbackend.payload.UserLoginDTO;
+import com.jobportalbackend.repositories.NotificationRepository;
 import com.jobportalbackend.repositories.UserRepository;
 import com.jobportalbackend.utils.Utilities;
 import org.modelmapper.ModelMapper;
@@ -28,6 +30,9 @@ public class UserServiceImpl implements UserService{
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private NotificationService notificationService;
 
     @Override
     public UserDTO registerUser(UserDTO userDTO) throws JobPortalException {
@@ -61,6 +66,12 @@ public class UserServiceImpl implements UserService{
                         () -> new JobPortalException("USER_NOT_FOUND"));
         user.setPassword(passwordEncoder.encode(userLoginDTO.getPassword()));
         userRepository.save(user);
+        NotificationDTO notificationDTO = new NotificationDTO();
+        notificationDTO.setUserId(user.getId());
+        notificationDTO.setMessage("Password Reset Successfully!");
+        notificationDTO.setAction("Password Reset");
+        notificationService.sendNotification(notificationDTO);
         return new ResponseDTO("Password changed successfully!");
     }
+
 }

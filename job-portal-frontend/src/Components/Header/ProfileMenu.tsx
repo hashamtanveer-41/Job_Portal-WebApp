@@ -31,7 +31,7 @@ const ProfileMenu =()=> {
             <Menu.Target>
                 <div className="flex items-center gap-2 cursor-pointer">
                     <div>{user.name}</div>
-                    <Avatar src={profile.image} alt="it's me"/>
+                    <Avatar src={profile.image?profile.image:"/avatar.png"} alt="it's me"/>
                 </div>
             </Menu.Target>
 
