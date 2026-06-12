@@ -246,12 +246,12 @@ export const getJobPostedBy = (userId:any, id:any,  setJob:any, setJobList:any=n
                 navigate(`/posted-jobs/${data[0].id}`)
             }
         }
-        if (data.length > 0) {
+        if (data && data.length > 0) {
             let singleJob = data.find((item: any) => (item.id) == (id));
             setJob(singleJob);
         }
-        if (setJobList != null) {
-            (dispatch as any)(getAllJobs(setJobList));
+        if (setJobList !== null) {
+            setJobList(data);
         }
     }catch (error:any){
         console.log(error)
@@ -290,6 +290,15 @@ export const getNotifications = (id:any, setNotifications:any) => async (dispatc
     try {
         const {data} = await api.get(`/notification/${id}`);
         setNotifications(data);
+    }catch (error:any){
+        console.log(error)
+        errorNotification("Error!", error)
+    }
+}
+
+export const updateNotification = (id:any) => async (dispatch:any) => {
+    try {
+        const {data} = await api.put(`/notification/${id}`);
     }catch (error:any){
         console.log(error)
         errorNotification("Error!", error)

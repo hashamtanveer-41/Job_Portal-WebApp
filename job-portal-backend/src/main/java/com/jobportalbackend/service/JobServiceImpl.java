@@ -21,6 +21,9 @@ public class JobServiceImpl implements JobService{
     private ModelMapper modelMapper;
 
     @Autowired
+    private NotificationService notificationService;
+
+    @Autowired
     private JobRepository jobRepository;
 
     @Autowired
@@ -31,6 +34,12 @@ public class JobServiceImpl implements JobService{
         if (jobDTO.getId()==0){
             jobDTO.setId(Utilities.getNextSequence("jobs"));
             jobDTO.setPostTime(LocalDateTime.now());
+            NotificationDTO notificationDTO = new NotificationDTO();
+            notificationDTO.setAction("Job Posted");
+            notificationDTO.setMessage("Job Posted Successfully for "+jobDTO.getJobTitle()+" at "+ jobDTO.getCompany());
+            notificationDTO.setUserId(jobDTO.getPostedBy());
+            notificationDTO.setRoute("/posted-job"+jobDTO.getId());
+            notificationService.sendNotification(notificationDTO);
         }else{
             Job job = jobRepository.findById(jobDTO.getId()).orElseThrow(()-> new JobPortalException("JOB_NOT_FOUND"));
             if (job.getJobStatus()== JobStatus.DRAFT || job.getJobStatus()== JobStatus.CLOSED)
@@ -96,6 +105,16 @@ public class JobServiceImpl implements JobService{
                 applicant.setApplicationStatus(application.getApplicationStatus());
                 if (application.getApplicationStatus().equals(ApplicationStatus.INTERVIEWING)){
                     applicant.setInterviewTime(application.getInterviewTime());
+                    NotificationDTO notificationDTO = new NotificationDTO();
+                    notificationDTO.setAction("Interview Scheduled");
+                    notificationDTO.setMessage("Interview scheduled for job id: "+application.getId());
+                    notificationDTO.setUserId(application.getApplicantId());
+                    notificationDTO.setRoute("/job-history");
+                    try {
+                        notificationService.sendNotification(notificationDTO);
+                    } catch (JobPortalException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
             return applicant;

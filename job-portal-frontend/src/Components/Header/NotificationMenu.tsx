@@ -2,10 +2,12 @@ import React, {useEffect, useState} from 'react'
 import {CheckIcon, Indicator, Menu, Notification} from "@mantine/core";
 import {IconBell} from "@tabler/icons-react";
 import {useDispatch, useSelector} from "react-redux";
-import {getNotifications} from "../../Store/action";
+import {getNotifications, updateNotification} from "../../Store/action";
+import {useNavigate} from "react-router-dom";
 
 const NotificationMenu = () => {
     const [opened, setOpened] = useState(false);
+    const navigate = useNavigate()
     const {user} = useSelector((state:any) => state.auth);
     const dispatch = useDispatch();
     const [notifications, setNotifications] = useState<any>([])
@@ -16,12 +18,13 @@ const NotificationMenu = () => {
         let notis = [...notifications];
         notis = notis.filter((noti:any, i:number)=>i!=index);
         setNotifications(notis);
+        (dispatch as any)(updateNotification(notifications[index].id))
     }
     return (
         <Menu shadow="md" width={400} opened={opened} onChange={setOpened}>
             <Menu.Target>
                 <div className="bg-mine-shaft-900 p-1 rounded-full">
-                    <Indicator size={8} processing offset={5} color="brightSun.4">
+                    <Indicator disabled={notifications.length<=0} size={8} processing offset={5} color="brightSun.4">
                         <IconBell stroke={1.5}/>
                     </Indicator>
                 </div>
@@ -32,6 +35,11 @@ const NotificationMenu = () => {
                    {
                        notifications?.map((notification:any, index:any)=>(
                            <Notification
+                               onClick={()=>{
+                                   navigate(notification?.route)
+                                   unread(index)
+                                   setOpened(false)
+                               }}
                                key={index}
                                title={notification.action}
                                className="hover:bg-mine-shaft-900 cursor-pointer"

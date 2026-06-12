@@ -10,7 +10,7 @@ const PostedJob = (props:any) => {
     const [activeTab, setActiveTab] = useState<string| null>('ACTIVE')
     useEffect(() => {
         setActiveTab(props.job?.jobStatus || "ACTIVE")
-        console.log(props)
+        console.log(props.jobList)
     }, [props.job]);
     return (
         <div className="w-1/5 mt-5">

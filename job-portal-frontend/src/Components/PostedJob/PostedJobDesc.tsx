@@ -10,19 +10,26 @@ const PostedJobDesc = (props:any) => {
     const [arr, setArr] = useState<any>([])
     const handleTabChange = (value:any)=>{
         setTab(value)
-        if (value=='applicants'){
-            props.applicants?.filter((applicant:any)=>applicant.applicationStatus=="APPLIED")
-        }else if (value=="invited"){
-            props.applicants?.filter((applicant:any)=>applicant.applicationStatus=="INTERVIEWING")
-        }else if (value=="rejected"){
-            props.applicants?.filter((applicant:any)=>applicant.applicationStatus=="REJECTED")
-        }else if (value=="offered"){
-            props.applicants?.filter((applicant:any)=>applicant.applicationStatus=="OFFERED")
+        if (!props.applicants) {
+            setArr([]);
+            return;
+        }
+
+        if (value === 'applicants') {
+            setArr(props.applicants.filter((applicant: any) => applicant.applicationStatus === "APPLIED"));
+        } else if (value === "invited") {
+            setArr(props.applicants.filter((applicant: any) => applicant.applicationStatus === "INTERVIEWING"));
+        } else if (value === "rejected") {
+            setArr(props.applicants.filter((applicant: any) => applicant.applicationStatus === "REJECTED"));
+        } else if (value === "offered") {
+            setArr(props.applicants.filter((applicant: any) => applicant.applicationStatus === "OFFERED"));
+        } else {
+            setArr([]);
         }
     }
     useEffect(() => {
-        handleTabChange("overview")
-    }, [props]);
+        handleTabChange(tab)
+    }, [props, tab]);
     return (
         <div className="mt-5 w-3/4 px-5">
             {props.jobTitle?
