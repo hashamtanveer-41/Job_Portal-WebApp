@@ -2,6 +2,7 @@ import {configureStore} from "@reduxjs/toolkit";
 import {authReducer} from "./authReducer";
 import {profileReducer} from "./profileReducer";
 import {filterReducer} from "./filterReducer";
+import {sortReducer} from "./sortReducer";
 
 const user = localStorage.getItem("user")
     ? JSON.parse(localStorage.getItem("user"))
@@ -20,6 +21,7 @@ const store = configureStore({
         auth: authReducer,
         profile: profileReducer,
         filter: filterReducer,
+        sort: sortReducer,
     },
     preloadedState: initialState,
 })

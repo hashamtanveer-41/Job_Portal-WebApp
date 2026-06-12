@@ -9,7 +9,15 @@ const Talents = () => {
     const dispatch = useDispatch();
     const filter = useSelector((state:any) => state.filter);
     const [filteredTalents, setFilteredTalents] = useState<any>([])
+    const sort = useSelector((state:any) => state.sort);
+
     useEffect(() => {
+        dispatch({
+            type: "RESET_FILTER",
+        });
+        dispatch({
+            type: "RESET_SORT",
+        });
         (dispatch as any)(getAllProfiles(setTalents));
     },[]);
 
@@ -43,6 +51,18 @@ const Talents = () => {
         }
         setFilteredTalents(filterTalents)
     }, [filter, talents]);
+
+    useEffect(() => {
+        if (sort=="Most Recent"){
+            setTalents([...talents].sort((a: any, b:any)=>new Date(b.postTime).getTime() - new Date(a.postTime).getTime()))
+        }else if (sort=="Experience: Low to High"){
+            setTalents([...talents].sort((a: any, b:any)=>a.totalExp - b.totalExp))
+        }else if (sort=="Experience: High to Low"){
+            setTalents([...talents].sort((a: any, b:any)=>b.totalExp - a.totalExp))
+        }else{
+
+        }
+    }, [sort]);
     
     return (
         <div className="p-5">

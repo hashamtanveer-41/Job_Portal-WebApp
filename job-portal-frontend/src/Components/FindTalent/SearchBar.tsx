@@ -52,13 +52,13 @@ const SearchBar = () => {
                 </div>
                 <RangeSlider
                     onChangeEnd={(e)=>handleChange("exp", e)}
+                    value={value}
+                    onChange={setValue}
                     max={50}
                     min={1}
                     minRange={1}
                     size="xs"
                     color="brightSun.4"
-                    value={value}
-                    onChange={setValue}
                     labelTransitionProps={{
                         transition: 'skew-down',
                         duration: 150,
