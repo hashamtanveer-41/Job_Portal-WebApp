@@ -187,11 +187,11 @@ export const uploadProfileImage = (formData:any, profile:any) => async (dispatch
     }
 }
 
-export const postJob = (formData:any, navigate:any, message:any=null) => async (dispatch:any) => {
+export const postJob = (formData:any, navigate:any = null, message:any=null) => async (dispatch:any) => {
     try {
         const {data} = await api.post(`/jobs/post`, formData);
         successNotification("Success",message?message:"Job Posted Successfully")
-        navigate(`/posted-jobs/${data.id}`)
+       if (navigate!=null) navigate(`/posted-jobs/${data.id}`)
     }catch (error:any){
         console.log(error)
         errorNotification("Error!", error)
@@ -219,10 +219,12 @@ export const getAllJobs = (setJobList:any, setShowList:any=null, user:any=null) 
     }
 }
 
-export const getJobWithId = (setJob:any, id:any) => async (dispatch:any) => {
+export const getJobWithId = (setJob:any, id:any, form:any=null, setEditorData:any=null) => async (dispatch:any) => {
     try {
         const {data} = await api.get(`/jobs/job/${id}`);
         setJob(data)
+        if (form!=null)form.setValues(data);
+        if (setEditorData!=null)setEditorData(data.description);
     }catch (error:any){
         console.log(error)
         errorNotification("Error!", error)

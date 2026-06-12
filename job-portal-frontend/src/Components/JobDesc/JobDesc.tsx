@@ -6,7 +6,7 @@ import {card, desc, skills} from "../../../public/Data/JobDescData";
 import DOMPurify from "dompurify";
 import {timeAgo} from "../../Utils/Utilities";
 import {useDispatch, useSelector} from "react-redux";
-import {updateProfile} from "../../Store/action";
+import {postJob, updateProfile} from "../../Store/action";
 
 const JobDesc = (props:any) => {
     const {profile} =useSelector((state:any) => state.profile)
@@ -34,6 +34,9 @@ const JobDesc = (props:any) => {
         (dispatch as any)(updateProfile(updatedProfile, "Job unsaved successfully!"))
 
     }
+    const handleClose= () =>{
+        (dispatch as any)(postJob({...props, jobStatus:"CLOSED"}, null, "Job Closed Successfully"))
+    }
     useEffect(() => {
         console.log(props.applicants)
         console.log("Edit: "+props.edit)
@@ -56,9 +59,9 @@ const JobDesc = (props:any) => {
                 </div>
                 <div className="flex flex-col gap-2 items-center">
                     { (props.edit || !applied ) &&
-                        <Link to={`/apply-job/${props.id}`}>
+                        <Link to={props.edit?`/post-job/${props.id}`:`/apply-job/${props.id}`}>
                             <Button color="brightSun.4" size="sm" variant="outline">
-                                {props.edit ? "Edit" : "Apply"}
+                                {props.closed?"Reopen":props.edit ? "Edit" : "Apply"}
                             </Button>
                         </Link>
                     }
@@ -68,8 +71,8 @@ const JobDesc = (props:any) => {
                             Applied
                         </Button>
                     }
-                    {props.edit?
-                        <Button  color="red.5" size="sm" variant="outline">Delete</Button>
+                    {props.edit && !closed?
+                        <Button onClick={handleClose}  color="red.5" size="sm" variant="outline">Close</Button>
                         :
                             profile.savedJobs?.includes(props.id)?
                                 <IconBookmarkFilled onClick={handleUnSaveJob} className="text-bright-sun-400 cursor-pointer hover:text-bright-sun-400"/>
