@@ -285,3 +285,13 @@ export const getAllProfiles = (setTalent:any) => async (dispatch:any) => {
         errorNotification("Error!", error)
     }
 }
+
+export const getNotifications = (id:any, setNotifications:any) => async (dispatch:any) => {
+    try {
+        const {data} = await api.get(`/notification/${id}`);
+        setNotifications(data);
+    }catch (error:any){
+        console.log(error)
+        errorNotification("Error!", error)
+    }
+}

@@ -9,7 +9,7 @@ const Testimonials = () => {
             <div className="flex justify-evenly">
                 {
                     testimonials.map((testimonial, index)=>(
-                        <div className="flex flex-col gap-3 w-[23%] border border-bright-sun-400 p-3 mt-10 rounded-xl">
+                        <div key={index} className="flex flex-col gap-3 w-[23%] border border-bright-sun-400 p-3 mt-10 rounded-xl">
                             <div className="flex gap-2 items-center ">
                                 <Avatar className="!h-14 !w-14" src="/avatar.png" alt="me"/>
                                 <div>
