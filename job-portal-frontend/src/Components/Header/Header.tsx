@@ -15,7 +15,7 @@ const Header = () => {
 
     useEffect(() => {
         (dispatch as any)(getProfile(user))
-    }, []);
+    }, [user]);
     return (
         (location.pathname !="/signup" && location.pathname !="/login") ?
             <>

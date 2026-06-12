@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import {ActionIcon} from "@mantine/core";
+import {ActionIcon, NumberInput} from "@mantine/core";
 import {IconBriefcase, IconCheck, IconDeviceFloppy, IconMapPin, IconPencil, IconX} from "@tabler/icons-react";
 import SelectInput from "../Profile/SelectInput";
 import fields from "../../../public/Data/Profile";
@@ -15,17 +15,18 @@ const Info = () => {
 
     const handleEdit = async ()=>{
        if (!edit){
-           form.setValues({role: profile.role, company: profile.company, location: profile.location})
+           form.setValues({role: profile.role, company: profile.company, location: profile.location, totalExp: profile.totalExp})
            setEdit(true);
        }else setEdit(false)
     }
     const handleSave = () => {
         let updatedProfile = {...profile, ...form.getValues()};
         (dispatch as any)(updateProfile(updatedProfile))
+        setEdit(false)
     }
     const form = useForm({
         mode: 'controlled',
-        initialValues: { role: '', company: '', location: "" },
+        initialValues: { role: '', company: '', location: "", totalExp: 1 },
     });
 
     return (
@@ -67,7 +68,17 @@ const Info = () => {
                         <SelectInput form={form} name="role" {...fields[0]}/>
                         <SelectInput form={form} name="company" {...fields[1]}/>
                     </div>
-                    <SelectInput form={form} name="location" {...fields[2]}/>
+                    <div className="flex gap-10 [&>*]:w-1/2">
+                        <SelectInput form={form} name="location" {...fields[2]}/>
+                        <NumberInput
+                            withAsterisk
+                            label="Total Experience"
+                            hideControls
+                            clampBehavior="strict"
+                            min={1} max={50}
+                            {...form.getInputProps('totalExp')}
+                        />
+                    </div>
                 </>
                 :
                 <>
@@ -75,8 +86,11 @@ const Info = () => {
                         <IconBriefcase className="w-5 h-5" stroke={1.5} />
                         {profile.role}  &bull; {profile.company}
                     </div>
-                    <div className="text-lg flex gap-1 text-mine-shaft-400 text-xs items-center">
+                    <div className="text-lg flex gap-1 text-mine-shaft-400 items-center">
                         <IconMapPin className="w-5 h-5" stroke={1.5}/> {profile.location}
+                    </div>
+                    <div className="text-lg flex gap-1 text-mine-shaft-400 items-center">
+                        <IconBriefcase className="w-5 h-5" stroke={1.5}/>Experience: {profile.totalExp}
                     </div>
                 </>
         }

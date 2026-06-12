@@ -156,7 +156,6 @@ export const getTalentById = (usersId:any, setProfile:any) => async (dispatch:an
     try {
         const {data} = await api.get(`/profiles/${usersId}`);
         setProfile(data)
-        console.log(data)
     }catch (error:any){
         console.log(error)
     }
