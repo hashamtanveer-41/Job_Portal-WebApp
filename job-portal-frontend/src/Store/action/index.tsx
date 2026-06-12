@@ -201,7 +201,7 @@ export const postJob = (formData:any, navigate:any = null, message:any=null) => 
 export const getAllJobs = (setJobList:any, setShowList:any=null, user:any=null) => async (dispatch:any) => {
     try {
         const {data} = await api.get(`/jobs`);
-        setJobList(data)
+        setJobList(data.filter((job:any)=>job.jobStatus=="ACTIVE"))
         if (setShowList) {
             if (!user?.id) {
                 setShowList([]);
