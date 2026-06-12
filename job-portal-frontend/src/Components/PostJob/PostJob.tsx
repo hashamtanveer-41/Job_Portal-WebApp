@@ -1,18 +1,22 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import SelectInput from "./SelectInput";
 import {content, fields} from "../../../public/Data/PostJob";
 import {Button, NumberInput, TagsInput, Textarea} from "@mantine/core";
 import TextEditor from "./TextEditor";
 import {isNotEmpty, useForm} from "@mantine/form";
 import {useDispatch, useSelector} from "react-redux";
-import {postJob} from "../../Store/action";
-import {useNavigate} from "react-router-dom";
+import {getJobWithId, postJob} from "../../Store/action";
+import {useNavigate, useParams} from "react-router-dom";
 
 const PostJob = () => {
+    const {id} = useParams();
+    const [job, setJob] = useState()
     const {user } = useSelector((state:any) => state.auth);
     const selectField = fields;
     const navigate = useNavigate();
     const dispatch = useDispatch();
+    const [editorData, setEditorData] = useState(content)
+
     const form = useForm({
         mode: "controlled",
         validateInputOnChange: true,
@@ -39,11 +43,19 @@ const PostJob = () => {
             description: isNotEmpty("Description is required"),
         }
     })
-
+    useEffect(() => {
+        window.scroll(0, 0);
+        if (id!=="0"){
+            (dispatch as any)(getJobWithId(setJob, id, form, setEditorData));
+        }else{
+            form.reset();
+            setEditorData(content)
+        }
+    }, [id]);
     const handleSubmit = async () => {
         form.validate();
         if(!form.isValid())return;
-        (dispatch as any)(postJob({...form.getValues(), postedBy: user.id, jobStatus: "ACTIVE"}, navigate))
+        (dispatch as any)(postJob({...form.getValues(),id, postedBy: user.id, jobStatus: "ACTIVE"}, navigate))
     }
 
     const handleDraft = async () => {
@@ -77,7 +89,7 @@ const PostJob = () => {
                 />
                 <div className="[&_button[data-active='true']]:!text-bright-sun-400 [&_button[data-active='true']]:bg-bright-sun-400/20">
                     <div className="text-sm font-medium">Job Description<span className="text-red-500">*</span></div>
-                    <TextEditor form={form} />
+                    <TextEditor form={form} data={editorData} />
                 </div>
                 <div className="flex gap-4">
                     <Button onClick={handleSubmit} color="brightSun.4" variant="light">Publish Job</Button>

@@ -6,6 +6,7 @@ import Highlight from "@tiptap/extension-highlight";
 import TextAlign from "@tiptap/extension-text-align";
 import {RichTextEditor, Link} from "@mantine/tiptap";
 import {content} from "../../../public/Data/PostJob";
+import {useEffect} from "react";
 
 const TextEditor =(props:any)=> {
     const editor = useEditor({
@@ -23,7 +24,9 @@ const TextEditor =(props:any)=> {
             props.form.setFieldValue('description', editor.getHTML());
         },
     });
-
+    useEffect(() => {
+        editor?.commands.setContent(props.data)
+    }, [props.data]);
     return (
         <RichTextEditor editor={editor}>
             <RichTextEditor.Toolbar bg="mine-shaft.10" sticky stickyOffset="var(--docs-header-height)">
