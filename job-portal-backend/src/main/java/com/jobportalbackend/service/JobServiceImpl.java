@@ -1,10 +1,7 @@
 package com.jobportalbackend.service;
 
 import com.jobportalbackend.exceptions.JobPortalException;
-import com.jobportalbackend.model.Applicant;
-import com.jobportalbackend.model.ApplicationStatus;
-import com.jobportalbackend.model.Job;
-import com.jobportalbackend.model.Profile;
+import com.jobportalbackend.model.*;
 import com.jobportalbackend.payload.*;
 import com.jobportalbackend.repositories.JobRepository;
 import com.jobportalbackend.utils.Utilities;
@@ -31,8 +28,14 @@ public class JobServiceImpl implements JobService{
 
     @Override
     public JobDTO postJob(JobDTO jobDTO) throws JobPortalException {
-        jobDTO.setId(Utilities.getNextSequence("jobs"));
-        jobDTO.setPostTime(LocalDateTime.now());
+        if (jobDTO.getId()==0){
+            jobDTO.setId(Utilities.getNextSequence("jobs"));
+            jobDTO.setPostTime(LocalDateTime.now());
+        }else{
+            Job job = jobRepository.findById(jobDTO.getId()).orElseThrow(()-> new JobPortalException("JOB_NOT_FOUND"));
+            if (job.getJobStatus()== JobStatus.DRAFT || job.getJobStatus()== JobStatus.CLOSED)
+                jobDTO.setPostTime(LocalDateTime.now());
+        }
         Job savedJob = jobRepository.save(modelMapper.map(jobDTO, Job.class));
         return modelMapper.map(savedJob, JobDTO.class);
     }
