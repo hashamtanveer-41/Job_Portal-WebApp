@@ -74,4 +74,11 @@ public class UserServiceImpl implements UserService{
         return new ResponseDTO("Password changed successfully!");
     }
 
+    @Override
+    public UserDTO getUserByEmail(String email) throws JobPortalException {
+        return modelMapper.map(userRepository
+                .findByEmail(email)
+                .orElseThrow(
+                        () -> new JobPortalException("USER_NOT_FOUND")), UserDTO.class);
+    }
 }

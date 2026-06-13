@@ -10,4 +10,5 @@ public interface UserService {
     UserDTO registerUser(UserDTO userDTO) throws JobPortalException;
     UserDTO loginUser(UserLoginDTO userLoginDTO) throws JobPortalException;
     ResponseDTO changePassword(@Valid UserLoginDTO userLoginDTO) throws JobPortalException;
+    UserDTO getUserByEmail(String email) throws JobPortalException;
 }
