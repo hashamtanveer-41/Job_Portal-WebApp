@@ -65,7 +65,9 @@ public class WebSecurityConfig {
                 .authorizeHttpRequests(auth ->
                         auth
                                 .requestMatchers("/auth/login").permitAll()
-
+                                .requestMatchers("/users/register").permitAll()
+                                .requestMatchers("/users/sendOTP/**").permitAll()
+                                .requestMatchers("/users/verifyOTP/**").permitAll()
                                 .anyRequest().authenticated()
                 );
         http.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
