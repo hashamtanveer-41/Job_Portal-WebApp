@@ -18,15 +18,19 @@ export const successNotification = (title:any, message:any) => {
 }
 
 export const errorNotification = (title:any, error:any) => {
-    return (
-        notifications.show({
-            title: title,
-            message:  error.response.data.errorMessage,
-            withCloseButton: true,
-            icon: <IconX style={{ width: "90%", height: "90%" }} />,
-            color: "red",
-            withBorder: true,
-            className: "!border-red-500"
-        })
-    )
+    const message =
+        error?.response?.data?.errorMessage ||  // your custom JobPortalException
+        error?.response?.data?.message ||        // Spring Security default
+        error?.message ||                         // axios error message
+        "Something went wrong";                   // final fallback
+
+    return notifications.show({
+        title: title,
+        message: message,
+        withCloseButton: true,
+        icon: <IconX style={{ width: "90%", height: "90%" }} />,
+        color: "red",
+        withBorder: true,
+        className: "!border-red-500"
+    });
 }

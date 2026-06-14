@@ -1,19 +1,23 @@
 import {IconAnchor, IconAsset, IconBell, IconSettings} from "@tabler/icons-react";
 import {Avatar, Button, Indicator} from "@mantine/core";
 import NavLinks from "./NavLinks";
-import {Link, useLocation} from "react-router-dom";
+import {Link, useLocation, useNavigate} from "react-router-dom";
 import ProfileMenu from "./ProfileMenu";
 import {useDispatch, useSelector} from "react-redux";
 import {useEffect} from "react";
 import {getProfile} from "../../Store/action";
 import NotificationMenu from "./NotificationMenu";
+import {setNavigator} from "../../Api/navigationService";
 
 const Header = () => {
     const location = useLocation();
     const {user} = useSelector((state:any) => state.auth);
     const {profile} = useSelector((state:any)=> state.profile);
     const dispatch = useDispatch();
-
+    const navigate = useNavigate();
+    useEffect(() => {
+        setNavigator(navigate);
+    }, [navigate]);
     useEffect(() => {
         (dispatch as any)(getProfile(user))
     }, [user]);
