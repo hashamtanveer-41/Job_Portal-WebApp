@@ -33,7 +33,7 @@ public class AuthController {
     public ResponseEntity<?> createAuthenticationToken(@RequestBody AuthenticationRequest authenticationRequest){
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authenticationRequest.getEmail(), authenticationRequest.getPassword()));
         final UserDetails userDetails = userDetailsService.loadUserByUsername(authenticationRequest.getEmail());
-        final String jwt = jwtUtils.generateToken(userDetails.getUsername());
+        final String jwt = jwtUtils.generateToken(userDetails);
         return new ResponseEntity<>(new AuthenticationResponse(jwt), HttpStatus.OK);
     }
 }
