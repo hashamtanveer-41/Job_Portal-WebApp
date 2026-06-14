@@ -9,6 +9,7 @@ import javax.crypto.SecretKey;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
@@ -69,9 +70,13 @@ public class JWTUtils {
     }
 
     // Public method to trigger token generation
-    public String generateToken(String username) {
+    public String generateToken(UserDetails userDetails) {
         Map<String, Object> claims = new HashMap<>();
-        return doGenerateToken(claims, username);
+        CustomUserDetails customUserDetails = (CustomUserDetails) userDetails;
+        claims.put("id", customUserDetails.getId());
+        claims.put("name", customUserDetails.getName());
+        claims.put("accountType", customUserDetails.getAccountType());
+        return doGenerateToken(claims, userDetails.getUsername());
     }
 
     // Modernized for JJWT 0.12.x: Uses .claims(), .subject(), and .signWith(Key)

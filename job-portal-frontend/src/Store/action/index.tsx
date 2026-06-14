@@ -1,6 +1,7 @@
 import api from "../../Api/api";
 import  {errorNotification, successNotification} from "../../Utils/NotificationUtil";
 import {removeItem, setItem} from "../../Utils/LocalStorageUtils";
+import {jwtDecode} from "jwt-decode";
 
 export const authenticateSignInUser = (sendData:any, navigate:any, setData:any, form:any, setLoading:any) => async (dispatch:any) => {
     try {
@@ -34,6 +35,7 @@ export const authenticateLoginInUser = (sendData:any, navigate:any, setData:any,
             payload: data
         });
         setItem("user", data);
+        // (dispatch as any)(loginAuth(sendData));
         successNotification(
             "Login Successfully!",
             "Redirecting to Home Page"
@@ -109,6 +111,8 @@ export const logout = (navigate:any) => async (dispatch:any) => {
         removeItem("user")
         dispatch({
             type: "LOGOUT_USER"
+        });dispatch({
+            type: "REMOVE_JWT"
         });
         successNotification(
             "Logout Successfully",
@@ -126,7 +130,7 @@ export const logout = (navigate:any) => async (dispatch:any) => {
 
 export const getProfile = (users:any) => async (dispatch:any) => {
     try {
-        const {data} = await api.get(`/profiles/${users.profileId}`);
+        const {data} = await api.get(`/profiles/${users.id}`);
         setItem("profile", data);
         dispatch({
             type: "GET_PROFILE",
@@ -304,3 +308,28 @@ export const updateNotification = (id:any) => async (dispatch:any) => {
         errorNotification("Error!", error)
     }
 }
+// export const loginAuth = (login:any) => async (dispatch:any) => {
+//     try {
+//         const {data} = await api.post(`/auth/login`, login);
+//         const decode = jwtDecode(data.jwt)
+//         console.log(decode)
+//         dispatch({
+//             type: "SET_JWT",
+//             payload: data,
+//         });
+//
+//     }catch (error:any){
+//         console.log(error)
+//         errorNotification("Error!", error)
+//     }
+// }
+//
+// const navigateToLogin = (navigate:any)=> async (dispatch:any)=>{
+//     dispatch({
+//         type: "REMOVE_JWT",
+//     });
+//     localStorage.removeItem('login')
+//     localStorage.removeItem('user')
+//     navigate("/login")
+//
+// }
