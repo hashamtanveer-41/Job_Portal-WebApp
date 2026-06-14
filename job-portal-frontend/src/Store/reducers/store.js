@@ -3,6 +3,7 @@ import {authReducer} from "./authReducer";
 import {profileReducer} from "./profileReducer";
 import {filterReducer} from "./filterReducer";
 import {sortReducer} from "./sortReducer";
+import {jwtReducer} from "./jwtReducer";
 
 const user = localStorage.getItem("user")
     ? JSON.parse(localStorage.getItem("user"))
@@ -15,6 +16,7 @@ const profile = localStorage.getItem("profile")
 const initialState =  {
     auth: {user: user},
     profile: profile ? { profile: profile } : { profile: null },
+    jwt: { jwt: localStorage.getItem("jwt") || null },
 }
 const store = configureStore({
     reducer: {
@@ -22,6 +24,7 @@ const store = configureStore({
         profile: profileReducer,
         filter: filterReducer,
         sort: sortReducer,
+        jwt: jwtReducer,
     },
     preloadedState: initialState,
 })

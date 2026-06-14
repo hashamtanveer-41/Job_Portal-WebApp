@@ -28,28 +28,23 @@ export const authenticateSignInUser = (sendData:any, navigate:any, setData:any, 
 
 export const authenticateLoginInUser = (sendData:any, navigate:any, setData:any, form:any, setLoading:any) => async (dispatch:any) => {
     try {
-        console.log(sendData)
-        const {data} = await api.post("/users/login", sendData);
-        dispatch({
-            type: "LOGIN_USER",
-            payload: data
-        });
-        setItem("user", data);
-        // (dispatch as any)(loginAuth(sendData));
-        successNotification(
-            "Login Successfully!",
-            "Redirecting to Home Page"
-        )
-        setData(form)
-        navigate("/")
-    }catch (error:any){
-        console.log(error)
-        errorNotification(
-            "Login Failed!",
-            error
-        )
-    }finally {
-        setLoading(false)
+        // 1. JWT FIRST
+        const {data: jwtData} = await api.post("/auth/login", sendData);
+        localStorage.setItem("jwt", jwtData.jwt);
+        dispatch({ type: "SET_JWT", payload: jwtData.jwt });
+
+        // 2. THEN user data
+        const {data: userData} = await api.post("/users/login", sendData);
+        localStorage.setItem("user", JSON.stringify(userData));
+        dispatch({ type: "LOGIN_USER", payload: userData });
+
+        successNotification("Login Successfully!", "Redirecting to Home Page");
+        setData(form);
+        navigate("/");
+    } catch (error:any) {
+        errorNotification("Login Failed!", error);
+    } finally {
+        setLoading(false);
     }
 }
 
@@ -108,23 +103,17 @@ export const resetPassword = (sendData:any, close:any, setOTPSending:any) => asy
 
 export const logout = (navigate:any) => async (dispatch:any) => {
     try {
-        removeItem("user")
-        dispatch({
-            type: "LOGOUT_USER"
-        });dispatch({
-            type: "REMOVE_JWT"
-        });
-        successNotification(
-            "Logout Successfully",
-            "Your are being redirect to login page"
-        )
-        navigate("/login")
-    }catch (error:any){
-        console.log(error)
-        errorNotification(
-            "Logout failed",
-            error
-        )
+        localStorage.removeItem("jwt");
+        localStorage.removeItem("user");
+        localStorage.removeItem("profile");
+        dispatch({ type: "LOGOUT_USER" });
+        dispatch({ type: "REMOVE_JWT" });
+        dispatch({ type: "GET_PROFILE", payload: null });
+
+        successNotification("Logout Successfully", "Redirecting to login page");
+        navigate("/login");
+    } catch (error:any) {
+        errorNotification("Logout failed", error);
     }
 }
 
