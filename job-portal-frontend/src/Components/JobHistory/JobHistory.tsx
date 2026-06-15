@@ -37,7 +37,7 @@ const JobHistory = () => {
             <div className="text-2xl font-semibold mb-5 ">Job History</div>
             <div>
                 <Tabs value={activeTab} onChange={handleTabChange} variant="outline" radius="lg" defaultValue="applied">
-                    <TabsList className="[&_button]:text-lg mb-5 font-semibold [&_button[data-active='true']]:text-bright-sun-400">
+                    <TabsList className="[&_button]:!text-xl sm-mx:[&_button]:!text-lg xs-mx:[&_button]:!text-base  mb-5 font-semibold [&_button[data-active='true']]:text-bright-sun-400 xs-mx:[&_button]:!px-1.5 xs-mx:[&_button]:!py-2 xsm-mx:[&_button]:!text-sm xs-mx:font-medium ">
                         <Tabs.Tab value="APPLIED">Applied</Tabs.Tab>
                         <Tabs.Tab value="SAVED">Saved</Tabs.Tab>
                         <Tabs.Tab value="OFFERED">Offered</Tabs.Tab>

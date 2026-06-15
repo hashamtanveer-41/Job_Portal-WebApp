@@ -54,7 +54,7 @@ const JobDesc = (props:any) => {
                         <img className="h-14 xs-mx:h-10 xs-mx:w-10" src={`/Icons/${props.company}.png`} alt='Microsoft' /></div>
                     <div className="flex flex-col gap-1">
                         <div className="font-semibold text-2xl xs-mx:text-xl">{props.jobTitle}</div>
-                        <div className="text-lg text-mine-shaft-300 flex xs-mx:flex-col xs-mx:text-base">
+                        <div className="text-lg text-mine-shaft-300 flex flex-wrap xs-mx:text-base">
                             <span>{props.company}  &bull;</span>
                             <span> {timeAgo(props.postTime)}  &bull;</span>
                             <span> {props.applicants?props.applicants.length:0} Applicants </span>

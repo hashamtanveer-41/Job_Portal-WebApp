@@ -19,7 +19,7 @@ const ApplyJobComp = (props:any) => {
     const [submit, setSubmit] = useState(false);
     return (
         <>
-            <div className="w-2/3 mx-auto">
+            <div className="w-2/3 bs-mx:w-4/5 sm-mx:w-full m-auto">
                 <LoadingOverlay
                     className="!fixed"
                     visible={submit}
@@ -31,10 +31,14 @@ const ApplyJobComp = (props:any) => {
                 <div className="flex justify-between">
                     <div className="flex gap-2 items-center">
                         <div className="p-3 bg-mine-shaft-800 rounded-xl">
-                            <img className="h-14" src={`/Icons/${props.company}.png`} alt={props.company} /></div>
-                        <div className="flex flex-col gap-1">
-                            <div className="font-semibold text-2xl">{props.jobTitle}</div>
-                            <div className="text-lg text-mine-shaft-300">{props.company} &bull; {timeAgo(props.postTime)} &bull; {props.applicants?props.applicants.length:0} Applicants</div>
+                            <img className="h-14 xs-mx:h-10 xs-mx:w-10 shrink-0" src={`/Icons/${props.company}.png`} alt={props.company} /></div>
+                        <div className="flex flex-col gap-1 ">
+                            <div className="font-semibold text-2xl xs-mx:text-xl">{props.jobTitle}</div>
+                            <div className="text-lg text-mine-shaft-300 flex-wrap xs-mx:text-base">
+                                <span>{props.company}  &bull;</span>
+                                <span> {timeAgo(props.postTime)}  &bull;</span>
+                                <span> {props.applicants?props.applicants.length:0} Applicants </span>
+                            </div>
                         </div>
                     </div>
                     </div>
