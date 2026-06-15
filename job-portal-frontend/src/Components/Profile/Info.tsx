@@ -6,12 +6,14 @@ import fields from "../../../public/Data/Profile";
 import {useDispatch, useSelector} from "react-redux";
 import {useForm} from "@mantine/form";
 import {updateProfile} from "../../Store/action";
+import {useMediaQuery} from "@mantine/hooks";
 
 const Info = () => {
     const [edit, setEdit] = useState(false);
     const {user} = useSelector((state:any)=> state.auth);
     const {profile} = useSelector((state:any)=> state.profile);
     const dispatch = useDispatch();
+    const matches =useMediaQuery("(max-width: 475px)")
 
     const handleEdit = async ()=>{
        if (!edit){
@@ -31,7 +33,7 @@ const Info = () => {
 
     return (
         <>
-        <div className="text-3xl font-semibold flex justify-between">
+        <div className="text-3xl xs-mx:text-2xl font-semibold flex justify-between">
             {user.name}
             <div>
                 {
@@ -39,7 +41,7 @@ const Info = () => {
                     <ActionIcon
                         color="green.8"
                         onClick={() => handleSave()}
-                        size="lg"
+                        size={matches?"md":"lg"}
                         variant="subtle"
                     >
                         <IconCheck className="h-4/5 w-4/5" />
@@ -48,7 +50,7 @@ const Info = () => {
                 <ActionIcon
                     color={edit?"red.8":"brightSun.4"}
                     onClick={() => handleEdit()}
-                    size="lg"
+                    size={matches?"md":"lg"}
                     variant="subtle"
                 >
                     {
@@ -64,11 +66,11 @@ const Info = () => {
         {
             edit?
                 <>
-                    <div className="flex gap-10 [&>*]:w-1/2">
+                    <div className="flex gap-10 my-3 xs-mx:[&>*]:w-full xs-mx:flex-wrap [&>*]:w-1/2 md-mx:gap-5 ">
                         <SelectInput form={form} name="role" {...fields[0]}/>
                         <SelectInput form={form} name="company" {...fields[1]}/>
                     </div>
-                    <div className="flex gap-10 [&>*]:w-1/2">
+                    <div className="flex gap-10 my-3 xs-mx:[&>*]:w-full xs-mx:flex-wrap md-mx:gap-5 [&>*]:w-1/2 ">
                         <SelectInput form={form} name="location" {...fields[2]}/>
                         <NumberInput
                             withAsterisk
@@ -82,14 +84,14 @@ const Info = () => {
                 </>
                 :
                 <>
-                    <div className="text-xl flex gap-1 items-center  ">
+                    <div className="text-xl xs-mx:text-base flex gap-1 items-center  ">
                         <IconBriefcase className="w-5 h-5" stroke={1.5} />
                         {profile.role}  &bull; {profile.company}
                     </div>
-                    <div className="text-lg flex gap-1 text-mine-shaft-400 items-center">
+                    <div className="text-lg xs-mx:text-base flex gap-1 text-mine-shaft-400 items-center">
                         <IconMapPin className="w-5 h-5" stroke={1.5}/> {profile.location}
                     </div>
-                    <div className="text-lg flex gap-1 text-mine-shaft-400 items-center">
+                    <div className="text-lg xs-mx:text-base flex gap-1 text-mine-shaft-400 items-center">
                         <IconBriefcase className="w-5 h-5" stroke={1.5}/>Experience: {profile.totalExp}
                     </div>
                 </>

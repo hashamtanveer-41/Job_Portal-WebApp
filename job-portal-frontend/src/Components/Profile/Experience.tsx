@@ -5,10 +5,12 @@ import ExperienceCard from "./ExperienceCard";
 import ExperienceInput from "./ExperienceInput";
 import {useDispatch, useSelector} from "react-redux";
 import {updateProfile} from "../../Store/action";
+import {useMediaQuery} from "@mantine/hooks";
 
 const Experience = () => {
     const {profile} = useSelector((state:any)=> state.profile);
     const dispatch = useDispatch();
+    const matches =useMediaQuery("(max-width: 475px)")
 
     const [edit, setEdit] = useState(false);
     const [addExp, setAddExp ] = useState(false);
@@ -30,7 +32,7 @@ const Experience = () => {
                 <div className="flex gap-2">
                     <ActionIcon
                         onClick={() => setAddExp(true)}
-                        size="lg"
+                        size={matches?"md":"lg"}
                         variant="subtle"
                     >
                         <IconPlus className="text-bright-sun-400 h-4/5 w-4/5" />
@@ -38,7 +40,7 @@ const Experience = () => {
                     <ActionIcon
                         color={edit?"red.8":"brightSun.4"}
                         onClick={() => handleEdit()}
-                        size="lg"
+                        size={matches?"md":"lg"}
                         variant="subtle"
                     >
                         {

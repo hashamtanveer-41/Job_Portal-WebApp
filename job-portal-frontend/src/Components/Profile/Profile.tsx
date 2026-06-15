@@ -27,13 +27,13 @@ const Profile = () => {
         (dispatch as any)(uploadProfileImage(formData ,profile));
     }
     return (
-        <div className="w-4/5 mx-auto">
+        <div className="w-4/5 lg-mx:w-full mx-auto">
             <div className="">
-                <div className="relative mb-6">
-                    <img src="/Profile/banner.jpg" alt="banner" className="rounded-t-2xl"/>
-                    <div ref={ref} className=" flex items-center justify-center absolute -bottom-1/3 left-3">
+                <div className="relative px-5 mb-6">
+                    <img src="/Profile/banner.jpg" alt="banner" className="rounded-t-2xl xs-mx:h-32"/>
+                    <div ref={ref} className=" flex items-center md-mx:-bottom-10 sm-mx:-bottom-16 justify-center absolute -bottom-1/3 left-6">
                             <Avatar
-                                className="!w-48 !h-48 bg-mine-shaft-950 border-8 rounded-full mb-3"
+                                className="!w-48 !h-48 md-mx:!h-40 md-mx:!w-40 sm-mx:!w-36 sm-mx:!h-36 xs-mx:!h-32 xs-mx:!w-32 border-mine-shaft-950 border-8 rounded-full mb-3"
                                 src={profile.image}
                                 alt=""
                             />

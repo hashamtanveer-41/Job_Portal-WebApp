@@ -3,10 +3,12 @@ import {useDispatch, useSelector} from "react-redux";
 import {updateProfile} from "../../Store/action";
 import {ActionIcon, TagsInput} from "@mantine/core";
 import {IconCheck, IconPencil, IconX} from "@tabler/icons-react";
+import {useMediaQuery} from "@mantine/hooks";
 
 const Skills = () => {
     const {profile} = useSelector((state:any)=> state.profile);
     const dispatch = useDispatch();
+    const matches =useMediaQuery("(max-width: 475px)")
 
     const [edit, setEdit] = useState(false);
     const [skills, setSkills ] = useState<string[]>([]);
@@ -34,7 +36,7 @@ const Skills = () => {
                         <ActionIcon
                             color="green.8"
                             onClick={() => handleSave()}
-                            size="lg"
+                            size={matches?"md":"lg"}
                             variant="subtle"
                         >
                             <IconCheck className="h-4/5 w-4/5" />
@@ -43,7 +45,7 @@ const Skills = () => {
                     <ActionIcon
                         color={edit?"red.8":"brightSun.4"}
                         onClick={() => handleEdit()}
-                        size="lg"
+                        size={matches?"md":"lg"}
                         variant="subtle"
                     >
                         {
