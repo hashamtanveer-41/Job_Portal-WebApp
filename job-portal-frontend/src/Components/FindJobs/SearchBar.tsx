@@ -29,14 +29,14 @@ const SearchBar = () => {
             {
                 dropdownData.map((item , index) => (
                     <React.Fragment key={index}>
-                        <div className="w-1/5 sm-mx:w-[48%] bs-mx:w-[30%] lg-mx:w-1/4" key={index}>
+                        <div className="w-1/5 xs-mx:mb-1 sm-mx:w-[48%] bs-mx:w-[30%] lg-mx:w-1/4 xs-mx:w-full" key={index}>
                             <MultiInput {...item} />
                         </div>
                         <Divider className="sm-mx:hidden" mr="xs" size="xs" orientation="vertical"/>
                     </React.Fragment>
                 ))
             }
-            <div className="w-1/5 lg-mx:w-1/4 lg-mx:mt-7 sm-mx:w-[48%] bs-mx:w-[30%] [&_.mantine-RangeSlider-label]:!translate-y-10">
+            <div className="w-1/5 xs-mx:mb-1 xs-mx:w-full lg-mx:w-1/4 lg-mx:mt-7 sm-mx:w-[48%] bs-mx:w-[30%] [&_.mantine-RangeSlider-label]:!translate-y-10">
                 <div className="flex justify-between text-sm">
                     <div>Salary</div>
                     <div>&#8360;{value[0]} LPA - &#8360;{value[1]} LPA</div>
