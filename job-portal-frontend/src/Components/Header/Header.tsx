@@ -28,7 +28,8 @@ const Header = () => {
         setNavigator(navigate);
     }, [navigate]);
     useEffect(() => {
-        (dispatch as any)(getProfile(user))
+        if(user)
+            (dispatch as any)(getProfile(user))
     }, [user]);
     return (
         (location.pathname !="/signup" && location.pathname !="/login") ?

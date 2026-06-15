@@ -51,8 +51,8 @@ const Login = () => {
                 overlayProps={{ radius: 'sm', blur: 2 }}
                 loaderProps={{ color: 'brightSun.4', type: 'bars' }}
             />
-            <div className="w-1/2 px-20 flex flex-col justify-center gap-3">
-                <div className="text-2xl font-semibold text-mine-shaft-200">Create Account</div>
+            <div className="w-1/2 px-20 bs-mx:px-10 md-mx:px-5 sm-mx:w-full flex flex-col justify-center gap-3">
+                <div className="text-2xl font-semibold text-mine-shaft-200">Login</div>
                 <TextInput
                     name="email"
                     error={formError.email}
@@ -75,8 +75,8 @@ const Login = () => {
                     placeholder="Enter your Password"
                 />
                 <Button loading={loading} onClick={submitHandler} autoContrast variant="filled">Login</Button>
-                <div className="mx-auto">Don't have account? <Link to="/signup" className="text-bright-sun-400 hover:underline">SignUp</Link></div>
-                <div onClick={open} className="text-bright-sun-400 hover:underline cursor-pointer text-center">Forget Password?</div>
+                <div className="mx-auto sm-mx:text-sm xs-mx:text-xs">Don't have account? <Link to="/signup" className="sm-mx:text-sm xs-mx:text-xs text-bright-sun-400 hover:underline">SignUp</Link></div>
+                <div onClick={open} className="text-bright-sun-400 hover:underline cursor-pointer text-center sm-mx:text-sm xs-mx:text-xs">Forget Password?</div>
             </div>
             <ResetPassword opened={opened} close={close}/>
         </>
