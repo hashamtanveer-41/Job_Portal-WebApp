@@ -60,7 +60,7 @@ const ApplicationForm = (props:any) => {
     return (
         <>
             <div className="flex flex-col gap-5">
-                <div className="flex gap-10 [&>*]:w-1/2">
+                <div className="flex gap-10 md-mx:gap-5 [&>*]:w-1/2 sm-mx:[&>*]:w-full sm-mx:flex-wrap">
                     <TextInput
                         withAsterisk
                         {...form.getInputProps("name")}
@@ -80,7 +80,7 @@ const ApplicationForm = (props:any) => {
                         placeholder="Enter email"
                     />
                 </div>
-                <div className="flex gap-10 [&>*]:w-1/2">
+                <div className="flex gap-10 md-mx:gap-5 [&>*]:w-1/2 sm-mx:[&>*]:w-full sm-mx:flex-wrap">
                     <NumberInput
                         {...form.getInputProps("phone")}
                         readOnly={preview}
