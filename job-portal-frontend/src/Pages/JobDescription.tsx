@@ -20,7 +20,7 @@ const JobDescription = () => {
             <Link className="my-4 inline-block" to="/find-jobs">
                 <Button leftSection={<IconArrowLeft size={20} />} color="brightSun.4" variant="outline">Back</Button>
             </Link>
-            <div className="flex gap-5 justify-around">
+            <div className="flex gap-5 justify-around items-center bs-mx:flex-wrap">
                 <JobDesc {...job} />
                 <RecommendedJobs />
             </div>
