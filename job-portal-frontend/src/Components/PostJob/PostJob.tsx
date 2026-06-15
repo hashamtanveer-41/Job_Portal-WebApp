@@ -7,6 +7,7 @@ import {isNotEmpty, useForm} from "@mantine/form";
 import {useDispatch, useSelector} from "react-redux";
 import {getJobWithId, postJob} from "../../Store/action";
 import {useNavigate, useParams} from "react-router-dom";
+import {useMediaQuery} from "@mantine/hooks";
 
 const PostJob = () => {
     const {id} = useParams();
@@ -16,6 +17,7 @@ const PostJob = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const [editorData, setEditorData] = useState(content)
+    // const matches = useMediaQuery('(min-width: 350px)');
 
     const form = useForm({
         mode: "controlled",
@@ -62,18 +64,18 @@ const PostJob = () => {
         (dispatch as any)(postJob({...form.getValues(), postedBy: user.id, jobStatus: "DRAFT"}, navigate, "Job drafted Successfully"))
     }
     return (
-        <div className="w-4/5 mx-auto">
+        <div className="px-16 bs-mx:px-10 md-mx:px-5 py-5">
             <div className="text-2xl font-semibold mb-5">Post a Job</div>
             <div className="flex flex-col gap-5">
-                <div className="flex gap-10 [&>*]:w-1/2">
+                <div className="flex gap-10 md-mx:gap-5 [&>*]:w-1/2 sm-mx:[&>*]:w-full sm-mx:flex-wrap">
                     <SelectInput form={form} name="jobTitle" {...selectField[0]}/>
                     <SelectInput form={form} name="company" {...selectField[1]}/>
                 </div>
-                <div className="flex gap-10 [&>*]:w-1/2">
+                <div className="flex gap-10 md-mx:gap-5 [&>*]:w-1/2 sm-mx:[&>*]:w-full sm-mx:flex-wrap">
                     <SelectInput form={form} name="experience" {...selectField[2]}/>
                     <SelectInput form={form} name="jobType"{...selectField[3]}/>
                 </div>
-                <div className="flex gap-10 [&>*]:w-1/2">
+                <div className="flex gap-10 md-mx:gap-5 [&>*]:w-1/2 sm-mx:[&>*]:w-full sm-mx:flex-wrap">
                     <SelectInput form={form} name="location" {...selectField[4]}/>
                     <NumberInput {...form.getInputProps('packageOffered')} label="Salary" placeholder="Enter Salary" hideControls withAsterisk min={1} max={300} clampBehavior="strict"/>
                 </div>
