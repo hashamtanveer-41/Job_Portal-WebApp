@@ -37,7 +37,7 @@ const Header = () => {
             {/*Logo*/}
             <div className="flex gap-1 items-center text-bright-sun-400">
                 <IconAnchor className="h-8 w-8" stroke={2.5}/>
-                <div className="xs-ms:hidden text-2xl font-semibold">
+                <div className="xs-mx:hidden text-2xl font-semibold">
                     JobHook
                 </div>
             </div>
@@ -61,7 +61,7 @@ const Header = () => {
                 {
 
                 }
-                <Burger className="bs:hidd" opened={opened} onClick={open} aria-label=""></Burger>
+                <Burger className="bs:hidden" opened={opened} onClick={open} aria-label=""></Burger>
                 <Drawer
                     opened={opened}
                     onClose={close}
