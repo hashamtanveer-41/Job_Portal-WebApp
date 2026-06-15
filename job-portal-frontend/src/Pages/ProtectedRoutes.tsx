@@ -9,12 +9,13 @@ interface ProtectedRouteProps{
 }
 
 const ProtectedRoutes:React.FC<ProtectedRouteProps> =({children, allowedRoles}) => {
-    // const jwt = useSelector((state:any)=>state.jwt)
-    // if (!jwt){
-    //     return <Navigate to="/login" />
-    // }
-    // const decoded:any = jwtDecode(jwt.jwt);
-    // if (allowedRoles && !allowedRoles.includes(decoded.applicantType)) return <Navigate to="/unauthorized"/>
+    const jwt = useSelector((state:any)=>state.jwt)
+    if (!(jwt.jwt)){
+        return <Navigate to="/login" />
+    }
+    console.log(jwt)
+    const decoded:any = jwtDecode(jwt.jwt);
+    if (allowedRoles && !allowedRoles.includes(decoded.applicantType)) return <Navigate to="/unauthorized"/>
 
     return children;
 }

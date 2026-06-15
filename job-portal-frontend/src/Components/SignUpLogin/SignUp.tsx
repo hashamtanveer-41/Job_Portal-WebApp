@@ -76,7 +76,7 @@ const SignUp = () => {
                     overlayProps={{ radius: 'sm', blur: 2 }}
                     loaderProps={{ color: 'brightSun.4', type: 'bars' }}
                 />
-                <div className="w-1/2 px-20 flex flex-col justify-center gap-3">
+                <div className="w-1/2 bs-mx:px-10 md-mx:px-5 sm-mx:w-full sm-mx:py-20 px-20 flex flex-col justify-center gap-3">
                     <div className="text-2xl font-semibold text-mine-shaft-200">Create Account</div>
                     <TextInput
                         onChange={handleChange}
@@ -126,18 +126,19 @@ const SignUp = () => {
                             label="You are?"
                             withAsterisk
                         >
-                                <Group mt="xs">
-                                        <Radio className="py-4 px-6 border has-[:checked]:border-bright-sun-400 has-[:checked]:bg-bright-sun-400/5 bg-mine-shaft-800 rounded-lg hover:bg-mine-shaft-950" value="APPLICANT" autoContrast label="Applicant"/>
-                                        <Radio className="py-4 px-6 border has-[:checked]:border-bright-sun-400 bg-mine-shaft-800 rounded-lg has-[:checked]:bg-bright-sun-400/5 hover:bg-mine-shaft-950" value="EMPLOYER"  autoContrast label="Employer"/>
-                                </Group>
+                                <div className="flex gap-6 xs-mx:gap-3">
+                                        <Radio className="py-4 sm-mx:px-4 sm-mx:py-4 px-6 border has-[:checked]:border-bright-sun-400 has-[:checked]:bg-bright-sun-400/5 bg-mine-shaft-800 rounded-lg hover:bg-mine-shaft-950" value="APPLICANT" autoContrast label="Applicant"/>
+                                        <Radio className="py-4 sm-mx:px-4 sm-mx:py-4 px-6 border has-[:checked]:border-bright-sun-400 bg-mine-shaft-800 rounded-lg has-[:checked]:bg-bright-sun-400/5 hover:bg-mine-shaft-950" value="EMPLOYER"  autoContrast label="Employer"/>
+                                </div>
                         </RadioGroup>
                     <Checkbox
+                        className="items-center"
                         autoContrast
                         defaultChecked
-                        label={<>I accept{' '}<Anchor>terms & conditions</Anchor></>}
+                        label={<div className="sm-mx:text-sm xs-mx:text-xs">I accept{' '}<Anchor className="sm-mx:!text-sm xs-mx:!text-xs">terms & conditions</Anchor></div>}
                     />
                     <Button loading={loading} autoContrast variant="filled" onClick={submitHandler}>Sign up</Button>
-                    <div className="mx-auto">Have an account? <Link to="/login" className="text-bright-sun-400 hover:underline">Login</Link></div>
+                    <div className="mx-auto sm-mx:text-sm xs-mx:text-xs">Have an account? <Link to="/login" className="text-bright-sun-400 hover:underline sm-mx:text-sm xs-mx:text-xs">Login</Link></div>
                 </div>
         </>
     )
