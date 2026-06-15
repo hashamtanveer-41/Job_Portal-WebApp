@@ -31,16 +31,16 @@ const PostedJobDesc = (props:any) => {
         handleTabChange(tab)
     }, [props, tab]);
     return (
-        <div className="mt-5 w-3/4 px-5">
+        <div className="mt-5 md-mx:w-full w-3/4 px-5 md-mx:p-0">
             {props.jobTitle?
                 <>
-                    <div className="text-2xl font-semibold flex items-center">{props.jobTitle} <Badge variant="light" ml="sm" color="brightSun.4" size="sm">{props.jobStatus}</Badge></div>
-                    <div className="font-medium text-mine-shaft-200 mb-5">
+                    <div className="text-2xl xs-sm:text-xl font-semibold flex items-center">{props.jobTitle} <Badge variant="light" ml="sm" color="brightSun.4" size="sm">{props.jobStatus}</Badge></div>
+                    <div className="font-medium xs-sm:text-sm text-mine-shaft-200 mb-5">
                         {props.location}
                     </div>
                     <div>
                         <Tabs variant="outline" radius="lg" value={tab} onChange={handleTabChange}>
-                            <TabsList className="[&_button]:text-lg mb-5 font-semibold [&_button[data-active='true']]:text-bright-sun-400">
+                            <TabsList className="[&_button]:!text-xl sm-mx:[&_button]:!text-lg xs-mx:[&_button]:!text-base  mb-5 font-semibold [&_button[data-active='true']]:text-bright-sun-400 xs-mx:[&_button]:!px-1.5 xs-mx:[&_button]:!py-2 xsm-mx:[&_button]:!text-sm xs-mx:font-medium ">
                                 <Tabs.Tab value="overview">Overview</Tabs.Tab>
                                 <Tabs.Tab value="applicants">Applicants</Tabs.Tab>
                                 <Tabs.Tab value="invited">Invited</Tabs.Tab>
