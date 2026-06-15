@@ -3,6 +3,7 @@ import {ActionIcon, Textarea} from "@mantine/core";
 import {IconCheck, IconPencil, IconX} from "@tabler/icons-react";
 import {useDispatch, useSelector} from "react-redux";
 import {updateProfile} from "../../Store/action";
+import {useMediaQuery} from "@mantine/hooks";
 
 const About = () => {
     const {profile} = useSelector((state:any)=> state.profile);
@@ -10,6 +11,7 @@ const About = () => {
 
     const [edit, setEdit] = useState(false);
     const [about, setAbout ] = useState("");
+    const matches =useMediaQuery("(max-width: 475px)")
 
     const handleEdit = ()=>{
         if (!edit){
@@ -35,7 +37,7 @@ const About = () => {
                         <ActionIcon
                             color="green.8"
                             onClick={() => handleSave()}
-                            size="lg"
+                            size={matches?"md":"lg"}
                             variant="subtle"
                         >
                             <IconCheck className="h-4/5 w-4/5" />
@@ -44,7 +46,7 @@ const About = () => {
                     <ActionIcon
                         color={edit?"red.8":"brightSun.4"}
                         onClick={() => handleEdit()}
-                        size="lg"
+                        size={matches?"md":"lg"}
                         variant="subtle"
                     >
                         {

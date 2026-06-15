@@ -4,6 +4,8 @@ import {ActionIcon} from "@mantine/core";
  import CertificationCard from "./CertificationCard";
  import CertificationsInput from "./CertificationsInput";
  import {useDispatch, useSelector} from "react-redux";
+ import {useForm} from "@mantine/form";
+ import {useMediaQuery} from "@mantine/hooks";
 
 const Certificate = () => {
 
@@ -12,6 +14,7 @@ const Certificate = () => {
     const {user} = useSelector((state:any)=> state.auth);
     const {profile} = useSelector((state:any)=> state.profile);
     const dispatch = useDispatch();
+    const matches =useMediaQuery("(max-width: 475px)")
 
     const handleEdit = () => {
         setEdit(!edit)
@@ -24,7 +27,7 @@ const Certificate = () => {
                 <div className="flex gap-2">
                     <ActionIcon
                         onClick={() => setAddCerti(true)}
-                        size="lg"
+                        size={matches?"md":"lg"}
                         variant="subtle"
                     >
                         <IconPlus className="text-bright-sun-400 h-4/5 w-4/5" />
@@ -33,7 +36,7 @@ const Certificate = () => {
                         <ActionIcon
                             color={edit?"red.8":"brightSun.4"}
                             onClick={() => handleEdit()}
-                            size="lg"
+                            size={matches?"md":"lg"}
                             variant="subtle"
                         >
                             {
