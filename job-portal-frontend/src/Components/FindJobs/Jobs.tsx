@@ -69,7 +69,7 @@ const Jobs = (props:any) => {
 
     return (
         <div className="p-5">
-            <div className="flex flex-wrap justify-between">
+            <div className="flex xs-mx:flex-wrap items-center justify-between">
                 <div className="text-2xl font-semibold xs-mx:text-xl">Recommended Jobs</div>
                 <Sort sort="job"/>
             </div>
