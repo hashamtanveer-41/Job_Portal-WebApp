@@ -6,6 +6,7 @@ import {MonthPickerInput} from "@mantine/dates";
 import {isNotEmpty, useForm} from "@mantine/form";
 import {useDispatch, useSelector} from "react-redux";
 import {updateProfile} from "../../Store/action";
+import {useMediaQuery} from "@mantine/hooks";
 
 const CertificationsInput = (props:any) => {
     const {profile} = useSelector((state:any) => state.profile)
@@ -40,7 +41,7 @@ const CertificationsInput = (props:any) => {
     return (
         <div className="flex flex-col gap-3">
             <div className="text-lg font-semibold">Add Certificate</div>
-            <div className="flex gap-10 [&>*]:w-1/2">
+            <div className="flex gap-10 [&>*]:w-1/2 xs-mx:[&>*]:w-full xs-mx:flex-wrap md-mx:gap-5 my-3">
                 <TextInput withAsterisk
                            {...form.getInputProps("name")}
                            label="Name"
@@ -48,7 +49,7 @@ const CertificationsInput = (props:any) => {
                 />
                 <SelectInput form={form} name="issuer" {...fields[1]}/>
             </div>
-            <div className="flex gap-10 [&>*]:w-1/2">
+            <div className="flex gap-10 [&>*]:w-1/2 xs-mx:[&>*]:w-full xs-mx:flex-wrap md-mx:gap-5 my-3">
                 <MonthPickerInput
                     {...form.getInputProps("issueDate")}
                     maxDate={new Date()}
