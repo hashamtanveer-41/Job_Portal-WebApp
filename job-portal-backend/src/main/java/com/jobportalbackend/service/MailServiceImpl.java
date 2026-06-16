@@ -7,15 +7,21 @@ import com.jobportalbackend.repositories.OTPRepository;
 import com.jobportalbackend.repositories.UserRepository;
 import com.jobportalbackend.utils.Data;
 import com.jobportalbackend.utils.Utilities;
-import jakarta.mail.internet.MimeMessage;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.MailSender;
-import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
+import sendinblue.ApiClient;
+import sendinblue.ApiException;
+import sendinblue.Configuration;
+import sendinblue.auth.ApiKeyAuth;
+import sibApi.TransactionalEmailsApi;
+import sibModel.SendSmtpEmail;
+import sibModel.SendSmtpEmailSender;
+import sibModel.SendSmtpEmailTo;
 
 import java.time.LocalDateTime;
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -27,8 +33,8 @@ public class MailServiceImpl implements MailService{
     @Autowired
     private OTPRepository otpRepository;
 
-    @Autowired
-    private JavaMailSender javaMailSender;
+    @Value("${brevo.api.key}")
+    String apiKey;
 
     @Override
     public Boolean sendOTP(String email) throws Exception {
@@ -36,18 +42,38 @@ public class MailServiceImpl implements MailService{
                 .findByEmail(email)
                 .orElseThrow(
                         () -> new JobPortalException("USER_NOT_FOUND"));
-
-        MimeMessage mm = javaMailSender.createMimeMessage();
-        MimeMessageHelper message = new MimeMessageHelper(mm, true);
-        message.setTo(email);
-        message.setSubject("Your OTP code");
         String generatedOTP = Utilities.generateOTP();
         OTP otp = new OTP(email, generatedOTP, LocalDateTime.now());
         otpRepository.save(otp);
-        message.setText(Data.getOtpEmailTemplate(generatedOTP, user.getName()), true);
-        javaMailSender.send(mm);
+
+        ApiClient defaultApiClient = Configuration.getDefaultApiClient();
+        ApiKeyAuth apiKeyAuth = (ApiKeyAuth) defaultApiClient.getAuthentication("api-key");
+        apiKeyAuth.setApiKey(apiKey);
+        TransactionalEmailsApi apiInstance = new TransactionalEmailsApi();
+
+        SendSmtpEmailSender sender = new SendSmtpEmailSender();
+        sender.setEmail("hashamtanvr41@gmail.com");
+        sender.setName("Job Portal");
+
+        SendSmtpEmailTo to = new SendSmtpEmailTo();
+        to.setEmail(email);
+
+        SendSmtpEmail sendSmtpEmail = new SendSmtpEmail();
+        sendSmtpEmail.setSender(sender);
+        sendSmtpEmail.setTo(Collections.singletonList(to));
+        sendSmtpEmail.setSubject("Your OTP code");
+        sendSmtpEmail.setHtmlContent(Data.getOtpEmailTemplate(generatedOTP, user.getName()));
+
+        try {
+            apiInstance.sendTransacEmail(sendSmtpEmail);
+        } catch (ApiException e) {
+            System.err.println("Brevo error: " + e.getResponseBody());
+            throw new Exception("Failed to send OTP email");
+        }
+
         return true;
     }
+
 
     @Override
     public Boolean verifyOTP(String email, String otp) throws JobPortalException {
