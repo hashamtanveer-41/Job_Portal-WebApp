@@ -9,5 +9,5 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class Sequence {
     @Id
     private String id;
-    private Long seq ;
+    private Long seq;
 }
