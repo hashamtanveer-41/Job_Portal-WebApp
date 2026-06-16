@@ -22,6 +22,7 @@ export const errorNotification = (title:any, error:any) => {
         error?.response?.data?.errorMessage ||  // your custom JobPortalException
         error?.response?.data?.message ||        // Spring Security default
         error?.message ||                         // axios error message
+        error ||
         "Something went wrong";                   // final fallback
 
     return notifications.show({

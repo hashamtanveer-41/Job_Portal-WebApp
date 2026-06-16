@@ -39,7 +39,7 @@ public class UserServiceImpl implements UserService{
         Optional<User> existingUser = userRepository.findByEmail(userDTO.getEmail());
         if (existingUser.isPresent()) throw new JobPortalException("USER_FOUND");
         userDTO.setId(Utilities.getNextSequence("users"));
-        userDTO.setProfileId(profileService.createProfile(userDTO.getEmail()));
+        userDTO.setProfileId(profileService.createProfile(userDTO.getEmail(), userDTO.getName()));
         userDTO.setPassword(passwordEncoder.encode(userDTO.getPassword()));
         User user = modelMapper.map(userDTO, User.class);
         user = userRepository.save(user);

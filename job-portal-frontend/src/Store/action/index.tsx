@@ -28,12 +28,10 @@ export const authenticateSignInUser = (sendData:any, navigate:any, setData:any, 
 
 export const authenticateLoginInUser = (sendData:any, navigate:any, setData:any, form:any, setLoading:any) => async (dispatch:any) => {
     try {
-        // 1. JWT FIRST
         const {data: jwtData} = await api.post("/auth/login", sendData);
         localStorage.setItem("jwt", jwtData.jwt);
         dispatch({ type: "SET_JWT", payload: jwtData.jwt });
 
-        // 2. THEN user data
         const {data: userData} = await api.post("/users/login", sendData);
         localStorage.setItem("user", JSON.stringify(userData));
         dispatch({ type: "LOGIN_USER", payload: userData });
@@ -297,28 +295,12 @@ export const updateNotification = (id:any) => async (dispatch:any) => {
         errorNotification("Error!", error)
     }
 }
-// export const loginAuth = (login:any) => async (dispatch:any) => {
-//     try {
-//         const {data} = await api.post(`/auth/login`, login);
-//         const decode = jwtDecode(data.jwt)
-//         console.log(decode)
-//         dispatch({
-//             type: "SET_JWT",
-//             payload: data,
-//         });
-//
-//     }catch (error:any){
-//         console.log(error)
-//         errorNotification("Error!", error)
-//     }
-// }
-//
-// const navigateToLogin = (navigate:any)=> async (dispatch:any)=>{
-//     dispatch({
-//         type: "REMOVE_JWT",
-//     });
-//     localStorage.removeItem('login')
-//     localStorage.removeItem('user')
-//     navigate("/login")
-//
-// }
+
+export const subscribeToUpdates = () => async (dispatch:any) => {
+    try {
+        successNotification("Success", "You have successfully Subscribed!")
+    }catch (error:any){
+        console.log(error)
+        errorNotification("Error!", error)
+    }
+}

@@ -34,9 +34,10 @@ public class ProfileServiceImpl implements ProfileService{
     private FileService fileService;
 
     @Override
-    public Long createProfile(String email) throws JobPortalException {
+    public Long createProfile(String email, String name) throws JobPortalException {
         Profile profile = new Profile();
         profile.setId(Utilities.getNextSequence("profiles"));
+        profile.setName(name);
         profile.setEmail(email);
         profile.setSkills(new ArrayList<>());
         profile.setExperiences(new ArrayList<>());
