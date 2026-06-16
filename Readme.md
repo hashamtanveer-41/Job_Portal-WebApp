@@ -10,6 +10,9 @@
 
 A comprehensive, full-stack web application designed to connect job seekers with employers efficiently. This platform features a **scalable, production-grade Spring Boot REST API backend** for robust job management and user interaction, coupled with a **high-performance, responsive web interface** built using React for a seamless and intuitive user experience in job searching, application management, and talent acquisition.
 
+<img width="2314" height="1589" alt="JobPortalHomeScreen" src="https://github.com/user-attachments/assets/032f8bbb-6098-4cc5-aaf4-6db4749afa94" />
+
+
 ## Live Demo
 
 - **Deployed Backend API**: [https://jobhook-backend-v1-0.onrender.com](https://jobhook-backend-v1-0.onrender.com)
@@ -31,7 +34,6 @@ A comprehensive, full-stack web application designed to connect job seekers with
 -   **Robust User Authentication & Authorization**: Secure user login and role-based access control powered by Spring Security and JWT.
 -   **Email Notifications**: Integrated with Brevo (formerly Sendinblue) for sending transactional emails, such as application confirmations, password resets, and job alerts.
 -   **Containerized Deployment**: Docker support for easy setup, deployment, and consistent environment management for the backend.
-    -   **Docker Image**: Pre-built Docker images are available on Docker Hub: https://hub.docker.com/r/hasham41/jobhook-backend/tags
 
 ## Technologies Used
 
