@@ -10,6 +10,9 @@
 
 A comprehensive, full-stack web application designed to connect job seekers with employers efficiently. This platform features a **scalable, production-grade Spring Boot REST API backend** for robust job management and user interaction, coupled with a **high-performance, responsive web interface** built using React for a seamless and intuitive user experience in job searching, application management, and talent acquisition.
 
+<img width="2314" height="1589" alt="JobPortalHomeScreen" src="https://github.com/user-attachments/assets/032f8bbb-6098-4cc5-aaf4-6db4749afa94" />
+
+
 ## Key Features & Benefits
 
 ### For Job Seekers
