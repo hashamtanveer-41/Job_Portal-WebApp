@@ -41,27 +41,27 @@ const ProfileMenu =()=> {
                         Profile
                     </Menu.Item>
                 </Link>
-                <Menu.Item leftSection={<ChatCircleIcon size={14} />}>
-                    Messages
-                </Menu.Item>
-                <Menu.Item leftSection={<IconFileText size={14} />}>
-                    Resume
-                </Menu.Item>
-                <Menu.Item
-                    leftSection={<IconMoon size={14} />}
-                    rightSection={
-                        <Switch
-                            checked={checked}
-                            onChange={(event) => setChecked(event.currentTarget.checked)}
-                            size="md"
-                            color="dark.4"
-                            onLabel={<SunIcon size={16} color="var(--mantine-color-yellow-4)" />}
-                            offLabel={<MoonStarsIcon size={16} color="var(--mantine-color-blue-6)" />}
-                        />
-                    }
-                >
-                    Dark Mode
-                </Menu.Item>
+                {/*<Menu.Item leftSection={<ChatCircleIcon size={14} />}>*/}
+                {/*    Messages*/}
+                {/*</Menu.Item>*/}
+                {/*<Menu.Item leftSection={<IconFileText size={14} />}>*/}
+                {/*    Resume*/}
+                {/*</Menu.Item>*/}
+                {/*<Menu.Item*/}
+                {/*    leftSection={<IconMoon size={14} />}*/}
+                {/*    rightSection={*/}
+                {/*        <Switch*/}
+                {/*            checked={checked}*/}
+                {/*            onChange={(event) => setChecked(event.currentTarget.checked)}*/}
+                {/*            size="md"*/}
+                {/*            color="dark.4"*/}
+                {/*            onLabel={<SunIcon size={16} color="var(--mantine-color-yellow-4)" />}*/}
+                {/*            offLabel={<MoonStarsIcon size={16} color="var(--mantine-color-blue-6)" />}*/}
+                {/*        />*/}
+                {/*    }*/}
+                {/*>*/}
+                {/*    Dark Mode*/}
+                {/*</Menu.Item>*/}
 
                 <Menu.Divider />
                 <Menu.Item
