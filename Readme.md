@@ -5,6 +5,8 @@
 ![Spring Security](https://img.shields.io/badge/Spring%20Security-6.x-blueviolet)
 ![MongoDB Atlas](https://img.shields.io/badge/MongoDB%20Atlas-5.0-green)
 ![Docker](https://img.shields.io/badge/Docker-Multi--Stage-blue)
+![Render](https://img.shields.io/badge/Backend-Render-46E3B7?logo=render&logoColor=white)
+![Netlify](https://img.shields.io/badge/Frontend-Netlify-00C7B7?logo=netlify&logoColor=white)
 ![React](https://img.shields.io/badge/React-Frontend-61DAFB?logo=react&logoColor=white)
 ![TypeScript](https://img.shields.io/badge/TypeScript-Frontend-007ACC?logo=typescript&logoColor=white)
 
@@ -16,6 +18,7 @@ A comprehensive, full-stack web application designed to connect job seekers with
 ## Live Demo
 
 - **Deployed Backend API**: [https://jobhook-backend-v1-0.onrender.com](https://jobhook-backend-v1-0.onrender.com)
+- **Deployed Frontend App**: [https://job-hook.netlify.app/](https://job-hook.netlify.app/)
 
 ## Key Features & Benefits
 
